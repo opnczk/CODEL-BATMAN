@@ -4,7 +4,8 @@ import com.sar2016.dao.ContactDAO;
 import com.sar2016.entities.Contact;
 
 public class ContactService {
-
+	
+	
 	public void create(String firstName, String lastName, String nickName,
 			String email) {
 		

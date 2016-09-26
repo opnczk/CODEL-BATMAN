@@ -7,7 +7,7 @@
 <title>Research Contact</title>
 </head>
 <body>
-	<form method="post" action="AddContactServlet" >
+	<form method="post" action="ResearchContactServlet" >
 		<table>
 			<tr>
 				<td>

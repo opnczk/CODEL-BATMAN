@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sar2016.entities.Contact;
 import com.sar2016.services.ContactService;
 
 /**
@@ -28,7 +29,8 @@ public class ResearchContactServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContactService service = new ContactService();
-		service.findByMail( request.getParameter("email") );
+		Contact contact = service.findByMail( request.getParameter("email") );
+		System.out.println(contact.toString());
 	}
 
 }
