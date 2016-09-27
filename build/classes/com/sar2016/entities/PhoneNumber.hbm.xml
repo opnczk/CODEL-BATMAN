@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.sar2016.entities">
+  <class name="PhoneNumber" table="Phone_Table">
+  	 <id name="id" type="long" column="ID_PHONE" >
+   		<generator class="increment"/>
+  	 </id>
+	<property name="phoneKind" column="PKIND"></property>
+	<property name="phoneNumber" column="PNUMB"></property>
+  </class>
+</hibernate-mapping>

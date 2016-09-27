@@ -1,34 +1,38 @@
 package com.sar2016.dao;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
-import com.sar2016.helper.Helper;
+import com.sar2016.entities.ContactGroup;
+import com.sar2016.entities.Enterprise;
+import com.sar2016.entities.PhoneNumber;
+import com.sar2016.util.HibernateUtil;
 
 public class ContactDAO {
-	private List<Contact> contacts;
-	
-	public ContactDAO()
-	{
-		this.contacts = Helper.getPersistanceLayer();
-	}
 	
 	public void create(String firstName, String lastName, String nickName,
 			String email) {
 		System.out.println("On est arrivé au DAO");
-		this.contacts.add(new Contact(firstName, lastName, nickName, email));
-	}
-
-	public Contact findByMail(String email) {
-		for(int i = 0; i < this.contacts.size(); i++)
-		{	
-			if(this.contacts.get(i).getMail().equals(email)){
-				System.out.println(this.contacts.get(i));
-				return this.contacts.get(i);
-			}	
-		}
-		return null;
-	}
-	
+		
+		Contact c = new Contact(firstName, lastName, nickName, email);
+		PhoneNumber p = new PhoneNumber("Dom","06605893545");
+		Address a = new Address("Place Jussieu","Paris", "75005", 33);
+		//Taille max d'un int 9 dec
+		Enterprise e = new Enterprise(355464601);
+		ContactGroup g = new ContactGroup("Groupe Famille");
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		Transaction tx=session.beginTransaction();
+		
+		session.save(c);
+		session.save(p);
+		session.save(a);
+		session.save(e);
+		session.save(g);
+		
+		tx.commit();
+		
+	}	
 }

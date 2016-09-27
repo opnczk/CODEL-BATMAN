@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.sar2016.entities">
+  <class name="ContactGroup" table="Group_Table">
+  	 <id name="id" type="long" column="ID_GROUP" >
+   		<generator class="increment"/>
+  	 </id>
+	<property name="groupName" column="GNAME"></property>
+  </class>
+</hibernate-mapping>
