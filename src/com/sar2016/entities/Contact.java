@@ -1,8 +1,11 @@
 package com.sar2016.entities;
 
+import java.util.Set;
+
 public class Contact {
 	long id;
 	String firstName, lastName, nickName, email;
+	Address address;
 	
 	public Contact()
 	{
@@ -14,11 +17,20 @@ public class Contact {
 		System.out.println(this);
 	}
 	
-	public Contact ( String firstName, String lastName, String nickName, String email)
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Contact ( String firstName, String lastName, String nickName, String email, Address address)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.nickName = nickName;
+		this.address = address;
 		this.email = email;
 		System.out.println(this);
 	}
@@ -66,6 +78,22 @@ public class Contact {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Set<ContactGroup> getBooks(){
+		return null;
+	}
+	
+	public void setBooks(Set<ContactGroup> groups){
+		
+	}
+	
+	public Set<PhoneNumber> getProfiles(){
+		return null;
+	}
+	
+	public void setProfiles(Set<PhoneNumber> numbers){
+		
 	}
 	
 	@Override

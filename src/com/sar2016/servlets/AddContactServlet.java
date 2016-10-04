@@ -35,7 +35,7 @@ public class AddContactServlet extends HttpServlet {
 		
 		ContactService service = new ContactService();
 		
-		service.create(firstName, lastName, nickName, email);
+		service.create(firstName, lastName, nickName, email, null);
 		
 		PrintWriter writer = response.getWriter();
 		

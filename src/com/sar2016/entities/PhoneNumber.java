@@ -3,14 +3,24 @@ package com.sar2016.entities;
 public class PhoneNumber {
 	long id;
 	String phoneKind, phoneNumber;
+	Contact contact;
 	
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+
 	public PhoneNumber() {
 		
 	}
 	
-	public PhoneNumber(String phoneKind, String phoneNumber) {
+	public PhoneNumber(String phoneKind, String phoneNumber, Contact contact) {
 		this.phoneKind = phoneKind;
 		this.phoneNumber = phoneNumber;
+		this.contact = contact;
 	}
 
 	public long getId() {

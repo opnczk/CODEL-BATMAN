@@ -13,12 +13,13 @@ import com.sar2016.util.HibernateUtil;
 public class ContactDAO {
 	
 	public void create(String firstName, String lastName, String nickName,
-			String email) {
+			String email, Address address) {
 		System.out.println("On est arrivé au DAO");
 		
-		Contact c = new Contact(firstName, lastName, nickName, email);
-		PhoneNumber p = new PhoneNumber("Dom","06605893545");
 		Address a = new Address("Place Jussieu","Paris", "75005", 33);
+		Contact c = new Contact(firstName, lastName, nickName, email, a);
+		PhoneNumber p = new PhoneNumber("Dom","06605893545", c);
+		
 		//Taille max d'un int 9 dec
 		Enterprise e = new Enterprise(355464601);
 		ContactGroup g = new ContactGroup("Groupe Famille");

@@ -10,5 +10,19 @@
 	<property name="lastName" column="LNAME"></property>
 	<property name="nickName" column="NNAME"></property>
 	<property name="email" column="EMAIL" unique="true"></property>
+	<!-- A voir l'utilité ! -->
+	
+	<many-to-one name="address" column="ID_ADDRESS" unique="true" />
+	
+	<set name="books" table="TJ_Contact_Groups" inverse="true">
+		<key column="ID_CONTACT" />
+		<many-to-many class="ContactGroup" column="ID_GROUP" />
+	</set>
+	
+	<set name="profiles" table="Phone_Numbers">
+		<key column="ID_CONTACT" />
+		<many-to-many class="PhoneNumber" column="ID_PHONE" />
+	</set>
+
   </class>
 </hibernate-mapping>
