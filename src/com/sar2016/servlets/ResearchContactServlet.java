@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sar2016.services.ContactService;
+
 /**
  * Servlet implementation class ResearchContactServlet
  */
@@ -24,6 +26,8 @@ public class ResearchContactServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ContactService cs = new ContactService();
+		cs.getContact();
 		
 	}
 

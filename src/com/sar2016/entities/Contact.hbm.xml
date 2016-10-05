@@ -2,17 +2,18 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.sar2016.entities">
-  <class name="Contact" table="Contact_Table">
-  	 <id name="id" type="long" column="ID_CONTACT" >
+  <class name="Contact" table="Contact_Table" discriminator-value="C">
+  	 <id name="id" column="ID_CONTACT" type="long">
    		<generator class="increment"/>
   	 </id>
-	<property name="firstName" column="FNAME"></property>
-	<property name="lastName" column="LNAME"></property>
-	<property name="nickName" column="NNAME"></property>
-	<property name="email" column="EMAIL" unique="true"></property>
+  	 <discriminator column="TYPE" type="character"/>
+	<property name="firstName" column="FNAME" type="string"></property>
+	<property name="lastName" column="LNAME" type="string"></property>
+	<property name="nickName" column="NNAME" type="string"></property>
+	<property name="email" column="EMAIL" unique="true" type="string"></property>
 	<!-- A voir l'utilité ! -->
 	
-	<many-to-one name="address" column="ID_ADDRESS" unique="true" />
+	<many-to-one name="address" column="ID_ADDRESS" unique="true" not-null="false"/>
 	
 	<set name="books" table="TJ_Contact_Groups" inverse="true">
 		<key column="ID_CONTACT" />
@@ -23,6 +24,8 @@
 		<key column="ID_CONTACT" />
 		<many-to-many class="PhoneNumber" column="ID_PHONE" />
 	</set>
-
+	<subclass name="Enterprise" discriminator-value="E">
+		<property name="numSiret" column="NUM_SIRET" type="integer" unique="true"/>
+	</subclass>
   </class>
 </hibernate-mapping>

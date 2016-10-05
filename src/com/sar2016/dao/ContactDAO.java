@@ -1,5 +1,7 @@
 package com.sar2016.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -21,7 +23,7 @@ public class ContactDAO {
 		PhoneNumber p = new PhoneNumber("Dom","06605893545", c);
 		
 		//Taille max d'un int 9 dec
-		Enterprise e = new Enterprise(355464601);
+		Enterprise e = new Enterprise(firstName, lastName, nickName, email+".entr", a,355464601);
 		ContactGroup g = new ContactGroup("Groupe Famille");
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
@@ -35,5 +37,23 @@ public class ContactDAO {
 		
 		tx.commit();
 		
+	}
+
+	public Contact getById(long id) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		Transaction tx=session.beginTransaction();
+		
+		return (Contact)session.get(Contact.class, id);
+	}
+
+	public Contact getByMail(String mail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Contact> searchByMail(String mail) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 }

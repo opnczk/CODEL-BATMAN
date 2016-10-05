@@ -1,6 +1,6 @@
 package com.sar2016.entities;
 
-public class Enterprise {
+public class Enterprise extends Contact{
 	long id;
 	int numSiret;
 	
@@ -8,8 +8,15 @@ public class Enterprise {
 		
 	}
 	
-	public Enterprise(int numSiret) {
+	public Enterprise ( String firstName, String lastName, String nickName, String email, Address address, int numSiret)
+	{
 		this.numSiret = numSiret;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.nickName = nickName;
+		this.address = address;
+		this.email = email;
+		System.out.println(this);
 	}
 
 	public long getId() {

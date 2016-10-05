@@ -96,9 +96,15 @@ public class Contact {
 		
 	}
 	
+	public void addProfile(PhoneNumber phoneNumber) {
+		
+	}
+	
 	@Override
 	public String toString()
 	{
 		return "MemRef :"+super.toString()+" - FName :"+this.firstName+" - LName :"+this.lastName;
 	}
+
+	
 }

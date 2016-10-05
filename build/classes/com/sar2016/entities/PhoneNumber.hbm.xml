@@ -9,6 +9,6 @@
 	<property name="phoneKind" column="PKIND"></property>
 	<property name="phoneNumber" column="PNUMB"></property>
 	
-	<many-to-one name="contact" column="ID_CONTACT" unique="true" />
+	<many-to-one name="contact" column="ID_CONTACT" unique="true" not-null="false"/>
   </class>
 </hibernate-mapping>

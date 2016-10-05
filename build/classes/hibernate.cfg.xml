@@ -33,7 +33,6 @@
          <mapping resource="com/sar2016/entities/Contact.hbm.xml"/>
          <mapping resource="com/sar2016/entities/PhoneNumber.hbm.xml"/>
          <mapping resource="com/sar2016/entities/Address.hbm.xml"/>
-         <mapping resource="com/sar2016/entities/Enterprise.hbm.xml"/>
          <mapping resource="com/sar2016/entities/ContactGroup.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
