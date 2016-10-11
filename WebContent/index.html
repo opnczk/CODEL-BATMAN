@@ -3,37 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
 </head>
 <body>
-	<form method="post" action="LoginServlet">
-		<table>
-			<tr>
-				<th><h2>Voici un premier exemple avec les servlets.</h2></th>	
-			</tr>
-			<tr>
-				<td>
+	<form method="post" action="LoginServlet" class="col-md-12 text-center">
+		<div class="col-md-12">
+			<div>
+				<div><h2>Voici un premier exemple avec les servlets.</h2></div>	
+			</div>
+			<div>
+				<div>
 					<label for="login">Name : </label>
-				</td>
-				<td>
+				</div>
+				<div>
 					<input type="text" name="name" />
-				</td>
-			</tr>
+				</div>
+			</div>
 			
-			<tr>
-				<td>
+			<div>
+				<div>
 					<label for="password">MDP : </label>
-				</td>
-				<td>
+				</div>
+				<div>
 					<input type="password" name="password" />
-				</td>
-			</tr>
-			<tr>
-				<td>
+				</div>
+			</div>
+			<div>
+				<div>
 					<button type="submit">Submit</button>
 					<button type="reset">Reset</button>
-				</td>
-			</tr>
-		</table>
+				</div>
+			</div>
+		</div>
 	</form>
 </body>
 </html>

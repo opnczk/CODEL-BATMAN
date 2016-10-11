@@ -2,7 +2,7 @@ package com.sar2016.entities;
 
 public class Address {
 	long id;
-	String street, city, zip;
+	String street, city, zip, placeId;
 	int country;
 	
 	public Address() {
@@ -63,6 +63,14 @@ public class Address {
 	public void setCountry(int country) {
 		this.country = country;
 	}
+	
+	public String getPlaceId(){
+		return this.placeId;
+	}
+	
+	public void setPlaceId(String placeId){
+		this.placeId = placeId;
+	} 
 	
 	@Override
 	public String toString()

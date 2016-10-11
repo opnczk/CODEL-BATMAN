@@ -23,7 +23,7 @@
         <!-- valeur = update i..e si les tables de la base n'existent pas 
         elles sont crees, sinon elles sont MAJ, 
         la valeur =create i.e. creation à chaque lancement  -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
         <!-- Le SQL généré est affiché sur la console -->
         <property name="hibernate.show_sql">true</property>
         <!-- Pretty format le SQL généré -->

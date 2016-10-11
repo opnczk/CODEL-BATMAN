@@ -10,5 +10,6 @@
 	<property name="city" column="CITY"></property>
 	<property name="zip" column="ZIP"></property>
 	<property name="country" column="COUNTRY"></property>
+	<property name="placeId" column="PLACE_ID"></property>
   </class>
 </hibernate-mapping>

@@ -7,38 +7,23 @@ import org.hibernate.Transaction;
 
 import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
-import com.sar2016.entities.ContactGroup;
-import com.sar2016.entities.Enterprise;
-import com.sar2016.entities.PhoneNumber;
 import com.sar2016.util.HibernateUtil;
 
 public class ContactDAO {
 	
 	public void create(String firstName, String lastName, String nickName,
 			String email, Address address) {
-		System.out.println("On est arrivé au DAO");
 		
-		Address a = new Address("Place Jussieu","Paris", "75005", 33);
-		Address a1 = new Address(a);
-		Contact c = new Contact(firstName, lastName, nickName, email, a);
-		PhoneNumber p = new PhoneNumber("Dom","06605893545", c);
+		Contact c = new Contact(firstName, lastName, nickName, email, address);
 		
-		//Taille max d'un int 9 dec
-		Enterprise e = new Enterprise(firstName, lastName, nickName, email+".entr", a1,355464601);
-		ContactGroup g = new ContactGroup("Groupe Famille");
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		Transaction tx=session.beginTransaction();
 		
 		session.save(c);
-		session.save(p);
-		session.save(a);
-		session.save(a1);
-		session.save(e);
-		session.save(g);
 		
 		tx.commit();
-		
+				
 	}
 
 	public Contact getById(long id) {
@@ -50,12 +35,33 @@ public class ContactDAO {
 	}
 
 	public Contact getByMail(String mail) {
+		//Written in HQL
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
-		return null;
+		Transaction tx=session.beginTransaction();
+		String query = "from Contact_Table as t where t.email = :mail";
+		Contact rs = ((Contact) session.createQuery(query).setEntity("mail", mail).uniqueResult());
+
+		return rs;
 	}
 
 	public List<Contact> searchByMail(String mail) {
+		//Written in HQL
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
-		return null;
+		Transaction tx=session.beginTransaction();
+		String query = "from Contact as t where t.email like :mail";
+		List<Contact> rs = session.createQuery(query).setParameter("mail", "%"+mail+"%").list();
+
+		return rs;
 	}	
+	
+	public void deleteById(long id){
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		
+		Transaction tx=session.beginTransaction();
+		
+		session.delete(id);
+
+	}
 }

@@ -44,4 +44,34 @@
     <servlet-name>ResearchContactServlet</servlet-name>
     <url-pattern>/ResearchContactServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddAddressServlet</display-name>
+    <servlet-name>AddAddressServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.AddAddressServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddAddressServlet</servlet-name>
+    <url-pattern>/AddAddressServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddEnterpriseServlet</display-name>
+    <servlet-name>AddEnterpriseServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.AddEnterpriseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddEnterpriseServlet</servlet-name>
+    <url-pattern>/AddEnterpriseServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddPhoneNumberServlet</display-name>
+    <servlet-name>AddPhoneNumberServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.AddPhoneNumberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddPhoneNumberServlet</servlet-name>
+    <url-pattern>/AddPhoneNumberServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

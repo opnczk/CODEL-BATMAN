@@ -20,10 +20,9 @@ public class PhoneNumber {
 		
 	}
 	
-	public PhoneNumber(String phoneKind, String phoneNumber, Contact contact) {
+	public PhoneNumber(String phoneKind, String phoneNumber) {
 		this.phoneKind = phoneKind;
 		this.phoneNumber = phoneNumber;
-		this.contact = contact;
 	}
 
 	public long getId() {

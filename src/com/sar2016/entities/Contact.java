@@ -6,6 +6,8 @@ public class Contact {
 	long id;
 	String firstName, lastName, nickName, email;
 	Address address;
+	private Set<ContactGroup> books;
+	private Set<PhoneNumber> profiles;
 	
 	public Contact()
 	{
@@ -81,23 +83,35 @@ public class Contact {
 	}
 	
 	public Set<ContactGroup> getBooks(){
-		return null;
+		return this.books;
 	}
 	
 	public void setBooks(Set<ContactGroup> groups){
-		
+		this.books = groups;
+	}
+	
+	public void addBook(ContactGroup group){
+		this.books.add(group);
+		if(!group.getContacts().contains(this))
+			group.addContact(this);
+	}
+	
+	public void removeBook(ContactGroup group){
+		this.books.remove(group);
+		if(group.getContacts().contains(this))
+			group.removeContact(this);
 	}
 	
 	public Set<PhoneNumber> getProfiles(){
-		return null;
+		return this.profiles;
 	}
 	
 	public void setProfiles(Set<PhoneNumber> numbers){
-		
+		this.profiles = numbers;
 	}
 	
 	public void addProfile(PhoneNumber phoneNumber) {
-		
+		this.profiles.add(phoneNumber);
 	}
 	
 	@Override

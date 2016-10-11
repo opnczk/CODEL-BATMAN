@@ -33,13 +33,57 @@
 					<input type="email" name="email"/>
 				</td>
 			</tr>
-			
+			<table>
+			<tr>
+				<td>
+					Street
+					<input type="text" name="street"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					City
+					<input type="text" name="city"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Zip					
+					<input type="text" name="zip"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Country
+					<input type="text" name="country"/>
+				</td>
+			</tr>
 			<tr>
 				<td>
 					<button type="submit">Add Contact</button>
 				</td>
 			</tr>
+				<tr>
+				<td>
+					PhoneKind
+					<input type="text" name="phoneKind"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					PhoneNumber
+					<input type="text" name="phoneNumber"/>
+				</td>
+			</tr>			
 		</table>
+		 <input id="autocomplete" placeholder="Enter a location" type="text" />
+		 <div id="map"></div>
+		<script src="./js/GMapsHelper.js"></script>
+		<script>
+				GMapsHelper.init({
+					type : "address"
+				});
+		</script>
 	</form>
 </body>
 </html>

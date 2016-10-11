@@ -13,14 +13,14 @@
 	<property name="email" column="EMAIL" unique="true" type="string"></property>
 	<!-- A voir l'utilité ! -->
 	
-	<many-to-one name="address" column="ID_ADDRESS" unique="true" not-null="false"/>
+	<many-to-one name="address" cascade="save-update" column="ID_ADDRESS" unique="true" not-null="false"/>
 	
 	<set name="books" table="TJ_Contact_Groups" inverse="true">
 		<key column="ID_CONTACT" />
 		<many-to-many class="ContactGroup" column="ID_GROUP" />
 	</set>
 	
-	<set name="profiles" table="Phone_Numbers">
+	<set name="profiles" cascade="save-update" table="Phone_Numbers">
 		<key column="ID_CONTACT" />
 		<many-to-many class="PhoneNumber" column="ID_PHONE" />
 	</set>

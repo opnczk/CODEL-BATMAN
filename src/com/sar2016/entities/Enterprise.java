@@ -8,14 +8,11 @@ public class Enterprise extends Contact{
 		
 	}
 	
-	public Enterprise ( String firstName, String lastName, String nickName, String email, Address address, int numSiret)
+	public Enterprise (String nom, String mail, String siret)
 	{
-		this.numSiret = numSiret;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.nickName = nickName;
-		this.address = address;
-		this.email = email;
+		this.numSiret = Integer.parseInt(siret);
+		this.firstName = nom;
+		this.email = mail;
 		System.out.println(this);
 	}
 
