@@ -16,6 +16,14 @@ public class Address {
 		this.country = country;
 	}
 	
+	public Address(Address a) {
+		// TODO DELETE this constr, as it is a constr for cloning.
+		this.country = a.country;
+		this.city = a.city;
+		this.street = a.street;
+		this.zip = a.zip;
+	}
+
 	public long getId() {
 		return id;
 	}

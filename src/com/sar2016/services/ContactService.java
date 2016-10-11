@@ -32,4 +32,8 @@ public class ContactService {
 	public List<Contact> searchByMail(String mail){
 		return dao.searchByMail(mail);
 	}
+
+	public Contact getContact(long id) {
+		return dao.getById(id);
+	}
 }

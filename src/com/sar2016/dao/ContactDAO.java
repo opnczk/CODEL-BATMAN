@@ -19,11 +19,12 @@ public class ContactDAO {
 		System.out.println("On est arrivé au DAO");
 		
 		Address a = new Address("Place Jussieu","Paris", "75005", 33);
+		Address a1 = new Address(a);
 		Contact c = new Contact(firstName, lastName, nickName, email, a);
 		PhoneNumber p = new PhoneNumber("Dom","06605893545", c);
 		
 		//Taille max d'un int 9 dec
-		Enterprise e = new Enterprise(firstName, lastName, nickName, email+".entr", a,355464601);
+		Enterprise e = new Enterprise(firstName, lastName, nickName, email+".entr", a1,355464601);
 		ContactGroup g = new ContactGroup("Groupe Famille");
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
@@ -32,6 +33,7 @@ public class ContactDAO {
 		session.save(c);
 		session.save(p);
 		session.save(a);
+		session.save(a1);
 		session.save(e);
 		session.save(g);
 		
@@ -48,12 +50,12 @@ public class ContactDAO {
 	}
 
 	public Contact getByMail(String mail) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	public List<Contact> searchByMail(String mail) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}	
 }

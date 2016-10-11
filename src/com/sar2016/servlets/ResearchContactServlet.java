@@ -1,12 +1,14 @@
 package com.sar2016.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sar2016.entities.Contact;
 import com.sar2016.services.ContactService;
 
 /**
@@ -27,7 +29,7 @@ public class ResearchContactServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContactService cs = new ContactService();
-		cs.getContact();
+		List<Contact> contacts = cs.searchByMail((String)request.getAttribute("mail"));
 		
 	}
 
