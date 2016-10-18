@@ -17,7 +17,7 @@
 			</tr>
 			<tr>
 				<td>
-					<button type = "submit">Rechercher</button>
+					<button type ="submit">Rechercher</button>
 				</td>
 			</tr>
 		</table>

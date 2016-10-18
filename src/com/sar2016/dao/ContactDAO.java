@@ -47,12 +47,19 @@ public class ContactDAO {
 
 	public List<Contact> searchByMail(String mail) {
 		//Written in HQL
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		Transaction tx=session.beginTransaction();
 		String query = "from Contact as t where t.email like :mail";
-		List<Contact> rs = session.createQuery(query).setParameter("mail", "%"+mail+"%").list();
-
+		System.out.println("BOOYAYAYA");
+		
+		String str ="%" + mail + "%";
+		System.out.println(str);
+		System.out.println(str.length());
+		List<Contact> rs = session.createQuery(query).setString("mail", str).list();
+		System.out.println("---------------"+rs.size());
+		session.close();
+		
 		return rs;
 	}	
 	

@@ -32,7 +32,7 @@ public class ResearchContactServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ContactService cs = new ContactService();
-		List<Contact> contacts = cs.searchByMail(request.getParameter("email"));
+		List<Contact> contacts = cs.searchByMail((String)request.getParameter("email"));
 
 		
 		

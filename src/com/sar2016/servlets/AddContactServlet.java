@@ -55,18 +55,23 @@ public class AddContactServlet extends HttpServlet {
 			
 			addService.create( street,  city,  zip,  country);
 			
-			String phoneKind = request.getParameter("phoneKind"); 
+			/*String phoneKind = request.getParameter("phoneKind"); 
 			String phoneNumber = request.getParameter("phoneNumber");  
 			
 			PhoneNumberService phoneService = new PhoneNumberService();
 			
-			phoneService.create(phoneKind, phoneNumber);
+			phoneService.create(phoneKind, phoneNumber);*/
 		}catch(Exception e){
 			System.out.println("Erreur catchée");
 			success = false;
 			catchedException = e;
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.getTransaction().rollback();
+			if(session.getTransaction().isActive()){
+				session.getTransaction().rollback();
+			}else{
+				session.getTransaction().begin();
+				session.getTransaction().rollback();
+			}
 			if(session.isOpen())
 				session.close();
 		}finally{
@@ -82,7 +87,7 @@ public class AddContactServlet extends HttpServlet {
 		if(success)
 			writer.println("Contact ajouté avec succès.");
 		else
-			writer.println("Contact ajouté avec succès."+catchedException.getLocalizedMessage());
+			writer.println("Contact NON ajouté."+catchedException.getLocalizedMessage());
 	}
 
 }
