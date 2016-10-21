@@ -2,14 +2,13 @@ package com.sar2016.entities;
 
 public class Address {
 	long id;
-	String street, city, zip, placeId;
-	int country;
+	String street, city, zip, placeId, country;
 	
 	public Address() {
 		
 	}
 	
-	public Address(String street, String city, String zip, int country) {
+	public Address(String street, String city, String zip, String country) {
 		this.street = street;
 		this.city = city;
 		this.zip = zip;
@@ -56,11 +55,11 @@ public class Address {
 		this.zip = zip;
 	}
 
-	public int getCountry() {
+	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(int country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 	

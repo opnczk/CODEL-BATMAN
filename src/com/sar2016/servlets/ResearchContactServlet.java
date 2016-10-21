@@ -1,7 +1,6 @@
 package com.sar2016.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sar2016.entities.Contact;
 import com.sar2016.services.ContactService;
-import com.sar2016.util.Helper;
 
 /**
  * Servlet implementation class ResearchContactServlet

@@ -27,12 +27,11 @@ public class Contact {
 		this.address = address;
 	}
 
-	public Contact ( String firstName, String lastName, String nickName, String email, Address address)
+	public Contact ( String firstName, String lastName, String nickName, String email)
 	{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.nickName = nickName;
-		this.address = address;
 		this.email = email;
 		System.out.println(this);
 	}

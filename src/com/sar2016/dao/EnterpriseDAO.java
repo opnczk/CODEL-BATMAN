@@ -1,9 +1,11 @@
 package com.sar2016.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.sar2016.entities.Address;
+import com.sar2016.entities.Contact;
 import com.sar2016.entities.Enterprise;
 import com.sar2016.util.HibernateUtil;
 
@@ -36,5 +38,18 @@ public class EnterpriseDAO extends ContactDAO{
 		Transaction tx=session.beginTransaction();
 		
 		session.delete(id);
+	}
+	
+	public List<Enterprise> getEnterprises(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		
+		Transaction tx=session.beginTransaction();
+		String query = "from Contact as t where t.class = Enterprise";
+		System.out.println("BOOYAYAYA");
+		
+		List<Enterprise> rs = session.createQuery(query).list();
+		session.close();
+		
+		return rs;
 	}
 }

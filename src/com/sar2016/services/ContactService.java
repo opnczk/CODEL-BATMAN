@@ -14,11 +14,11 @@ public class ContactService {
 	}
 	
 	public void create(String firstName, String lastName, String nickName,
-			String email, Address address) {
+			String email) {
 		
 		System.out.println("On est arrivé au Service.");
 		
-		dao.create(firstName, lastName, nickName, email, address);
+		dao.create(firstName, lastName, nickName, email);
 	}
 	
 	public Contact getById(long id){
@@ -35,5 +35,17 @@ public class ContactService {
 
 	public Contact getContact(long id) {
 		return dao.getById(id);
+	}
+
+	public List<Contact> getAll() {
+		return dao.getAll();
+	}
+
+	public List<Contact> getContacts() {
+		return dao.getContacts(); 
+	}
+
+	public void deleteById(long id) {
+		dao.deleteById(id);
 	}
 }

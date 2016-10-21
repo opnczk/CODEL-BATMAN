@@ -12,7 +12,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
+    <url-pattern>/home</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -22,7 +22,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AddContactServlet</servlet-name>
-    <url-pattern>/AddContactServlet</url-pattern>
+    <url-pattern>/add-contact</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -73,5 +73,25 @@
   <servlet-mapping>
     <servlet-name>AddPhoneNumberServlet</servlet-name>
     <url-pattern>/AddPhoneNumberServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProfileServlet</display-name>
+    <servlet-name>ProfileServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.ProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfileServlet</servlet-name>
+    <url-pattern>/profile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteContactServlet</display-name>
+    <servlet-name>DeleteContactServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.DeleteContactServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteContactServlet</servlet-name>
+    <url-pattern>/remove-contact</url-pattern>
   </servlet-mapping>
 </web-app>

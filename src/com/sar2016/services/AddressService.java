@@ -8,7 +8,7 @@ public class AddressService {
 	public AddressService(){
 		this.dao = new AddressDAO();
 	}
-	public void create(String street, String city, String zip, int country) {
+	public void create(String street, String city, String zip, String country) {
 		dao.create(street, city, zip, country);
 	}
 	

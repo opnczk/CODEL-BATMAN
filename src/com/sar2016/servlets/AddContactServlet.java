@@ -2,7 +2,9 @@ package com.sar2016.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,8 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 
+import com.sar2016.entities.Contact;
+import com.sar2016.entities.Enterprise;
 import com.sar2016.services.AddressService;
 import com.sar2016.services.ContactService;
+import com.sar2016.services.EnterpriseService;
 import com.sar2016.services.PhoneNumberService;
 import com.sar2016.util.HibernateUtil;
 
@@ -43,18 +48,19 @@ public class AddContactServlet extends HttpServlet {
 		try{
 			ContactService service = new ContactService();
 			
-			service.create(firstName, lastName, nickName, email, null);
+			service.create(firstName, lastName, nickName, email);
 			
 			String city = request.getParameter( "city" );
 			String street = request.getParameter( "street" );
 			String zip = request.getParameter( "zip" );
-			int country = Integer.parseInt(request.getParameter( "country" ));
+			String country = request.getParameter( "country" );
+			String placeId = request.getParameter( "place_id" );
 			
+			if(city != ""){
+				AddressService addService = new AddressService();
 			
-			AddressService addService = new AddressService();
-			
-			addService.create( street,  city,  zip,  country);
-			
+				addService.create( street,  city,  zip,  country);
+			}
 			/*String phoneKind = request.getParameter("phoneKind"); 
 			String phoneNumber = request.getParameter("phoneNumber");  
 			
@@ -74,6 +80,7 @@ public class AddContactServlet extends HttpServlet {
 			}
 			if(session.isOpen())
 				session.close();
+			throw e;
 		}finally{
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			//session.getTransaction().rollback();
@@ -84,10 +91,22 @@ public class AddContactServlet extends HttpServlet {
 		
 		PrintWriter writer = response.getWriter();
 		
-		if(success)
-			writer.println("Contact ajouté avec succès.");
-		else
+		if(success){
+			ContactService cs = new ContactService();
+			List<Contact> contacts = cs.getContacts();
+			
+			EnterpriseService es = new EnterpriseService();
+			List<Enterprise> enterprises = es.getEnterprises();
+			
+			RequestDispatcher rd = request.getRequestDispatcher( "Main.jsp" );
+			
+			request.setAttribute("contacts", contacts);
+			request.setAttribute("enterprises", enterprises);
+			
+			rd.forward(request, response);
+		}else{
 			writer.println("Contact NON ajouté."+catchedException.getLocalizedMessage());
+		}
 	}
 
 }

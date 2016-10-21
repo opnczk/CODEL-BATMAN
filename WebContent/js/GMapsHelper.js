@@ -13,7 +13,7 @@ var GMapsHelper = {};
     GMapsHelper.async = false;
     GMapsHelper.callback = true;
     GMapsHelper.autocomplete = false;
-    GMapsHelper.context = null;
+    GMapsHelper.context = {};
 
     GMapsHelper.refTab = {
         "postal_code" : 'ADD_ZIPCODE',
@@ -23,6 +23,8 @@ var GMapsHelper = {};
 
     GMapsHelper.init = function (context) {
 
+    	GMapsHelper.context = context;
+    	
         if(context.type == 'address')
             GMapsHelper.autocomplete = true;
 
@@ -41,7 +43,7 @@ var GMapsHelper = {};
         
     GMapsHelper.generateAPICall = function (){
 		/*This is meant to compare existing gmaps calls and adapt to them, in case there's multiple GMapsHelper.init calls with different parameters*/
-        var scriptEl = document.querySelector("script[src*='https://maps.googleapis.com/maps/api/js']");
+        /*var scriptEl = document.querySelector("script[src*='https://maps.googleapis.com/maps/api/js']");
         console.log(scriptEl.getAttribute('src'));
 		var curQueryElChunks = scriptEl.getAttribute('src').split("?")[1].split('&');
 		var curQueryEl = [];
@@ -49,7 +51,7 @@ var GMapsHelper = {};
 			var elDef = curQueryElChunks[k].split('=');
 			curQueryEl[elDef[0]] = elDef[1];
 		}
-		
+		*/
 		var scriptElement = document.createElement('script');
 
         var queryEl = [];
@@ -69,6 +71,7 @@ var GMapsHelper = {};
     }
 
     GMapsHelper.genericCallBack = function () {
+    	var context = GMapsHelper.context;
         var mapOptions = {
             zoom: (context.zoom || GMapsHelper.default_zoom),
             center: new google.maps.LatLng(
@@ -93,7 +96,8 @@ var GMapsHelper = {};
         
     /*AddressMap Initiliaze*/
     GMapsHelper.initAddressSearch = function () {
-
+    	console.log("Coucou");
+    	alert("Coucou");
         var autocomplete = new google.maps.places.Autocomplete(
             (document.getElementById('autocomplete')), {
                 types: ['geocode']
@@ -111,9 +115,9 @@ var GMapsHelper = {};
             var lng = place.geometry.location.lng();
             var formattedAddress = place.formatted_address;
 
-            $('.address-field[name="PLACE_ID"]').val(placeId);
+            /*$('.address-field[name="PLACE_ID"]').val(placeId);
             $('.address-field[name="ADD_LAT"]').val(lat);
-            $('.address-field[name="ADD_LNG"]').val(lng);
+            $('.address-field[name="ADD_LNG"]').val(lng);*/
 
             var str_nb = null;
             var route = null;
@@ -134,15 +138,15 @@ var GMapsHelper = {};
                 }
             }
 
-            $('.address-field[name="ADD_LINE_1"]').val(str_nb+' '+route);
-            $('#selectedAddress').html('<i class="fa fa-check" style="color: green;"></i> Adresse sélectionnée.');
+            /*$('.address-field[name="ADD_LINE_1"]').val(str_nb+' '+route);
+            $('#selectedAddress').html('<i class="fa fa-check" style="color: green;"></i> Adresse sélectionnée.');*/
 
             GMapsHelper.initAddressMap(lat, lng);
         });
     }
 
     GMapsHelper.initAddressMap = function(lat, lng) {
-        $(document.getElementById('address-gmaps-wrapper')).show();
+        //$(document.getElementById('address-gmaps-wrapper')).show();
         google.maps.event.trigger(GMapsHelper.map, 'resize');
 
         GMapsHelper.deleteMarkers();

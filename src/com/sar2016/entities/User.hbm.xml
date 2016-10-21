@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.sar2016.entities">
+  <class name="User" table="User_Table">
+  	 <id name="id" column="ID_USER" type="long">
+   		<generator class="increment"/>
+  	 </id>
+	<property name="firstName" column="FNAME" type="string"></property>
+	<property name="lastName" column="LNAME" type="string"></property>
+	<property name="email" column="EMAIL" unique="true" type="string"></property>
+	<property name="password" column="PASSWORD" type="string"></property>
+  </class>
+</hibernate-mapping>
