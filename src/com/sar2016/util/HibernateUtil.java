@@ -1,6 +1,5 @@
 package com.sar2016.util;
 
-
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
