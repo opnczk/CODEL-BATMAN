@@ -96,8 +96,6 @@ var GMapsHelper = {};
         
     /*AddressMap Initiliaze*/
     GMapsHelper.initAddressSearch = function () {
-    	console.log("Coucou");
-    	alert("Coucou");
         var autocomplete = new google.maps.places.Autocomplete(
             (document.getElementById('autocomplete')), {
                 types: ['geocode']
@@ -138,8 +136,9 @@ var GMapsHelper = {};
                 }
             }
 
-            /*$('.address-field[name="ADD_LINE_1"]').val(str_nb+' '+route);
-            $('#selectedAddress').html('<i class="fa fa-check" style="color: green;"></i> Adresse sélectionnée.');*/
+            /*$('.address-field[name="ADD_LINE_1"]').val(str_nb+' '+route);*/
+            $('#selectedAddress').show();
+            $('#autocomplete').hide();
 
             GMapsHelper.initAddressMap(lat, lng);
         });

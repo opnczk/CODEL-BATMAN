@@ -33,7 +33,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   -->
   <link rel="stylesheet" href="./starter_fichiers/skin-blue.css">
   <link rel="stylesheet" type="text/css" href="./starter_fichiers/normalize.css">
-  <link rel="stylesheet" type="text/css" href="./starter_fichiers/grid.css">
   <link rel="stylesheet" type="text/css" href="./starter_fichiers/loading.css">
   <script src="./starter_fichiers/modernizr.js"></script>
 <script
@@ -69,7 +68,6 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body style="overflow-y: visible;" class="skin-blue fixed">
-
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -148,6 +146,7 @@ desired effect
       <ul class="sidebar-menu">
         <!-- Optionally, you can add icons to the links -->
         <!-- <li><a href="ResearchContact.jsp"><i class="fa fa-user"></i>Search Contact</a></li>-->
+        <li><a href="./home"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li class="active"><a href="AddContact.jsp"><i class="fa fa-user-plus"></i> <span>Add Contact</span></a></li>
         <li><a href="AddEntreprise.jsp"><i class="fa fa-building"></i> <span>Add Enterprise</span></a></li>
         <li><a href="AddContactGroup.jsp"><i class="fa fa-users"></i> <span>Add Contact Group</span></a></li>
@@ -265,7 +264,17 @@ desired effect
 									<div class="form-group">
 									<input id="autocomplete" class="form-control" class="controls" type="text"
         placeholder="Enter a location">
-        							<div id="map" style="height: 150px"></div>
+        							</div>
+        							<div class="form-group">
+        							<div id="selectedAddress" class="form-group" style="display: none;">
+										<div class="input-group">
+									      <input class="form-control" placeholder="Address selected" type="text" disabled>
+									      <span class="input-group-btn">
+									        <button class="btn btn-secondary btn-danger" type="button"><i class="fa fa-times"></i></button>
+									      </span>
+									    </div>
+									</div>
+        							<div id="map" style="height: 375px"></div>
 									</div>
 						    </div>
 						</div>
@@ -303,63 +312,6 @@ desired effect
 <script src="./starter_fichiers/imagesloaded.js"></script>
 <script src="./starter_fichiers/classie.js"></script>
 <script src="./starter_fichiers/colorfinder-1.js"></script>
-<script src="./starter_fichiers/gridScrollFx.js"></script>
-<script>
-	var scrolledToHalf = false;
-	var scrolledToLastThird = false;
-
-	new GridScrollFx( document.getElementById( 'grid' ), {
-		viewportFactor : 0.4
-	} );
-	$("#grid img").each(function() {
-	
-		var image = new Image();
-		image.src = $(this).attr("src");
-		// Calculate aspect ratio and store it in HTML data- attribute
-		var aspectRatio = image.naturalWidth / image.naturalHeight;
-		$(this).data("aspect-ratio", aspectRatio);
-		// Conditional statement
-		if(aspectRatio > 1) {
-			// Image is landscape
-			$(this).css({
-				width: "100%",
-				height: "auto"
-			});
-		} else if (aspectRatio < 1) {
-			// Image is portrait
-			$(this).css({
-				maxHeight: "100%",
-				width : "auto"
-			});
-		} else {
-			// Image is square
-			$(this).css({
-				maxWidth: "100%",
-				height: "auto"
-			});            
-		}
-	});
-	$(window).scroll(function() {
-		if($(window).scrollTop() == ($(document).height() - $(window).height())) {
-			   // ajax call get data from server and append to the div
-			   console.log('Scrolled to bottom '+($(document).height() - $(window).height()));
-		}
-		if($(window).scrollTop() > ($(document).height() - $(window).height())/2 && !scrolledToHalf) {
-			   // ajax call get data from server and append to the div
-			   scrolledToHalf = true;
-			   console.log('Scrolled to half '+($(document).height() - $(window).height())/2 );
-		}
-		if($(window).scrollTop() > (($(document).height() - $(window).height()) - ($(document).height() - $(window).height())/3) && !scrolledToLastThird) {
-			   // ajax call get data from server and append to the div
-			   scrolledToLastThird = true;
-			   console.log('Scrolled to last third');
-			   
-			   var loadingHtml = '<div id="fountainG"><div id="fountainG_1" class="fountainG"></div><div id="fountainG_2" class="fountainG"></div><div id="fountainG_3" class="fountainG"></div><div id="fountainG_4" class="fountainG"></div><div id="fountainG_5" class="fountainG"></div><div id="fountainG_6" class="fountainG"></div><div id="fountainG_7" class="fountainG"></div><div id="fountainG_8" class="fountainG"></div></div>';
-				$('.grid-wrap').append(loadingHtml);
-		}
-	});
-</script>
-		
 		<script src="./js/GMapsHelper.js"></script>
 		<script>
 				GMapsHelper.init({
@@ -370,7 +322,9 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
+<script>
 
+</script>
 
 
 </body></html>

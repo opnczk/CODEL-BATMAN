@@ -144,7 +144,8 @@ desired effect
       <ul class="sidebar-menu">
         <!-- Optionally, you can add icons to the links -->
         <!-- <li><a href="ResearchContact.jsp"><i class="fa fa-user"></i>Search Contact</a></li>-->
-        <li class="active"><a href="AddContact.jsp"><i class="fa fa-user-plus"></i> <span>Add Contact</span></a></li>
+        <li><a href="./home"><i class="fa fa-home"></i> <span>Home</span></a></li>
+        <li><a href="AddContact.jsp"><i class="fa fa-user-plus"></i> <span>Add Contact</span></a></li>
         <li><a href="AddEntreprise.jsp"><i class="fa fa-building"></i> <span>Add Enterprise</span></a></li>
         <li><a href="AddContactGroup.jsp"><i class="fa fa-users"></i> <span>Add Contact Group</span></a></li>
         <!--  <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>

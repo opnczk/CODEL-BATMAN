@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter( "name" );
 		String password = request.getParameter( "password" );
+		String idToken = request.getParameter( "idtoken" );
 		
 		UserService us = new UserService();
 		
@@ -49,7 +50,9 @@ public class LoginServlet extends HttpServlet {
 			us.create("Olivier", "Panczuk", "opanczuk@gmail.com", "root");
 		}*/
 		
-		if(this.redirect || name.equals(password)){		
+		if(this.redirect || idToken != "" || name.equals(password)){
+			System.out.println("Google Id Token");
+			System.out.println(idToken);
 			ContactService cs = new ContactService();
 			List<Contact> contacts = cs.getContacts();
 			
