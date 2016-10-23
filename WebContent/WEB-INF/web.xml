@@ -94,4 +94,24 @@
     <servlet-name>DeleteContactServlet</servlet-name>
     <url-pattern>/remove-contact</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AuthGivenServlet</display-name>
+    <servlet-name>AuthGivenServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.AuthGivenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthGivenServlet</servlet-name>
+    <url-pattern>/authGiven</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AuthRequestServlet</display-name>
+    <servlet-name>AuthRequestServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.AuthRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthRequestServlet</servlet-name>
+    <url-pattern>/authRequest</url-pattern>
+  </servlet-mapping>
 </web-app>

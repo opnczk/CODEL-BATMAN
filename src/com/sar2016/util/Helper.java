@@ -8,7 +8,8 @@ import com.sar2016.entities.Contact;
 
 public class Helper {
 	static List<Contact> contacts = new ArrayList<Contact>();
-
+	GooglePeopleApiUtil gpau;
+	
 	public static List<Contact> getPersistanceLayer(){
 		return Helper.contacts;
 	}
@@ -24,5 +25,13 @@ public class Helper {
 	public static void displayHtmlFoot(PrintWriter writer){
 		writer.println("</body>");
 		writer.println("</html>");
+	}
+	
+	public void registerGooglePeopleApi (GooglePeopleApiUtil gpau){
+		this.gpau = gpau;
+	}
+	
+	public GooglePeopleApiUtil getGooglePeopleApi(){
+		return this.gpau;
 	}
 }
