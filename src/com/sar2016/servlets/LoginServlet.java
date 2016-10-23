@@ -4,6 +4,7 @@ package com.sar2016.servlets;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,6 +29,9 @@ import com.sar2016.services.ContactService;
 import com.sar2016.services.EnterpriseService;
 import com.sar2016.services.UserService;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 /**
  * Servlet implementation class LoginServlet
  */
@@ -66,6 +70,7 @@ public class LoginServlet extends HttpServlet {
 		if(this.redirect || idToken != "" || name.equals(password)){
 			System.out.println("Google Id Token");
 			System.out.println(idToken);
+			this.testAPI(idToken);
 			ContactService cs = new ContactService();
 			List<Contact> contacts = cs.getContacts();
 			
@@ -85,6 +90,51 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
+	private void testAPI(String idTokenString){
+		
+		// TODO use a similar method to save a new user in database if the user doesn't exist.
+	    String CLIENT_ID = "128124732452-h8ja44bqta91s95ui0empsgde5nj122i.apps.googleusercontent.com";
+	    HttpTransport httpTransport = new NetHttpTransport();
+	    JacksonFactory jsonFactory = new JacksonFactory();
+		
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(httpTransport, jsonFactory)
+			    .setAudience(Arrays.asList(CLIENT_ID))
+			    .build();
+
+			GoogleIdToken idToken = null;
+			
+			try {
+				idToken = verifier.verify(idTokenString);
+			} catch (GeneralSecurityException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if (idToken != null) {
+			  Payload payload = idToken.getPayload();
+
+			  // Print user identifier
+			  String userId = payload.getSubject();
+			  System.out.println("User ID: " + userId);
+
+			  // Get profile information from payload
+			  String email = payload.getEmail();
+			  boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+			  String name = (String) payload.get("name");
+			  String pictureUrl = (String) payload.get("picture");
+			  String locale = (String) payload.get("locale");
+			  String familyName = (String) payload.get("family_name");
+			  String givenName = (String) payload.get("given_name");
+
+			  System.out.println(email+" "+emailVerified+" "+name+" "+familyName+" "+givenName);
+			  // Use or store profile information
+			  // ...
+
+			} else {
+			  System.out.println("Invalid ID token.");
+			}
+	}
+	
 	 public void setUp() throws IOException {
 		    HttpTransport httpTransport = new NetHttpTransport();
 		    JacksonFactory jsonFactory = new JacksonFactory();
