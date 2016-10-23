@@ -95,7 +95,7 @@ desired effect
                   			var contactHtml = "";
                   			var toAdd = true;
                   		    var contact = arr[i];
-                  		    console.log(i);
+                  		    //console.log(i);
                   		  contactHtml += "<div class=\"col-md-12\">";
                   		contactHtml += "<div class=\"col-md-6\">";
                   		    if(contact.hasOwnProperty('gd$name')){
@@ -203,7 +203,6 @@ desired effect
         <!-- <li><a href="ResearchContact.jsp"><i class="fa fa-user"></i>Search Contact</a></li>-->
         <li class="active"><a href="./home"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li><a href="AddContact.jsp"><i class="fa fa-user-plus"></i> <span>Add Contact</span></a></li>
-        <li><a href="AddEntreprise.jsp"><i class="fa fa-building"></i> <span>Add Enterprise</span></a></li>
         <li><a href="AddContactGroup.jsp"><i class="fa fa-users"></i> <span>Add Contact Group</span></a></li>
         <li><a id="importContacts" href="./authRequest"><i class="fa fa-google"></i> <span>Import Contacts From Google</span></a></li>
         <!--  <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>

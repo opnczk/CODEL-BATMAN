@@ -40,6 +40,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 			  crossorigin="anonymous"></script>
 		
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -68,6 +69,64 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body style="overflow-y: visible;" class="skin-blue fixed">
+ <script type="text/javascript">
+          var clientId = "128124732452-h8ja44bqta91s95ui0empsgde5nj122i.apps.googleusercontent.com";
+          var apiKey = '6qlRPKgljuED0dI2XglPcMAs';
+          var scopes = 'https://www.googleapis.com/auth/contacts.readonly';
+
+          $(document).on("click","#importContacts", function(event){
+        	event.preventDefault();
+            gapi.client.setApiKey(apiKey);
+            window.setTimeout(authorize);
+          });
+
+          function authorize() {
+            gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthorization);
+          }
+
+          function handleAuthorization(authorizationResult) {
+            if (authorizationResult && !authorizationResult.error) {
+              $.get("https://www.google.com/m8/feeds/contacts/default/thin?alt=json&access_token=" + authorizationResult.access_token + "&max-results=500&v=3.0",
+                function(response){
+            	  console.log(response);
+                  //process the response here
+                  $("#triggImport").click();
+                  var html = "";
+                  //$("#import-modal-body").html(JSON.stringify(response, null, 4)); // (Optional) beautiful indented output.);
+                  	if(response.feed.entry){
+                  		var arr = response.feed.entry;
+                  		for (var i = 0; i < arr.length; i++) {
+                  			var contactHtml = "";
+                  			var toAdd = true;
+                  		    var contact = arr[i];
+                  		    //console.log(i);
+                  		  contactHtml += "<div class=\"col-md-12\">";
+                  		contactHtml += "<div class=\"col-md-6\">";
+                  		    if(contact.hasOwnProperty('gd$name')){
+                  		    	contactHtml += contact.gd$name.gd$fullName.$t;
+                  		    }else{
+                  		    	toAdd = false;
+                  		    }
+                  		  contactHtml += "</div>";
+                  		contactHtml += "<div class=\"col-md-6\">";
+	                  		  if(contact.hasOwnProperty('gd$email')){
+	                  			contactHtml += contact.gd$email[0].address;
+	                  		    }else{
+	                  		    	toAdd = false;
+	                  		    }
+	                  		contactHtml += "</div>";
+	                  		contactHtml += "</div>";
+	                  		if(toAdd){
+	                  			html += contactHtml;
+	                  		}
+                  		}
+                  	}
+                  	$("#import-modal-body").html(html);
+                });
+            }
+          }
+        </script>
+        <script src="https://apis.google.com/js/client.js"></script>
 <div class="wrapper">
 
   <!-- Main Header -->
@@ -148,8 +207,8 @@ desired effect
         <!-- <li><a href="ResearchContact.jsp"><i class="fa fa-user"></i>Search Contact</a></li>-->
         <li><a href="./home"><i class="fa fa-home"></i> <span>Home</span></a></li>
         <li class="active"><a href="AddContact.jsp"><i class="fa fa-user-plus"></i> <span>Add Contact</span></a></li>
-        <li><a href="AddEntreprise.jsp"><i class="fa fa-building"></i> <span>Add Enterprise</span></a></li>
         <li><a href="AddContactGroup.jsp"><i class="fa fa-users"></i> <span>Add Contact Group</span></a></li>
+        <li><a id="importContacts" href="./authRequest"><i class="fa fa-google"></i> <span>Import Contacts From Google</span></a></li>
         <!--  <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -298,7 +357,26 @@ desired effect
 </div>
 <!-- ./wrapper -->
 <!-- REQUIRED JS SCRIPTS -->
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-google"></i> Import Contacts from Google.</h4>
+      </div>
+      <div id="import-modal-body" class="modal-body">
+       	
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- jQuery 2.2.0 -->
 <script src="./starter_fichiers/jQuery-2.js"></script>
 <!-- Bootstrap 3.3.6 -->
