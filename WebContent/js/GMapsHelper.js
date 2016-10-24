@@ -18,7 +18,9 @@ var GMapsHelper = {};
     GMapsHelper.refTab = {
         "postal_code" : 'ADD_ZIPCODE',
         "country" : 'ADD_COUNTRY',
-        "locality" : 'ADD_CITY'
+        "locality" : 'ADD_CITY',
+        "street_number" : 'ADD_ST_NB',
+        "route" : "ADD_STREET",
     };
 
     GMapsHelper.init = function (context) {
@@ -113,9 +115,9 @@ var GMapsHelper = {};
             var lng = place.geometry.location.lng();
             var formattedAddress = place.formatted_address;
 
-            /*$('.address-field[name="PLACE_ID"]').val(placeId);
+            $('.address-field[name="PLACE_ID"]').val(placeId);
             $('.address-field[name="ADD_LAT"]').val(lat);
-            $('.address-field[name="ADD_LNG"]').val(lng);*/
+            $('.address-field[name="ADD_LNG"]').val(lng);
 
             var str_nb = null;
             var route = null;
@@ -127,17 +129,21 @@ var GMapsHelper = {};
                     var typeElem = tabElem.types[idxtypes];
                     var inputName = GMapsHelper.refTab[typeElem];
 
-                    if(inputName != null && typeElem != "street_number" && typeElem != "route")
+                    if(inputName != null){
                         $('.address-field[name="'+inputName+'"]').val(tabElem.long_name);
-                    if(typeElem == "street_number")
+                        console.log( $('.address-field[name="'+inputName+'"]').val());
+                    }
+                    /*if(typeElem == "street_number")
                         str_nb = tabElem.long_name;
                     if(typeElem == "route")
-                        route = tabElem.long_name;
+                        route = tabElem.long_name;*/
                 }
             }
 
-            /*$('.address-field[name="ADD_LINE_1"]').val(str_nb+' '+route);*/
+            /*$('.address-field[name="ADD_LINE_1"]').val(str_nb+' '+route);
+            console.log($('.address-field[name="ADD_LINE_1"]').val());*/
             $('#selectedAddress').show();
+            $("#selectedAddressInput").val($("#autocomplete").val());
             $('#autocomplete').hide();
 
             GMapsHelper.initAddressMap(lat, lng);

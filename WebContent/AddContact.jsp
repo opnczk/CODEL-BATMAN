@@ -298,12 +298,12 @@ desired effect
                         <div class="col-md-12">
 						    <div class="form-area">
 						        <br style="clear:both">
-						        <form id="form" method="post" role="form" action="add-contact" >
+						        <form id="form" method="post" role="form" action="add-contact" class="form-horizontal">
 				    				<div class="form-group">
-										<input type="text" class="form-control" id="name" name="first_name" placeholder="Name" required>
+										<input type="text" class="form-control" id="name" name="first_name" placeholder="First name" required>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" id="name" name="last_name" placeholder="Name" required>
+										<input type="text" class="form-control" id="name" name="last_name" placeholder="Last name" required>
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
@@ -311,14 +311,27 @@ desired effect
 									<div class="form-group">
 										<input type="text" class="form-control" id="nick_name" name="nick_name" placeholder="Nickname" required>
 									</div>
-									<div class="form-group">
+									<div id="phonesList" class="form-group">
 										<div class="input-group">
 									      <input class="form-control" placeholder="Add a phone number" type="text" disabled>
 									      <span class="input-group-btn">
-									        <button class="btn btn-secondary" type="button"><i class="fa fa-plus"></i></button>
+									        <button id="addPhoneButton" class="btn btn-secondary" type="button"><i class="fa fa-plus"></i></button>
 									      </span>
 									    </div>
+									    
 									</div>
+									
+									<div style="display : none;">
+										<input class="address-field" name="PLACE_ID" />
+										<input class="address-field" name="ADD_LAT" />
+										<input class="address-field" name="ADD_LNG" />
+										<input class="address-field" name="ADD_ST_NB" />
+										<input class="address-field" name="ADD_STREET" />
+										<input class="address-field" name="ADD_CITY" />
+										<input class="address-field" name="ADD_COUNTRY" />
+										<input class="address-field" name="ADD_ZIPCODE" />
+									</div>
+									
 									</form>
 									<div class="form-group">
 									<input id="autocomplete" class="form-control" class="controls" type="text"
@@ -327,9 +340,9 @@ desired effect
         							<div class="form-group">
         							<div id="selectedAddress" class="form-group" style="display: none;">
 										<div class="input-group">
-									      <input class="form-control" placeholder="Address selected" type="text" disabled>
+									      <input id="selectedAddressInput" class="form-control" placeholder="Address selected" type="text" disabled>
 									      <span class="input-group-btn">
-									        <button class="btn btn-secondary btn-danger" type="button"><i class="fa fa-times"></i></button>
+									        <button id="cancelAddress" class="btn btn-secondary btn-danger" type="button"><i class="fa fa-times"></i></button>
 									      </span>
 									    </div>
 									</div>
@@ -395,6 +408,26 @@ desired effect
 				GMapsHelper.init({
 					type : "address"
 				});
+				
+				$("#cancelAddress").click(function(){
+					$(".address-field").val("");
+					$("#autocomplete").show();
+					$("#autocomplete").val("");
+					$("#selectedAddress").hide();
+					GMapsHelper.deleteMarkers();
+				});
+				
+				$("#addPhoneButton").click(function(){
+					$("#phonesList").after('<div class="form-group col-md-12 phoneNumberField" >'
+					+'<div class="col-md-5"><input class="form-control" placeholder="PhoneKind" type="text" ></div>'
+					+'<div class="col-md-5"><input class="form-control col-md-6" placeholder="PhoneNumer" type="text" ></div>'
+					+'<div class="col-md-2"><button class="btn btn-secondary btn-danger deletePhoneNumber" type="button" onClick="deletePhoneNumber(event)"><i class="fa fa-times"></i></button></div>'
+					+'</div>');
+				});
+				
+				function deletePhoneNumber( event ){
+					$(event.target).parents(".form-group").remove();
+				}
 		</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

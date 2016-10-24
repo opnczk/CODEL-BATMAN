@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise"
+	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise, com.sar2016.entities.Address"
 %>
 <!DOCTYPE html>
 <!--
@@ -322,6 +322,8 @@ desired effect
 						                  <% out.println(contact.getFirstName()); %>
 						                  <% out.println(contact.getLastName()); %>
 						                  <% out.println(contact.getEmail()); %>
+						                  <%//Address address = (Address)request.getAttribute("contact-address"); %>
+						                   <% //out.println(address.getStreet()); %>
                                         <td>User level:</td>
                                         <td>Administrator</td>
                                     </tr>

@@ -8,19 +8,12 @@ public class Address {
 		
 	}
 	
-	public Address(String street, String city, String zip, String country) {
+	public Address(String placeId,String lat,String lng, String street, String city, String zip, String country) {
+		this.placeId = placeId;
 		this.street = street;
 		this.city = city;
 		this.zip = zip;
 		this.country = country;
-	}
-	
-	public Address(Address a) {
-		// TODO DELETE this constr, as it is a constr for cloning.
-		this.country = a.country;
-		this.city = a.city;
-		this.street = a.street;
-		this.zip = a.zip;
 	}
 
 	public long getId() {

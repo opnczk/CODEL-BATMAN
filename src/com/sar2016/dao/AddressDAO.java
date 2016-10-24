@@ -8,9 +8,9 @@ import com.sar2016.util.HibernateUtil;
 
 public class AddressDAO {
 	
-	public void create(String street, String city, String zip, String country) {
+	public void create(String placeId,String lat,String lng, String street, String city, String zip, String country) {
 		
-		Address c = new Address(street, city, zip, country);
+		Address c = new Address(placeId, lat, lng, street, city, zip, country);
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		

@@ -50,7 +50,7 @@ public class AddContactServlet extends HttpServlet {
 			
 			service.create(firstName, lastName, nickName, email);
 			
-			String city = request.getParameter( "city" );
+			/*String city = request.getParameter( "city" );
 			String street = request.getParameter( "street" );
 			String zip = request.getParameter( "zip" );
 			String country = request.getParameter( "country" );
@@ -60,6 +60,20 @@ public class AddContactServlet extends HttpServlet {
 				AddressService addService = new AddressService();
 			
 				addService.create( street,  city,  zip,  country);
+			}*/
+			String placeId = request.getParameter( "PLACE_ID" );
+			String lat = request.getParameter( "ADD_LAT" );
+			String lng = request.getParameter( "ADD_LNG" );
+			String streetNb = request.getParameter( "ADD_ST_NB" );
+			String street = request.getParameter( "ADD_STREET" );
+			String city = request.getParameter( "ADD_CITY" );
+			String country = request.getParameter( "ADD_COUNTRY" );
+			String zipcode = request.getParameter( "ADD_ZIPCODE" );
+			
+			if(placeId != ""){
+				AddressService addService = new AddressService();
+			
+				addService.create(placeId, lat, lng, streetNb+" "+street,  city,  zipcode,  country);
 			}
 			/*String phoneKind = request.getParameter("phoneKind"); 
 			String phoneNumber = request.getParameter("phoneNumber");  

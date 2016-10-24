@@ -34,6 +34,7 @@ public class ProfileServlet extends HttpServlet {
 		Contact c = cs.getById(id);
 		
 		request.setAttribute("contact", c);
+		//request.setAttribute("contact-address", c.getAddress());
 		
 		RequestDispatcher rd = request.getRequestDispatcher( "Profile.jsp" );
 		
