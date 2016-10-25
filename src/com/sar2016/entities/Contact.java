@@ -1,13 +1,14 @@
 package com.sar2016.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Contact {
 	long id;
 	String firstName, lastName, nickName, email;
 	Address address;
-	private Set<ContactGroup> books;
-	private Set<PhoneNumber> profiles;
+	private Set<ContactGroup> books = new HashSet<ContactGroup>();
+	private Set<PhoneNumber> profiles = new HashSet<PhoneNumber>();
 	
 	public Contact()
 	{
@@ -110,6 +111,10 @@ public class Contact {
 	}
 	
 	public void addProfile(PhoneNumber phoneNumber) {
+		if(phoneNumber.getContact() == null){
+			System.out.println("Contact ref");
+			phoneNumber.setContact(this);
+		}
 		this.profiles.add(phoneNumber);
 	}
 	

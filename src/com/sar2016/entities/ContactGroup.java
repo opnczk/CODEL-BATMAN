@@ -1,11 +1,12 @@
 package com.sar2016.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class ContactGroup {
 	long id;
 	String groupName;
-	private Set<Contact> contacts;
+	private Set<Contact> contacts = new HashSet<Contact>();
 
 	public ContactGroup() {
 		

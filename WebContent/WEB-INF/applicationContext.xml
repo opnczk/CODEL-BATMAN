@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://localhost/agenda" />
+    <property name="username" value="root" />
+    <property name="password" value="" />
+    <property name="initialSize" value="3" />
+    <property name="maxActive" value="10" />
+  </bean>
+  
+  
+<bean id="PhoneNumber" class="com.sar2016.entities.PhoneNumber">
+  	<property name="id" value="0"/>
+  	<property name="phoneKind" value=""/>
+  	<property name="phoneNumber" value=""/>
+  	<property name="contact" ref="Contact"/>
+  </bean>
+  
+  <bean id="Contact" class="com.sar2016.entities.Contact">
+  	<property name="id" value="0"/>
+  	<property name="firstName" value=""/>
+  	<property name="lastName" value=""/>
+  	<property name="nickName" value=""/>
+  	<property name="email" value=""/>
+  	<property name="address" ref="Address"/>
+  	<property name="books">
+ 	<set>
+ 		<ref bean="ContactGroup"/>
+ 	</set>
+  </property>
+  <property name="profiles">
+ 	<set>
+ 		<ref bean="PhoneNumber"/>
+ 	</set>
+  </property>
+  </bean>
+  
+  
+   <bean id="Address" class="com.sar2016.entities.Address">
+  	<property name="id" value="0"/>
+  	<property name="street" value=""/>
+  	<property name="city" value=""/>
+ 	<property name="zip" value=""/>
+   	<property name="placeId" value=""/>
+  	<property name="country" value=""/>
+  </bean>
+
+  <bean id="ContactGroup" class="com.sar2016.entities.ContactGroup">
+  <property name="id" value="0"/>
+  <property name="groupName" value=""/>
+  <property name="contacts">
+ 	<set>
+ 		<ref bean="Contact"/>
+ 	</set>
+  </property>
+  </bean>
+  
+ <bean id="Enterprise" parent="Contact" class="com.sar2016.entities.Enterprise">
+  <property name="numSiret" value="0"/>
+  </bean>
+
+   	<bean id="ContactGroupDAO" class="com.sar2016.dao.ContactGroupDAO">
+  	</bean>
+  	<bean id="PhoneNumberDAO" class="com.sar2016.dao.PhoneNumberDAO">
+  	</bean>
+  	<bean id="AddressDAO" class="com.sar2016.dao.AddressDAO">
+  	</bean>
+	<bean id="ContactDAO" class="com.sar2016.dao.ContactDAO">
+  	</bean>
+    <bean id="EnterpriseDAO" parent="ContactDAO" class="com.sar2016.dao.EnterpriseDAO">
+  	</bean>
+  
+</beans>

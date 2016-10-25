@@ -350,6 +350,8 @@ desired effect
 <script src="./starter_fichiers/classie.js"></script>
 		<script src="./js/GMapsHelper.js"></script>
 		<script>
+				$("#nbPhones").val(""+$(".deletePhoneNumber").size());
+				console.log($("#nbPhones").val());
 				GMapsHelper.init({
 					type : "address"
 				});
@@ -363,17 +365,20 @@ desired effect
 				});
 				
 				$("#addPhoneButton").click(function(){
-					var nbPhones = $("#nbPhones").val();
+					var nbPhones =  $(".deletePhoneNumber").size();
 					$("#phonesList").after('<div class="form-group col-md-12 phoneNumberField" >'
 					+'<div class="col-md-5"><input name="phones['+nbPhones+'].phoneKind" class="form-control" placeholder="PhoneKind" type="text" ></div>'
 					+'<div class="col-md-5"><input name="phones['+nbPhones+'].phoneNumber" class="form-control col-md-6" placeholder="PhoneNumer" type="text" ></div>'
 					+'<div class="col-md-2"><button class="btn btn-secondary btn-danger deletePhoneNumber" type="button" onClick="deletePhoneNumber(event)"><i class="fa fa-times"></i></button></div>'
 					+'</div>');
-					$("#nbPhones").val(nbPhones ++);
+					$("#nbPhones").val(""+nbPhones);
+					console.log($("#nbPhones").val());
 				});
 				
 				function deletePhoneNumber( event ){
 					$(event.target).parents(".form-group").remove();
+					$("#nbPhones").val(""+$(".deletePhoneNumber").size());
+					console.log($("#nbPhones").val());
 				}
 		</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.

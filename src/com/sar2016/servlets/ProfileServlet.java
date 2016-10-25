@@ -34,15 +34,17 @@ public class ProfileServlet extends HttpServlet {
 		ContactService cs = new ContactService();
 		Contact c = cs.getById(id);
 		
-		request.setAttribute("contact", c);
-		
-		Address add = c.getAddress();
-		if(add != null)
-			request.setAttribute("contact-address", c.getAddress());
-		
-		RequestDispatcher rd = request.getRequestDispatcher( "Profile.jsp" );
-		
-		rd.forward(request, response);
+		if(c != null){
+			request.setAttribute("contact", c);
+			
+			Address add = c.getAddress();
+			if(add != null)
+				request.setAttribute("contact-address", c.getAddress());
+			
+			RequestDispatcher rd = request.getRequestDispatcher( "Profile.jsp" );
+			
+			rd.forward(request, response);
+		}
 	}
 
 	/**

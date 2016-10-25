@@ -46,7 +46,6 @@ public class AddContactServlet extends HttpServlet {
 		String nickName = request.getParameter("nickname");
 		String email = request.getParameter("email");
 		String numSiret = request.getParameter("num_siret");
-		int nbPhones = Integer.parseInt(request.getParameter("nb_phones"));
 		
 		boolean success = true;
 		Exception catchedException = null;
@@ -69,7 +68,7 @@ public class AddContactServlet extends HttpServlet {
 			String country = request.getParameter( "ADD_COUNTRY" );
 			String zipcode = request.getParameter( "ADD_ZIPCODE" );
 			
-			if(placeId != "" || placeId != null){
+			if(placeId != null && placeId != ""){
 				AddressService addService = new AddressService();
 			
 				Address add = addService.create(placeId, lat, lng, streetNb+" "+street,  city,  zipcode,  country);
@@ -78,17 +77,20 @@ public class AddContactServlet extends HttpServlet {
 				Helper.hibernateUpdateObject(c);
 			}
 			
-			
-			if(nbPhones > 0){
+
+			int nbPhones = Integer.parseInt(request.getParameter("nb_phones"));
+			System.out.println("NBPhones "+nbPhones);
+			if(nbPhones >= 0){
 				PhoneNumberService phoneService = new PhoneNumberService();
-				for (int i = 0; i < nbPhones; i++){
-					String kind = request.getParameter("phones["+nbPhones+"].phoneKind");
-					String number = request.getParameter("phones["+nbPhones+"].phoneNumber");
+				for (int i = 0; i <= nbPhones; i++){
+					String kind = request.getParameter("phones["+i+"].phoneKind");
+					String number = request.getParameter("phones["+i+"].phoneNumber");
 					
 					if(kind != null && number != null){
 						PhoneNumber numberObj = phoneService.create(kind, number);
 						c.addProfile(numberObj);
 						Helper.hibernateUpdateObject(c);
+						Helper.hibernateUpdateObject(numberObj);
 					}
 				}
 			}
