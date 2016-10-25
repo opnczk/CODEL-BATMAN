@@ -12,8 +12,8 @@ public class EnterpriseService extends Enterprise {
 	public EnterpriseService(){
 		this.dao = new EnterpriseDAO();
 	}
-	public void create(String nom, String mail, String siret) {
-		dao.create(nom, mail, siret);
+	public Contact create(String nom, String mail, String siret) {
+		return dao.create(nom, mail, siret);
 	}
 	public List<Contact> getAll() {
 		return dao.getAll();

@@ -10,7 +10,7 @@ import com.sar2016.util.HibernateUtil;
 
 public class PhoneNumberDAO {
 	
-	public void create(String phoneKind, String phoneNumber) {
+	public PhoneNumber create(String phoneKind, String phoneNumber) {
 		
 		PhoneNumber c = new PhoneNumber(phoneKind, phoneNumber);
 		
@@ -21,7 +21,7 @@ public class PhoneNumberDAO {
 		session.save(c);
 		
 		tx.commit();
-		
+		return c;
 	}
 	
 	public PhoneNumber getById(long id) {

@@ -94,4 +94,14 @@
     <servlet-name>DeleteContactServlet</servlet-name>
     <url-pattern>/remove-contact</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ImportContactServlet</display-name>
+    <servlet-name>ImportContactServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.ImportContactServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImportContactServlet</servlet-name>
+    <url-pattern>/import-contacts</url-pattern>
+  </servlet-mapping>
 </web-app>

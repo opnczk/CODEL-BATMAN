@@ -11,7 +11,7 @@ import com.sar2016.util.HibernateUtil;
 
 public class ContactDAO {
 	
-	public void create(String firstName, String lastName, String nickName,
+	public Contact create(String firstName, String lastName, String nickName,
 			String email) {
 		
 		Contact c = new Contact(firstName, lastName, nickName, email);
@@ -28,7 +28,8 @@ public class ContactDAO {
 		session.save(c);
 		
 		tx.commit();
-				
+		
+		return c;
 	}
 
 	public Contact getById(long id) {

@@ -68,64 +68,8 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body style="overflow-y: visible;" class="skin-blue fixed">
- <script type="text/javascript">
-          var clientId = "128124732452-h8ja44bqta91s95ui0empsgde5nj122i.apps.googleusercontent.com";
-          var apiKey = '6qlRPKgljuED0dI2XglPcMAs';
-          var scopes = 'https://www.googleapis.com/auth/contacts.readonly';
-
-          $(document).on("click","#importContacts", function(event){
-        	event.preventDefault();
-            gapi.client.setApiKey(apiKey);
-            window.setTimeout(authorize);
-          });
-
-          function authorize() {
-            gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthorization);
-          }
-
-          function handleAuthorization(authorizationResult) {
-            if (authorizationResult && !authorizationResult.error) {
-              $.get("https://www.google.com/m8/feeds/contacts/default/thin?alt=json&access_token=" + authorizationResult.access_token + "&max-results=500&v=3.0",
-                function(response){
-            	  console.log(response);
-                  //process the response here
-                  $("#triggImport").click();
-                  var html = "";
-                  //$("#import-modal-body").html(JSON.stringify(response, null, 4)); // (Optional) beautiful indented output.);
-                  	if(response.feed.entry){
-                  		var arr = response.feed.entry;
-                  		for (var i = 0; i < arr.length; i++) {
-                  			var contactHtml = "";
-                  			var toAdd = true;
-                  		    var contact = arr[i];
-                  		    //console.log(i);
-                  		  contactHtml += "<div class=\"col-md-12\">";
-                  		contactHtml += "<div class=\"col-md-6\">";
-                  		    if(contact.hasOwnProperty('gd$name')){
-                  		    	contactHtml += contact.gd$name.gd$fullName.$t;
-                  		    }else{
-                  		    	toAdd = false;
-                  		    }
-                  		  contactHtml += "</div>";
-                  		contactHtml += "<div class=\"col-md-6\">";
-	                  		  if(contact.hasOwnProperty('gd$email')){
-	                  			contactHtml += contact.gd$email[0].address;
-	                  		    }else{
-	                  		    	toAdd = false;
-	                  		    }
-	                  		contactHtml += "</div>";
-	                  		contactHtml += "</div>";
-	                  		if(toAdd){
-	                  			html += contactHtml;
-	                  		}
-                  		}
-                  	}
-                  	$("#import-modal-body").html(html);
-                });
-            }
-          }
-        </script>
+<body style="overflow-y:visible;" class="skin-blue fixed">
+ <script type="text/javascript" src="./js/importContacts.js"></script>
         <script src="https://apis.google.com/js/client.js"></script>
 <div class="wrapper">
 
@@ -287,7 +231,6 @@ desired effect
     <!-- Main content -->
     <section class="content scrolledContent">
 	<!-- Your content here -->
-	<div class="col-md-12 center">
 			
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3">
                 <div class="panel panel-primary">
@@ -298,7 +241,8 @@ desired effect
                         <div class="col-md-12">
 						    <div class="form-area">
 						        <br style="clear:both">
-						        <form id="form" method="post" role="form" action="add-contact" class="form-horizontal">
+						        <div class="form-wrapper form-horizontal">
+						        <form id="form" method="post" role="form" action="add-contact">
 				    				<div class="form-group">
 										<input type="text" class="form-control" id="name" name="first_name" placeholder="First name" required>
 									</div>
@@ -315,13 +259,14 @@ desired effect
 										<div class="input-group">
 									      <input class="form-control" placeholder="Add a phone number" type="text" disabled>
 									      <span class="input-group-btn">
+									      	<input id="nbPhones" name="nb_phones" value="0" hidden/>
 									        <button id="addPhoneButton" class="btn btn-secondary" type="button"><i class="fa fa-plus"></i></button>
 									      </span>
 									    </div>
 									    
 									</div>
 									
-									<div style="display : none;">
+									<span style="display : none;">
 										<input class="address-field" name="PLACE_ID" />
 										<input class="address-field" name="ADD_LAT" />
 										<input class="address-field" name="ADD_LNG" />
@@ -330,7 +275,7 @@ desired effect
 										<input class="address-field" name="ADD_CITY" />
 										<input class="address-field" name="ADD_COUNTRY" />
 										<input class="address-field" name="ADD_ZIPCODE" />
-									</div>
+									</span>
 									
 									</form>
 									<div class="form-group">
@@ -362,16 +307,13 @@ desired effect
   </div>
   <!-- /.content-wrapper -->
   <!-- Main Footer -->
-  <footer class="main-footer" style="min-height: 51px">
-    <!--<strong><i class="fa fa-heart"></i></strong>-->
+  <!-- <footer class="main-footer">
+    <!--<strong><i class="fa fa-heart"></i></strong>
   </footer>
-  
+  -->
   <div class="overlay"></div>
-</div>
-<!-- ./wrapper -->
-<!-- REQUIRED JS SCRIPTS -->
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -390,6 +332,11 @@ desired effect
     </div>
   </div>
 </div>
+</div>
+<!-- ./wrapper -->
+<!-- REQUIRED JS SCRIPTS -->
+<!-- Modal -->
+
 <!-- jQuery 2.2.0 -->
 <script src="./starter_fichiers/jQuery-2.js"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -400,9 +347,7 @@ desired effect
 <script src="./starter_fichiers/classie.js"></script>
 <script src="./starter_fichiers/search.js"></script>
 <script src="./starter_fichiers/masonry.js"></script>
-<script src="./starter_fichiers/imagesloaded.js"></script>
 <script src="./starter_fichiers/classie.js"></script>
-<script src="./starter_fichiers/colorfinder-1.js"></script>
 		<script src="./js/GMapsHelper.js"></script>
 		<script>
 				GMapsHelper.init({
@@ -418,11 +363,13 @@ desired effect
 				});
 				
 				$("#addPhoneButton").click(function(){
+					var nbPhones = $("#nbPhones").val();
 					$("#phonesList").after('<div class="form-group col-md-12 phoneNumberField" >'
-					+'<div class="col-md-5"><input class="form-control" placeholder="PhoneKind" type="text" ></div>'
-					+'<div class="col-md-5"><input class="form-control col-md-6" placeholder="PhoneNumer" type="text" ></div>'
+					+'<div class="col-md-5"><input name="phones['+nbPhones+'].phoneKind" class="form-control" placeholder="PhoneKind" type="text" ></div>'
+					+'<div class="col-md-5"><input name="phones['+nbPhones+'].phoneNumber" class="form-control col-md-6" placeholder="PhoneNumer" type="text" ></div>'
 					+'<div class="col-md-2"><button class="btn btn-secondary btn-danger deletePhoneNumber" type="button" onClick="deletePhoneNumber(event)"><i class="fa fa-times"></i></button></div>'
 					+'</div>');
+					$("#nbPhones").val(nbPhones ++);
 				});
 				
 				function deletePhoneNumber( event ){

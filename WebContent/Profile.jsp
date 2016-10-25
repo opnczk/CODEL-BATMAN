@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise, com.sar2016.entities.Address"
+	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise, com.sar2016.entities.Address, java.util.Set"
 %>
 <!DOCTYPE html>
 <!--
@@ -20,8 +20,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="./starter_fichiers/d2c8d49ad6.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="./starter_fichiers/ionicons.css">
-  <!-- chat css -->
-  <link rel="stylesheet" href="./starter_fichiers/chat.css">
   <link rel="stylesheet" href="./starter_fichiers/search.css">
   <link rel="stylesheet" href="./starter_fichiers/spec.css">
   <link rel="stylesheet" type="text/css" href="./starter_fichiers/icons.css">
@@ -33,8 +31,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   -->
   <link rel="stylesheet" href="./starter_fichiers/skin-blue.css">
   <link rel="stylesheet" type="text/css" href="./starter_fichiers/normalize.css">
-  <link rel="stylesheet" type="text/css" href="./starter_fichiers/grid.css">
-  <link rel="stylesheet" type="text/css" href="./starter_fichiers/loading.css">
   <script src="./starter_fichiers/modernizr.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 
@@ -66,63 +62,7 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body style="overflow-y: visible;" class="skin-blue fixed">
- <script type="text/javascript">
-          var clientId = "128124732452-h8ja44bqta91s95ui0empsgde5nj122i.apps.googleusercontent.com";
-          var apiKey = '6qlRPKgljuED0dI2XglPcMAs';
-          var scopes = 'https://www.googleapis.com/auth/contacts.readonly';
-
-          $(document).on("click","#importContacts", function(event){
-        	event.preventDefault();
-            gapi.client.setApiKey(apiKey);
-            window.setTimeout(authorize);
-          });
-
-          function authorize() {
-            gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthorization);
-          }
-
-          function handleAuthorization(authorizationResult) {
-            if (authorizationResult && !authorizationResult.error) {
-              $.get("https://www.google.com/m8/feeds/contacts/default/thin?alt=json&access_token=" + authorizationResult.access_token + "&max-results=500&v=3.0",
-                function(response){
-            	  console.log(response);
-                  //process the response here
-                  $("#triggImport").click();
-                  var html = "";
-                  //$("#import-modal-body").html(JSON.stringify(response, null, 4)); // (Optional) beautiful indented output.);
-                  	if(response.feed.entry){
-                  		var arr = response.feed.entry;
-                  		for (var i = 0; i < arr.length; i++) {
-                  			var contactHtml = "";
-                  			var toAdd = true;
-                  		    var contact = arr[i];
-                  		    //console.log(i);
-                  		  contactHtml += "<div class=\"col-md-12\">";
-                  		contactHtml += "<div class=\"col-md-6\">";
-                  		    if(contact.hasOwnProperty('gd$name')){
-                  		    	contactHtml += contact.gd$name.gd$fullName.$t;
-                  		    }else{
-                  		    	toAdd = false;
-                  		    }
-                  		  contactHtml += "</div>";
-                  		contactHtml += "<div class=\"col-md-6\">";
-	                  		  if(contact.hasOwnProperty('gd$email')){
-	                  			contactHtml += contact.gd$email[0].address;
-	                  		    }else{
-	                  		    	toAdd = false;
-	                  		    }
-	                  		contactHtml += "</div>";
-	                  		contactHtml += "</div>";
-	                  		if(toAdd){
-	                  			html += contactHtml;
-	                  		}
-                  		}
-                  	}
-                  	$("#import-modal-body").html(html);
-                });
-            }
-          }
-        </script>
+ <script type="text/javascript" src="./js/importContacts.js"></script>
         <script src="https://apis.google.com/js/client.js"></script>
 <div class="wrapper">
 
@@ -322,8 +262,12 @@ desired effect
 						                  <% out.println(contact.getFirstName()); %>
 						                  <% out.println(contact.getLastName()); %>
 						                  <% out.println(contact.getEmail()); %>
-						                  <%//Address address = (Address)request.getAttribute("contact-address"); %>
-						                   <% //out.println(address.getStreet()); %>
+						                  <%Address address = (Address)request.getAttribute("contact-address"); %>
+						                   <%if(address != null){ %>
+						                   <% out.println(address.getStreet()); %>
+						                   <%} %>
+						                   <% Set numbers = contact.getProfiles(); %>
+						                   <% %>
                                         <td>User level:</td>
                                         <td>Administrator</td>
                                     </tr>
@@ -397,65 +341,7 @@ desired effect
 <script src="./starter_fichiers/classie.js"></script>
 <script src="./starter_fichiers/search.js"></script>
 <script src="./starter_fichiers/masonry.js"></script>
-<script src="./starter_fichiers/imagesloaded.js"></script>
 <script src="./starter_fichiers/classie.js"></script>
-<script src="./starter_fichiers/colorfinder-1.js"></script>
-<script src="./starter_fichiers/gridScrollFx.js"></script>
-<script>
-	var scrolledToHalf = false;
-	var scrolledToLastThird = false;
-
-	new GridScrollFx( document.getElementById( 'grid' ), {
-		viewportFactor : 0.4
-	} );
-	$("#grid img").each(function() {
-	
-		var image = new Image();
-		image.src = $(this).attr("src");
-		// Calculate aspect ratio and store it in HTML data- attribute
-		var aspectRatio = image.naturalWidth / image.naturalHeight;
-		$(this).data("aspect-ratio", aspectRatio);
-		// Conditional statement
-		if(aspectRatio > 1) {
-			// Image is landscape
-			$(this).css({
-				width: "100%",
-				height: "auto"
-			});
-		} else if (aspectRatio < 1) {
-			// Image is portrait
-			$(this).css({
-				maxHeight: "100%",
-				width : "auto"
-			});
-		} else {
-			// Image is square
-			$(this).css({
-				maxWidth: "100%",
-				height: "auto"
-			});            
-		}
-	});
-	$(window).scroll(function() {
-		if($(window).scrollTop() == ($(document).height() - $(window).height())) {
-			   // ajax call get data from server and append to the div
-			   console.log('Scrolled to bottom '+($(document).height() - $(window).height()));
-		}
-		if($(window).scrollTop() > ($(document).height() - $(window).height())/2 && !scrolledToHalf) {
-			   // ajax call get data from server and append to the div
-			   scrolledToHalf = true;
-			   console.log('Scrolled to half '+($(document).height() - $(window).height())/2 );
-		}
-		if($(window).scrollTop() > (($(document).height() - $(window).height()) - ($(document).height() - $(window).height())/3) && !scrolledToLastThird) {
-			   // ajax call get data from server and append to the div
-			   scrolledToLastThird = true;
-			   console.log('Scrolled to last third');
-			   
-			   var loadingHtml = '<div id="fountainG"><div id="fountainG_1" class="fountainG"></div><div id="fountainG_2" class="fountainG"></div><div id="fountainG_3" class="fountainG"></div><div id="fountainG_4" class="fountainG"></div><div id="fountainG_5" class="fountainG"></div><div id="fountainG_6" class="fountainG"></div><div id="fountainG_7" class="fountainG"></div><div id="fountainG_8" class="fountainG"></div></div>';
-				$('.grid-wrap').append(loadingHtml);
-		}
-	});
-</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the

@@ -13,12 +13,12 @@ public class ContactService {
 		this.dao = new ContactDAO();
 	}
 	
-	public void create(String firstName, String lastName, String nickName,
+	public Contact create(String firstName, String lastName, String nickName,
 			String email) {
 		
 		System.out.println("On est arrivé au Service.");
 		
-		dao.create(firstName, lastName, nickName, email);
+		return dao.create(firstName, lastName, nickName, email);
 	}
 	
 	public Contact getById(long id){

@@ -8,18 +8,23 @@ import com.sar2016.util.HibernateUtil;
 
 public class AddressDAO {
 	
-	public void create(String placeId,String lat,String lng, String street, String city, String zip, String country) {
+	public Address create(String placeId,String lat,String lng, String street, String city, String zip, String country) {
 		
 		Address c = new Address(placeId, lat, lng, street, city, zip, country);
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
-		Transaction tx=session.beginTransaction();
-		
+		Transaction tx = null;
+		if(!session.getTransaction().isActive()){
+			tx = session.beginTransaction();
+		}else{
+			tx = session.getTransaction();
+		}
 		session.save(c);
 		
 		tx.commit();
 		
+		return c;
 	}
 
 	public Address getById(long id) {

@@ -12,12 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.Session;
 
+import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
 import com.sar2016.entities.Enterprise;
+import com.sar2016.entities.PhoneNumber;
 import com.sar2016.services.AddressService;
 import com.sar2016.services.ContactService;
 import com.sar2016.services.EnterpriseService;
 import com.sar2016.services.PhoneNumberService;
+import com.sar2016.util.Helper;
 import com.sar2016.util.HibernateUtil;
 
 /**
@@ -42,25 +45,21 @@ public class AddContactServlet extends HttpServlet {
 		String lastName = request.getParameter("last_name");
 		String nickName = request.getParameter("nickname");
 		String email = request.getParameter("email");
+		String numSiret = request.getParameter("num_siret");
+		int nbPhones = Integer.parseInt(request.getParameter("nb_phones"));
 		
 		boolean success = true;
 		Exception catchedException = null;
 		try{
-			ContactService service = new ContactService();
+			Contact c = null;
+			if(numSiret != null && numSiret != ""){
+				EnterpriseService entService = new EnterpriseService();
+				c = entService.create(firstName, email, numSiret);
+			}else{
+				ContactService service = new ContactService();
 			
-			service.create(firstName, lastName, nickName, email);
-			
-			/*String city = request.getParameter( "city" );
-			String street = request.getParameter( "street" );
-			String zip = request.getParameter( "zip" );
-			String country = request.getParameter( "country" );
-			String placeId = request.getParameter( "place_id" );
-			
-			if(city != ""){
-				AddressService addService = new AddressService();
-			
-				addService.create( street,  city,  zip,  country);
-			}*/
+				c = service.create(firstName, lastName, nickName, email);
+			}
 			String placeId = request.getParameter( "PLACE_ID" );
 			String lat = request.getParameter( "ADD_LAT" );
 			String lng = request.getParameter( "ADD_LNG" );
@@ -70,17 +69,30 @@ public class AddContactServlet extends HttpServlet {
 			String country = request.getParameter( "ADD_COUNTRY" );
 			String zipcode = request.getParameter( "ADD_ZIPCODE" );
 			
-			if(placeId != ""){
+			if(placeId != "" || placeId != null){
 				AddressService addService = new AddressService();
 			
-				addService.create(placeId, lat, lng, streetNb+" "+street,  city,  zipcode,  country);
+				Address add = addService.create(placeId, lat, lng, streetNb+" "+street,  city,  zipcode,  country);
+				c.setAddress(add);
+				
+				Helper.hibernateUpdateObject(c);
 			}
-			/*String phoneKind = request.getParameter("phoneKind"); 
-			String phoneNumber = request.getParameter("phoneNumber");  
 			
-			PhoneNumberService phoneService = new PhoneNumberService();
 			
-			phoneService.create(phoneKind, phoneNumber);*/
+			if(nbPhones > 0){
+				PhoneNumberService phoneService = new PhoneNumberService();
+				for (int i = 0; i < nbPhones; i++){
+					String kind = request.getParameter("phones["+nbPhones+"].phoneKind");
+					String number = request.getParameter("phones["+nbPhones+"].phoneNumber");
+					
+					if(kind != null && number != null){
+						PhoneNumber numberObj = phoneService.create(kind, number);
+						c.addProfile(numberObj);
+						Helper.hibernateUpdateObject(c);
+					}
+				}
+			}
+			
 		}catch(Exception e){
 			System.out.println("Erreur catchée");
 			success = false;

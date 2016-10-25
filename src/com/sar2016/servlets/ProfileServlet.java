@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
 import com.sar2016.services.ContactService;
 
@@ -34,7 +35,10 @@ public class ProfileServlet extends HttpServlet {
 		Contact c = cs.getById(id);
 		
 		request.setAttribute("contact", c);
-		//request.setAttribute("contact-address", c.getAddress());
+		
+		Address add = c.getAddress();
+		if(add != null)
+			request.setAttribute("contact-address", c.getAddress());
 		
 		RequestDispatcher rd = request.getRequestDispatcher( "Profile.jsp" );
 		

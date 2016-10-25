@@ -11,7 +11,7 @@ import com.sar2016.util.HibernateUtil;
 
 public class EnterpriseDAO extends ContactDAO{
 	
-	public void create(String nom, String mail,
+	public Contact create(String nom, String mail,
 			String siret) {
 		Enterprise e = new Enterprise(nom, mail, siret);
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -22,6 +22,7 @@ public class EnterpriseDAO extends ContactDAO{
 		
 		tx.commit();
 		
+		return e;
 	}
 	
 	public Enterprise getById(long id) {
