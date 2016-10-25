@@ -1,6 +1,7 @@
 package com.sar2016.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -45,9 +46,15 @@ public class ImportContactServlet extends HttpServlet {
 		System.out.println("Nb_Contacts : "+nbContacts);
 		
 		ContactService service = new ContactService();
+		ArrayList<String> gardeFou = new ArrayList();
 		for(int i = 0; i < nbContacts; i++){
-			System.out.println(request.getParameter("contacts["+i+"].email")+" "+request.getParameter("contacts["+i+"].last_name")+" "+request.getParameter("contacts["+i+"].first_name"));
-			Contact c = service.create(request.getParameter("contacts["+i+"].first_name"), request.getParameter("contacts["+i+"].last_name"), null, request.getParameter("contacts["+i+"].email"));
+				System.out.println(request.getParameter("contacts["+i+"].email")+" "+request.getParameter("contacts["+i+"].last_name")+" "+request.getParameter("contacts["+i+"].first_name"));
+				try{
+				Contact c = service.create(request.getParameter("contacts["+i+"].first_name"), request.getParameter("contacts["+i+"].last_name"), null, request.getParameter("contacts["+i+"].email"));
+				}catch(Exception e){
+					System.out.println("Exception"+e.getMessage());
+					e.printStackTrace();
+				}
 		}
 		
 		
