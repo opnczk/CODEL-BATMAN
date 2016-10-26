@@ -2,6 +2,9 @@ package com.sar2016.services;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.sar2016.dao.ContactDAO;
 import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
@@ -10,7 +13,9 @@ public class ContactService {
 	private ContactDAO dao;
 	
 	public ContactService(){
-		this.dao = new ContactDAO();
+		ApplicationContext ac = new ClassPathXmlApplicationContext("file:/users/nfs/Etu2/3410322/Workspace/CODEL-BATMAN/WebContent/WEB-INF/applicationContext.xml");
+		this.dao = (ContactDAO) ac.getBean("ContactDAO");
+		//this.dao = new ContactDAO();
 	}
 	
 	public Contact create(String firstName, String lastName, String nickName,
