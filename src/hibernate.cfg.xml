@@ -14,7 +14,9 @@
         <property name="hibernate.connection.useUnicode">true</property>
  fait en sorte qu'Hibernate gere automatiquement la session 
  Celle-ci est liée au thread local. -->
-  <property name="current_session_context_class">thread</property>
+ 
+  <!-- <property name="current_session_context_class">thread</property> -->
+ 
   <!-- defini la taille du pool du JDBC connection -->
   <property name="connection.pool_size">1</property>
   <!-- ici on configure le comportement lors du lancement d'hibernate 

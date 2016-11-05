@@ -1,7 +1,9 @@
 package com.sar2016.services;
 
+
+
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.ContextLoader;
 
 import com.sar2016.dao.AddressDAO;
 import com.sar2016.entities.Address;
@@ -10,7 +12,9 @@ public class AddressService {
 	private AddressDAO dao;
 	
 	public AddressService(){
-		ApplicationContext ac = new ClassPathXmlApplicationContext("file:/users/nfs/Etu2/3410322/Workspace/CODEL-BATMAN/WebContent/WEB-INF/applicationContext.xml");
+		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
+		
+		System.out.println(ac);
 		this.dao = (AddressDAO) ac.getBean("AddressDAO");
 		//this.dao = new AddressDAO();
 	}

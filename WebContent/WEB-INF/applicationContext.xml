@@ -2,75 +2,70 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost/agenda" />
-    <property name="username" value="root" />
-    <property name="password" value="" />
-    <property name="initialSize" value="3" />
-    <property name="maxActive" value="10" />
-  </bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    	<property name="url" value="jdbc:mysql://localhost/agenda" />
+    	<property name="username" value="root" />
+    	<property name="password" value="" />
+    	<property name="initialSize" value="3" />
+    	<property name="maxActive" value="10" />
+	</bean>
   
+	<bean id="PhoneNumber" class="com.sar2016.entities.PhoneNumber">
+  		
+  	</bean>
   
-<bean id="PhoneNumber" class="com.sar2016.entities.PhoneNumber">
-  	<property name="id" value="0"/>
-  	<property name="phoneKind" value=""/>
-  	<property name="phoneNumber" value=""/>
-  	<property name="contact" ref="Contact"/>
-  </bean>
+	<bean id="Contact" class="com.sar2016.entities.Contact">
+  	
+  	</bean>
   
-  <bean id="Contact" class="com.sar2016.entities.Contact">
-  	<property name="id" value="0"/>
-  	<property name="firstName" value=""/>
-  	<property name="lastName" value=""/>
-  	<property name="nickName" value=""/>
-  	<property name="email" value=""/>
-  	<property name="address" ref="Address"/>
-  	<property name="books">
- 	<set>
- 		<ref bean="ContactGroup"/>
- 	</set>
-  </property>
-  <property name="profiles">
- 	<set>
- 		<ref bean="PhoneNumber"/>
- 	</set>
-  </property>
-  </bean>
-  
-  
-   <bean id="Address" class="com.sar2016.entities.Address">
-  	<property name="id" value="0"/>
-  	<property name="street" value=""/>
-  	<property name="city" value=""/>
- 	<property name="zip" value=""/>
-   	<property name="placeId" value=""/>
-  	<property name="country" value=""/>
-  </bean>
+   	<bean id="Address" class="com.sar2016.entities.Address">
+ 
+  	</bean>
 
-  <bean id="ContactGroup" class="com.sar2016.entities.ContactGroup">
-  <property name="id" value="0"/>
-  <property name="groupName" value=""/>
-  <property name="contacts">
- 	<set>
- 		<ref bean="Contact"/>
- 	</set>
-  </property>
-  </bean>
+  	<bean id="ContactGroup" class="com.sar2016.entities.ContactGroup">
+  	
+  	</bean>
   
- <bean id="Enterprise" parent="Contact" class="com.sar2016.entities.Enterprise">
-  <property name="numSiret" value="0"/>
-  </bean>
+ 	<bean id="Enterprise" parent="Contact" class="com.sar2016.entities.Enterprise">
+  		
+  	</bean>
+  	
+  	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+   	</bean>
 
    	<bean id="ContactGroupDAO" class="com.sar2016.dao.ContactGroupDAO">
+   		<property name="sessionFactory" ref="sessionFactory" />
   	</bean>
   	<bean id="PhoneNumberDAO" class="com.sar2016.dao.PhoneNumberDAO">
+  		<property name="sessionFactory" ref="sessionFactory" />
   	</bean>
   	<bean id="AddressDAO" class="com.sar2016.dao.AddressDAO">
+  		<property name="sessionFactory" ref="sessionFactory" />
   	</bean>
 	<bean id="ContactDAO" class="com.sar2016.dao.ContactDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
   	</bean>
     <bean id="EnterpriseDAO" parent="ContactDAO" class="com.sar2016.dao.EnterpriseDAO">
   	</bean>
+  
+  	<bean id="AddressService" class="com.sar2016.services.AddressService">
+  	</bean>
+  	<bean id="ContactService" class="com.sar2016.services.ContactService">
+  	</bean>
+    <bean id="EnterpriseService" class="com.sar2016.services.EnterpriseService">
+  	</bean>
+  	<bean id="PhoneNumberService" class="com.sar2016.services.PhoneNumberService">
+  	</bean>
+  
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+   
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
   
 </beans>

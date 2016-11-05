@@ -1,9 +1,11 @@
 package com.sar2016.services;
 
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+
 import com.sar2016.dao.UserDAO;
 import com.sar2016.entities.User;
 
-public class UserService {
+public class UserService extends HibernateDaoSupport{
 	private UserDAO dao;
 	
 	public UserService(){

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.ContextLoader;
 
 import com.sar2016.dao.ContactDAO;
 import com.sar2016.entities.Address;
@@ -13,7 +14,7 @@ public class ContactService {
 	private ContactDAO dao;
 	
 	public ContactService(){
-		ApplicationContext ac = new ClassPathXmlApplicationContext("file:/users/nfs/Etu2/3410322/Workspace/CODEL-BATMAN/WebContent/WEB-INF/applicationContext.xml");
+		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 		this.dao = (ContactDAO) ac.getBean("ContactDAO");
 		//this.dao = new ContactDAO();
 	}

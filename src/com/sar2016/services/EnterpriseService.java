@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.ContextLoader;
 
 import com.sar2016.dao.EnterpriseDAO;
 import com.sar2016.entities.Contact;
@@ -13,11 +14,11 @@ public class EnterpriseService extends Enterprise {
 	private EnterpriseDAO dao;
 	
 	public EnterpriseService(){
-		ApplicationContext ac = new ClassPathXmlApplicationContext("file:/users/nfs/Etu2/3410322/Workspace/CODEL-BATMAN/WebContent/WEB-INF/applicationContext.xml");
+		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 		this.dao = (EnterpriseDAO)ac.getBean("EnterpriseDAO");
 ;		//this.dao = new EnterpriseDAO();
 	}
-	public Contact create(String nom, String mail, String siret) {
+	public Contact create(String nom, String mail, int siret) {
 		return dao.create(nom, mail, siret);
 	}
 	public List<Contact> getAll() {

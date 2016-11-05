@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.sar2016.entities.Contact;
 import com.sar2016.entities.Enterprise;
 import com.sar2016.services.ContactService;
@@ -43,18 +46,21 @@ public class LoginServlet extends HttpServlet {
 		String name = request.getParameter( "name" );
 		String password = request.getParameter( "password" );
 		
-		UserService us = new UserService();
+		//UserService us = new UserService();
 		
 		/*if(name.equals(password)){
 			us.create("Olivier", "Panczuk", "opanczuk@gmail.com", "root");
 		}*/
 		
 		if(this.redirect || name.equals(password)){
-		
-			ContactService cs = new ContactService();
-			List<Contact> contacts = cs.getContacts();
+			ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 			
-			EnterpriseService es = new EnterpriseService();
+			ContactService cs = (ContactService) ac.getBean("ContactService");
+			
+			//ContactService cs = new ContactService();
+			List<Contact> contacts = cs.getContacts();
+			EnterpriseService es = (EnterpriseService) ac.getBean("EnterpriseService");
+			//EnterpriseService es = new EnterpriseService();
 			List<Enterprise> enterprises = es.getEnterprises();
 			
 			RequestDispatcher rd = request.getRequestDispatcher( "Main.jsp" );
