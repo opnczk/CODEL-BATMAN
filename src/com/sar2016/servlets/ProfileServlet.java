@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
 import com.sar2016.services.ContactService;
@@ -17,7 +20,8 @@ import com.sar2016.services.ContactService;
  */
 public class ProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,7 +35,8 @@ public class ProfileServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long id = Long.parseLong(request.getParameter("id"));
-		ContactService cs = new ContactService();
+		//ContactService cs = new ContactService();
+		ContactService cs = (ContactService)ac.getBean("ContactService");
 		Contact c = cs.getById(id);
 		
 		if(c != null){

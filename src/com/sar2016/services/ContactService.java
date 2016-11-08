@@ -14,9 +14,10 @@ public class ContactService {
 	private ContactDAO dao;
 	
 	public ContactService(){
-		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-		this.dao = (ContactDAO) ac.getBean("ContactDAO");
-		//this.dao = new ContactDAO();
+	}
+
+	public ContactService(ContactDAO dao){
+		this.dao = dao;
 	}
 	
 	public Contact create(String firstName, String lastName, String nickName,
@@ -53,5 +54,13 @@ public class ContactService {
 
 	public void deleteById(long id) {
 		dao.deleteById(id);
+	}
+
+	public ContactDAO getDao() {
+		return dao;
+	}
+
+	public void setDao(ContactDAO dao) {
+		this.dao = dao;
 	}
 }

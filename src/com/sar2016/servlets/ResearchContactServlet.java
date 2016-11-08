@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.sar2016.entities.Contact;
 import com.sar2016.services.ContactService;
 
@@ -17,7 +20,8 @@ import com.sar2016.services.ContactService;
  */
 public class ResearchContactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,7 +33,8 @@ public class ResearchContactServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ContactService cs = new ContactService();
+		//ContactService cs = new ContactService();
+		ContactService cs = (ContactService)ac.getBean("ContactService");
 		List<Contact> contacts = cs.searchByMail((String)request.getParameter("email"));
 
 		

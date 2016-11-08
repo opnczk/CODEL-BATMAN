@@ -4,8 +4,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.springframework.context.ApplicationContext;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.web.context.ContextLoader;
 
 import com.sar2016.entities.Contact;
 
@@ -27,19 +28,5 @@ public class Helper {
 	public static void displayHtmlFoot(PrintWriter writer){
 		writer.println("</body>");
 		writer.println("</html>");
-	}
-	
-	public static void hibernateUpdateObject(Object o) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		Transaction tx = null;
-		if(!session.getTransaction().isActive()){
-			tx = session.beginTransaction();
-		}else{
-			tx = session.getTransaction();
-		}
-		session.update(o);
-		
-		tx.commit();
 	}
 }

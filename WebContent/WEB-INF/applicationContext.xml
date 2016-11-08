@@ -10,32 +10,30 @@
     	<property name="initialSize" value="3" />
     	<property name="maxActive" value="10" />
 	</bean>
-  
-	<bean id="PhoneNumber" class="com.sar2016.entities.PhoneNumber">
-  		
-  	</bean>
-  
-	<bean id="Contact" class="com.sar2016.entities.Contact">
-  	
-  	</bean>
-  
-   	<bean id="Address" class="com.sar2016.entities.Address">
- 
-  	</bean>
-
-  	<bean id="ContactGroup" class="com.sar2016.entities.ContactGroup">
-  	
-  	</bean>
-  
- 	<bean id="Enterprise" parent="Contact" class="com.sar2016.entities.Enterprise">
-  		
-  	</bean>
   	
   	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+  	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.HibernateTransactionManager">-->
+  	
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:hibernate.cfg.xml" />
+        <property name="hibernateProperties" >
+        <props>
+        <prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
+        <prop key="hibernate.show.sql">true</prop>
+        <prop key="hibernate.hbm2ddl.auto">update</prop>
+        </props>
+        </property>
    	</bean>
-
+    <bean  id="Contact" class="com.sar2016.entities.Contact">
+    </bean>
+    <bean  id="PhoneNumber" class="com.sar2016.entities.PhoneNumber">
+    </bean>
+    <bean  id="Address" class="com.sar2016.entities.Address">
+    </bean>
+    <bean  id="Enterprise" class="com.sar2016.entities.Enterprise">
+    </bean>
+    <bean  id="ContactGroup" class="com.sar2016.entities.ContactGroup">
+    </bean>
    	<bean id="ContactGroupDAO" class="com.sar2016.dao.ContactGroupDAO">
    		<property name="sessionFactory" ref="sessionFactory" />
   	</bean>
@@ -50,22 +48,24 @@
   	</bean>
     <bean id="EnterpriseDAO" parent="ContactDAO" class="com.sar2016.dao.EnterpriseDAO">
   	</bean>
-  
   	<bean id="AddressService" class="com.sar2016.services.AddressService">
-  	</bean>
+  	<property name="dao" ref="AddressDAO"/>
+  		</bean>
   	<bean id="ContactService" class="com.sar2016.services.ContactService">
+  	  	<property name="dao" ref="ContactDAO"/>
   	</bean>
     <bean id="EnterpriseService" class="com.sar2016.services.EnterpriseService">
+  		<property name="dao" ref="EnterpriseDAO"/>
   	</bean>
   	<bean id="PhoneNumberService" class="com.sar2016.services.PhoneNumberService">
+  	  	<property name="dao" ref="PhoneNumberDAO"/>
   	</bean>
-  
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="checkWriteOperations" value="false"/>
     </bean>
-   
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-  
+    
 </beans>

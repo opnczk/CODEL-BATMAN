@@ -6,24 +6,26 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
-import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
 import com.sar2016.util.HibernateUtil;
 
 public class ContactDAO extends HibernateDaoSupport {
 	
+	@Transactional(readOnly = false)
 	public Contact create(String firstName, String lastName, String nickName,
 			String email) {
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
+		getHibernateTemplate().setCheckWriteOperations(false);
 		Contact c = (Contact) ac.getBean("Contact");
 		c.setFirstName(firstName);
 		c.setLastName(lastName);
 		c.setNickName(nickName);
 		c.setEmail(email);
 	
-		((Session) getHibernateTemplate().getSessionFactory()).save(c);
+		getHibernateTemplate().saveOrUpdate(c);
 		
 		//Contact c = new Contact(firstName, lastName, nickName, email);
 		
@@ -45,8 +47,6 @@ public class ContactDAO extends HibernateDaoSupport {
 	}
 
 	public Contact getById(long id) {
-		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-
 		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		if(!session.getTransaction().isActive()){
@@ -54,13 +54,11 @@ public class ContactDAO extends HibernateDaoSupport {
 		}
 		
 		return (Contact)session.get(Contact.class, id);*/
-		return (Contact)((Session) getHibernateTemplate().getSessionFactory()).get(Contact.class, id);
+		return (Contact)getHibernateTemplate().get(Contact.class, id);
 	}
 
 	public Contact getByMail(String mail) {
 		//Written in HQL
-		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-
 		//Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		//Transaction tx=session.beginTransaction();
@@ -74,24 +72,22 @@ public class ContactDAO extends HibernateDaoSupport {
 
 	public List<Contact> searchByMail(String mail) {
 		//Written in HQL
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		//Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		if(!session.getTransaction().isActive()){
+		/*if(!session.getTransaction().isActive()){
 			Transaction tx = session.beginTransaction();
-		}
-		String query = "from Contact as t where t.email like :mail";
-		System.out.println("BOOYAYAYA");
-		
+		}*/
+		String query = "from Contact as t where t.email like :mail";		
 		String str ="%" + mail + "%";
-		System.out.println(str);
-		System.out.println(str.length());
-		List<Contact> rs = session.createQuery(query).setString("mail", str).list();
+	
+		/*List<Contact> rs = session.createQuery(query).setString("mail", str).list();
 		System.out.println("---------------"+rs.size());
 		session.close();
-		
+		*/
+		List<Contact> rs = ((List<Contact>) getHibernateTemplate().find(query, mail));
 		return rs;
 	}	
-	
+	@Transactional (readOnly = false)
 	public void deleteById(long id){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
@@ -109,32 +105,29 @@ public class ContactDAO extends HibernateDaoSupport {
 	}
 
 	public List<Contact> getAll() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		/*Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		if(!session.getTransaction().isActive()){
 			Transaction tx = session.beginTransaction();
-		}
-		String query = "from Contact";
-		System.out.println("BOOYAYAYA");
-		
-		List<Contact> rs = session.createQuery(query).list();
-		session.close();
-		
+		}*/
+		String query = "from Contact";		
+		//List<Contact> rs = session.createQuery(query).list();
+		//session.close();
+		List<Contact> rs = ((List<Contact>) getHibernateTemplate().find(query));
 		return rs;
 	}
 	
 	public List<Contact> getContacts(){
-		Session session = HibernateUtil.getSessionFactory().openSession();
+		/*Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		if(!session.getTransaction().isActive()){
 			Transaction tx = session.beginTransaction();
-		}
-		String query = "from Contact as t where t.class = Contact";
-		System.out.println("BOOYAYAYA");
+		}*/
+		String query = "from Contact as t";
 		
-		List<Contact> rs = session.createQuery(query).list();
-		session.close();
-		
-		return rs;
+		//List<Contact> rs = session.createQuery(query).list();
+		//session.close();
+		List<?> rs = getHibernateTemplate().find(query);
+		return (List<Contact>) rs;
 	}
 }

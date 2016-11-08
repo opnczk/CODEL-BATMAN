@@ -4,10 +4,10 @@
 <hibernate-configuration>
  <session-factory name="">
   <!-- bloc de 5 propriétés pour décrire les info de connexion-->
-  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost/agenda</property>
-  <property name="hibernate.connection.username">root</property>
-  <property name="hibernate.connection.password"/>
+  <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
+  <!--<property name="hibernate.connection.url">jdbc:mysql://localhost/agenda</property>-->
+  <!-- <property name="hibernate.connection.username">root</property>-->
+  <!-- <property name="hibernate.connection.password"/>-->
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <!-- <property name="hibernate.connection.CharSet">utf8</property>
         <property name="hibernate.connection.characterEncoding">utf8</property>
@@ -27,7 +27,7 @@
   <property name="hibernate.show_sql">true</property>
   <!-- Pretty format le SQL généré -->
   <property name="hibernate.format_sql">true</property>
-  <property name="hibernate.hbm2ddl.auto">update</property>
+
   <!-- liens vers les fichiers de mapping, indiquez le chemin à partir de src -->
   <mapping resource="com/sar2016/entities/User.hbm.xml"/>
   <mapping resource="com/sar2016/entities/Contact.hbm.xml"/>

@@ -6,7 +6,7 @@
   	 <id name="id" type="long" column="ID_GROUP" >
    		<generator class="increment"/>
   	 </id>
-	<property name="groupName" column="GNAME"></property>
+	<property name="groupName" column="GNAME"/>
 	<set name="contacts" table="TJ_Contact_Groups">
 		<key column="ID_GROUP" />
 		<many-to-many class="Contact" column="ID_CONTACT" />

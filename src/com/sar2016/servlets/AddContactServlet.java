@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.Session;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.ContextLoader;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sar2016.entities.Address;
@@ -24,7 +23,6 @@ import com.sar2016.services.ContactService;
 import com.sar2016.services.EnterpriseService;
 import com.sar2016.services.PhoneNumberService;
 import com.sar2016.util.Helper;
-import com.sar2016.util.HibernateUtil;
 
 /**
  * Servlet implementation class AddContactServlet
@@ -43,6 +41,7 @@ public class AddContactServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Transactional
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String firstName = request.getParameter("first_name");
 		String lastName = request.getParameter("last_name");
@@ -55,15 +54,15 @@ public class AddContactServlet extends HttpServlet {
 		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		//try{
 			Contact c = null;
+			ContactService service = null;
 			if(request.getParameter("num_siret") != null){
 				int numSiret = Integer.parseInt(request.getParameter("num_siret"));
 				
-				EnterpriseService entService = (EnterpriseService) ac.getBean("EnterpriseService");
-				c = entService.create(firstName, email, numSiret);
+				service = (EnterpriseService) ac.getBean("EnterpriseService");
+				c = ((EnterpriseService)service).create(firstName, email, numSiret);
 				//EnterpriseService entService = new EnterpriseService();
-				
 			}else{				
-				ContactService service = (ContactService) ac.getBean("ContactService");
+				service = (ContactService) ac.getBean("ContactService");
 				//ContactService service = new ContactService();
 			
 				c = service.create(firstName, lastName, nickName, email);
@@ -84,8 +83,8 @@ public class AddContactServlet extends HttpServlet {
 			
 				Address add = addService.create(placeId, lat, lng, streetNb+" "+street,  city,  zipcode,  country);
 				c.setAddress(add);
-				
-				Helper.hibernateUpdateObject(c);
+				service.getDao().getHibernateTemplate().saveOrUpdate(c);
+				//Helper.hibernateUpdateObject(c);
 			}
 			
 
@@ -102,8 +101,8 @@ public class AddContactServlet extends HttpServlet {
 					if(kind != null && number != null){						
 						PhoneNumber numberObj = phoneService.create(kind, number);
 						c.addProfile(numberObj);
-						Helper.hibernateUpdateObject(c);
-						Helper.hibernateUpdateObject(numberObj);
+						service.getDao().getHibernateTemplate().saveOrUpdate(c);
+						phoneService.getDao().getHibernateTemplate().saveOrUpdate(numberObj);
 					}
 				}
 			}

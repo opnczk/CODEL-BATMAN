@@ -9,7 +9,10 @@ public class UserService extends HibernateDaoSupport{
 	private UserDAO dao;
 	
 	public UserService(){
-		this.dao = new UserDAO();
+	}
+	
+	public UserService(UserDAO dao){
+		this.dao = dao;
 	}
 	
 	public void create(String firstName, String lastName,
@@ -23,5 +26,13 @@ public class UserService extends HibernateDaoSupport{
 	
 	public boolean login(String email,String password){
 		return dao.login(email, password);
+	}
+
+	public UserDAO getDao() {
+		return dao;
+	}
+
+	public void setDao(UserDAO dao) {
+		this.dao = dao;
 	}
 }

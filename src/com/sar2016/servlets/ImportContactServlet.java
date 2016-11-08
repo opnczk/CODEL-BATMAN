@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.sar2016.entities.Contact;
 import com.sar2016.entities.Enterprise;
 import com.sar2016.services.ContactService;
@@ -21,7 +24,7 @@ import com.sar2016.services.EnterpriseService;
  */
 public class ImportContactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -45,7 +48,8 @@ public class ImportContactServlet extends HttpServlet {
 		int nbContacts = Integer.parseInt(request.getParameter("nb_contacts"));
 		System.out.println("Nb_Contacts : "+nbContacts);
 		
-		ContactService service = new ContactService();
+		//ContactService service = new ContactService();
+		ContactService service = (ContactService) ac.getBean("ConatctService");
 		ArrayList<String> gardeFou = new ArrayList();
 		for(int i = 0; i < nbContacts; i++){
 				System.out.println(request.getParameter("contacts["+i+"].email")+" "+request.getParameter("contacts["+i+"].last_name")+" "+request.getParameter("contacts["+i+"].first_name"));
@@ -60,7 +64,8 @@ public class ImportContactServlet extends HttpServlet {
 		
 		List<Contact> contacts = service.getContacts();
 		
-		EnterpriseService es = new EnterpriseService();
+		//EnterpriseService es = new EnterpriseService();
+		EnterpriseService es = (EnterpriseService) ac.getBean("EnterpriseService");
 		List<Enterprise> enterprises = es.getEnterprises();
 		
 		RequestDispatcher rd = request.getRequestDispatcher( "Main.jsp" );

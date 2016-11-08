@@ -1,25 +1,23 @@
 package com.sar2016.dao;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
-import com.sar2016.entities.Address;
 import com.sar2016.entities.ContactGroup;
-import com.sar2016.util.HibernateUtil;
 
 public class ContactGroupDAO extends HibernateDaoSupport{
-	
+	@Transactional (readOnly = false)
 	public void create(String name) {
 		
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-		
+		getHibernateTemplate().setCheckWriteOperations(false);
+
 		ContactGroup c = (ContactGroup) ac.getBean("ContactGroup");
 		c.setGroupName(name);
 		
-		((Session) getHibernateTemplate().getSessionFactory()).save(c);
+		getHibernateTemplate().save(c);
 		
 		//ContactGroup c = new ContactGroup(name);
 		/*
@@ -34,18 +32,20 @@ public class ContactGroupDAO extends HibernateDaoSupport{
 	}
 	
 	public ContactGroup getById(long id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		Transaction tx=session.beginTransaction();
 		
-		return (ContactGroup)session.get(ContactGroup.class, id);
+		return (ContactGroup)session.get(ContactGroup.class, id);*/
+		return getHibernateTemplate().get(ContactGroup.class, id);
 	}
-	
+	@Transactional (readOnly = false)
 	public void deleteById(long id){
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
 		Transaction tx=session.beginTransaction();
 		
-		session.delete(id);
+		session.delete(id);*/
+		getHibernateTemplate().delete(id);
 	}
 }

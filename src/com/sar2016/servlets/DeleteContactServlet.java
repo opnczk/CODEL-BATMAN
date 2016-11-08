@@ -1,25 +1,25 @@
 package com.sar2016.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sar2016.entities.Contact;
-import com.sar2016.entities.Enterprise;
+import org.springframework.context.ApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.sar2016.services.ContactService;
-import com.sar2016.services.EnterpriseService;
 
 /**
  * Servlet implementation class DeleteContactServlet
  */
 public class DeleteContactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,11 +31,12 @@ public class DeleteContactServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Transactional
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		long id = Long.parseLong(request.getParameter("id"));
-		ContactService cs = new ContactService();
+		ContactService cs = (ContactService) ac.getBean("ContactService");
+		//ContactService cs = new ContactService();
 		cs.deleteById(id);
-		
 		response.sendRedirect("home");
 	}
 

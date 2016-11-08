@@ -17,7 +17,6 @@ import com.sar2016.entities.Contact;
 import com.sar2016.entities.Enterprise;
 import com.sar2016.services.ContactService;
 import com.sar2016.services.EnterpriseService;
-import com.sar2016.services.UserService;
 /**
  * Servlet implementation class LoginServlet
  */
