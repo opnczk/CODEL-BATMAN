@@ -2,37 +2,43 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
-  <!-- bloc de 5 propriétés pour décrire les info de connexion-->
-  <!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
-  <!--<property name="hibernate.connection.url">jdbc:mysql://localhost/agenda</property>-->
-  <!-- <property name="hibernate.connection.username">root</property>-->
-  <!-- <property name="hibernate.connection.password"/>-->
-  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-  <!-- <property name="hibernate.connection.CharSet">utf8</property>
-        <property name="hibernate.connection.characterEncoding">utf8</property>
-        <property name="hibernate.connection.useUnicode">true</property>
- fait en sorte qu'Hibernate gere automatiquement la session 
- Celle-ci est liée au thread local. -->
- 
-  <!-- <property name="current_session_context_class">thread</property> -->
- 
-  <!-- defini la taille du pool du JDBC connection -->
-  <property name="connection.pool_size">1</property>
-  <!-- ici on configure le comportement lors du lancement d'hibernate 
- valeur = update i..e si les tables de la base n'existent pas 
-        elles sont crees, sinon elles sont MAJ, 
-        la valeur =create i.e. creation à chaque lancement  -->
-  <!-- Le SQL généré est affiché sur la console -->
-  <property name="hibernate.show_sql">true</property>
-  <!-- Pretty format le SQL généré -->
-  <property name="hibernate.format_sql">true</property>
-
-  <!-- liens vers les fichiers de mapping, indiquez le chemin à partir de src -->
-  <mapping resource="com/sar2016/entities/User.hbm.xml"/>
-  <mapping resource="com/sar2016/entities/Contact.hbm.xml"/>
-  <mapping resource="com/sar2016/entities/PhoneNumber.hbm.xml"/>
-  <mapping resource="com/sar2016/entities/Address.hbm.xml"/>
-  <mapping resource="com/sar2016/entities/ContactGroup.hbm.xml"/>
- </session-factory>
+	<session-factory name="">
+	 	<!-- bloc de 5 propriétés pour décrire les info de connexion-->
+	 	<!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
+	 	<!--<property name="hibernate.connection.url">jdbc:mysql://localhost/agenda</property>-->
+	 	<!-- <property name="hibernate.connection.username">root</property>-->
+	 	<!-- <property name="hibernate.connection.password"/>-->
+	 	<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+	 	<property name="hibernate.enable_lazy_load_no_trans">true</property>
+	 	<property name="hibernate.connection.autocommit">true</property>
+	 	
+		<!-- fait en sorte qu'Hibernate gere automatiquement la session -->
+		<!-- Celle-ci est liée au thread local. -->
+	 	<property name="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</property>
+	 	<!-- <property name="hibernate.connection.CharSet">utf8</property>
+	    <property name="hibernate.connection.characterEncoding">utf8</property>
+	    <property name="hibernate.connection.useUnicode">true</property>
+		fait en sorte qu'Hibernate gere automatiquement la session 
+		Celle-ci est liée au thread local. -->
+	 	<!-- <property name="current_session_context_class">thread</property>-->
+	
+	 	<!-- defini la taille du pool du JDBC connection -->
+	 	<property name="connection.pool_size">1</property>
+	 	
+		<!-- ici on configure le comportement lors du lancement d'hibernate 
+		valeur = update i..e si les tables de la base n'existent pas 
+	    elles sont crees, sinon elles sont MAJ, 
+	    la valeur =create i.e. creation à chaque lancement  -->
+	 	<!-- Le SQL généré est affiché sur la console -->
+	 	<property name="hibernate.show_sql">true</property>
+		<!-- Pretty format le SQL généré -->
+		<property name="hibernate.format_sql">true</property>
+	
+	 	<!-- liens vers les fichiers de mapping, indiquez le chemin à partir de src -->
+	 	<mapping resource="com/sar2016/entities/User.hbm.xml"/>
+	 	<mapping resource="com/sar2016/entities/Contact.hbm.xml"/>
+	 	<mapping resource="com/sar2016/entities/PhoneNumber.hbm.xml"/>
+	 	<mapping resource="com/sar2016/entities/Address.hbm.xml"/>
+	 	<mapping resource="com/sar2016/entities/ContactGroup.hbm.xml"/>
+ 	</session-factory>
 </hibernate-configuration>

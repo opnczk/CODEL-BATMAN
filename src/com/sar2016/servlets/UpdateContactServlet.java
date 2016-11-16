@@ -7,21 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Servlet implementation class UpdateContactServlet
  */
 public class UpdateContactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UpdateContactServlet() {
+    	
         super();
         // TODO Auto-generated constructor stub
     }

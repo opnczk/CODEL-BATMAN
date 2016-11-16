@@ -2,29 +2,26 @@ package com.sar2016.services;
 
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.context.ContextLoader;
-
 import com.sar2016.dao.ContactDAO;
-import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
+
 
 public class ContactService {
 	private ContactDAO dao;
 	
 	public ContactService(){
+
 	}
 
 	public ContactService(ContactDAO dao){
 		this.dao = dao;
 	}
 	
-	public Contact create(String firstName, String lastName, String nickName,
-			String email) {
-		
-		System.out.println("On est arrivé au Service.");
-		
+	public Contact create(Contact c ){
+		return dao.create(c);
+	}
+	
+	public Contact create(String firstName, String lastName, String nickName, String email) {
 		return dao.create(firstName, lastName, nickName, email);
 	}
 	
@@ -56,6 +53,10 @@ public class ContactService {
 		dao.deleteById(id);
 	}
 
+	public void delete(Contact c) {
+		dao.delete(c);
+	}
+	
 	public ContactDAO getDao() {
 		return dao;
 	}

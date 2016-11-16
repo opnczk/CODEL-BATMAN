@@ -4,10 +4,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
-import org.springframework.web.context.ContextLoader;
-
 import com.sar2016.entities.Contact;
 
 public class Helper {

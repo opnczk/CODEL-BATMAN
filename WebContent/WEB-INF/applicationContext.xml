@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans 
+      http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+      http://www.springframework.org/schema/context 
+      http://www.springframework.org/schema/context/spring-context-4.1.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 
-<beans>
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
     	<property name="url" value="jdbc:mysql://localhost/agenda" />
@@ -24,15 +32,15 @@
         </props>
         </property>
    	</bean>
-    <bean  id="Contact" class="com.sar2016.entities.Contact">
+    <bean  id="Contact" class="com.sar2016.entities.Contact" scope="prototype">
     </bean>
-    <bean  id="PhoneNumber" class="com.sar2016.entities.PhoneNumber">
+    <bean  id="PhoneNumber" class="com.sar2016.entities.PhoneNumber" scope="prototype">
     </bean>
-    <bean  id="Address" class="com.sar2016.entities.Address">
+    <bean  id="Address" class="com.sar2016.entities.Address" scope="prototype">
     </bean>
-    <bean  id="Enterprise" class="com.sar2016.entities.Enterprise">
+    <bean  id="Enterprise" class="com.sar2016.entities.Enterprise" scope="prototype">
     </bean>
-    <bean  id="ContactGroup" class="com.sar2016.entities.ContactGroup">
+    <bean  id="ContactGroup" class="com.sar2016.entities.ContactGroup" scope="prototype">
     </bean>
    	<bean id="ContactGroupDAO" class="com.sar2016.dao.ContactGroupDAO">
    		<property name="sessionFactory" ref="sessionFactory" />
@@ -60,12 +68,17 @@
   	<bean id="PhoneNumberService" class="com.sar2016.services.PhoneNumberService">
   	  	<property name="dao" ref="PhoneNumberDAO"/>
   	</bean>
+  	
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="checkWriteOperations" value="false"/>
     </bean>
+    
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    
     
 </beans>

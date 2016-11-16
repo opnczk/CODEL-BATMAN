@@ -2,132 +2,76 @@ package com.sar2016.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
-
 import com.sar2016.entities.Contact;
-import com.sar2016.util.HibernateUtil;
 
+@Transactional
 public class ContactDAO extends HibernateDaoSupport {
+
+	public Contact create (Contact c){
+		getHibernateTemplate().persist(c);
+		getHibernateTemplate().save(c);
+		return c;
+	}
 	
-	@Transactional(readOnly = false)
-	public Contact create(String firstName, String lastName, String nickName,
-			String email) {
+	public Contact create(String firstName, String lastName, String nickName, String email) {
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-		getHibernateTemplate().setCheckWriteOperations(false);
+
 		Contact c = (Contact) ac.getBean("Contact");
 		c.setFirstName(firstName);
 		c.setLastName(lastName);
 		c.setNickName(nickName);
 		c.setEmail(email);
-	
-		getHibernateTemplate().saveOrUpdate(c);
-		
-		//Contact c = new Contact(firstName, lastName, nickName, email);
-		
-		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		Transaction tx = null;
-		if(!session.getTransaction().isActive()){
-			tx = session.beginTransaction();
-		}else{
-			tx = session.getTransaction();
-		}
-		
-		session.save(c);
-		
-		tx.commit();
-		*/
-		
+
+		getHibernateTemplate().persist(c);
+		getHibernateTemplate().save(c);
 		return c;
 	}
 
 	public Contact getById(long id) {
-		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		if(!session.getTransaction().isActive()){
-			Transaction tx = session.beginTransaction();
-		}
-		
-		return (Contact)session.get(Contact.class, id);*/
+
 		return (Contact)getHibernateTemplate().get(Contact.class, id);
 	}
 
 	public Contact getByMail(String mail) {
 		//Written in HQL
-		//Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		//Transaction tx=session.beginTransaction();
 		String query = "from Contact as t where t.email = :mail";
-		//Contact rs = ((Contact) session.createQuery(query).setEntity("mail", mail).uniqueResult());
-		
-		
-		//return rs;
+
 		return (Contact) getHibernateTemplate().find(query, mail);
 	}
 
 	public List<Contact> searchByMail(String mail) {
 		//Written in HQL
-		//Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		/*if(!session.getTransaction().isActive()){
-			Transaction tx = session.beginTransaction();
-		}*/
 		String query = "from Contact as t where t.email like :mail";		
 		String str ="%" + mail + "%";
 	
-		/*List<Contact> rs = session.createQuery(query).setString("mail", str).list();
-		System.out.println("---------------"+rs.size());
-		session.close();
-		*/
 		List<Contact> rs = ((List<Contact>) getHibernateTemplate().find(query, mail));
 		return rs;
 	}	
-	@Transactional (readOnly = false)
-	public void deleteById(long id){
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-
-		Transaction tx = null;
-		if(!session.getTransaction().isActive()){
-			tx = session.beginTransaction();
-		}else{
-			tx = session.getTransaction();
-		}
-		
-		session.delete(this.getById(id));
-		
-		tx.commit();
+	
+	public void delete(Contact c){
+		getHibernateTemplate().delete(c);
 	}
 
 	public List<Contact> getAll() {
-		/*Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		if(!session.getTransaction().isActive()){
-			Transaction tx = session.beginTransaction();
-		}*/
+
 		String query = "from Contact";		
-		//List<Contact> rs = session.createQuery(query).list();
-		//session.close();
 		List<Contact> rs = ((List<Contact>) getHibernateTemplate().find(query));
 		return rs;
 	}
 	
 	public List<Contact> getContacts(){
-		/*Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		if(!session.getTransaction().isActive()){
-			Transaction tx = session.beginTransaction();
-		}*/
+
 		String query = "from Contact as t";
-		
-		//List<Contact> rs = session.createQuery(query).list();
-		//session.close();
-		List<?> rs = getHibernateTemplate().find(query);
+		List<Contact> rs = (List<Contact>) getHibernateTemplate().find(query);
 		return (List<Contact>) rs;
+	}
+
+	public void deleteById(long id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -20,7 +20,6 @@ import com.sar2016.services.ContactService;
  */
 public class ResearchContactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -33,7 +32,8 @@ public class ResearchContactServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ContactService cs = new ContactService();
+		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+
 		ContactService cs = (ContactService)ac.getBean("ContactService");
 		List<Contact> contacts = cs.searchByMail((String)request.getParameter("email"));
 

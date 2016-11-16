@@ -11,14 +11,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.sar2016.entities.Contact;
 import com.sar2016.services.ContactService;
 
 /**
  * Servlet implementation class DeleteContactServlet
  */
+@Transactional
 public class DeleteContactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,12 +32,15 @@ public class DeleteContactServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    @Transactional
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+
 		long id = Long.parseLong(request.getParameter("id"));
 		ContactService cs = (ContactService) ac.getBean("ContactService");
-		//ContactService cs = new ContactService();
-		cs.deleteById(id);
+		Contact c= cs.getById(id);
+		System.out.println(c.toString());
+		cs.delete(c);
 		response.sendRedirect("home");
 	}
 

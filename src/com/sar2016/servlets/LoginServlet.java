@@ -42,24 +42,16 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+
 		String name = request.getParameter( "name" );
 		String password = request.getParameter( "password" );
 		
-		//UserService us = new UserService();
-		
-		/*if(name.equals(password)){
-			us.create("Olivier", "Panczuk", "opanczuk@gmail.com", "root");
-		}*/
-		
-		if(this.redirect || name.equals(password)){
-			ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-			
+		if(this.redirect || name.equals(password)){			
 			ContactService cs = (ContactService) ac.getBean("ContactService");
 			
-			//ContactService cs = new ContactService();
 			List<Contact> contacts = cs.getContacts();
 			EnterpriseService es = (EnterpriseService) ac.getBean("EnterpriseService");
-			//EnterpriseService es = new EnterpriseService();
 			List<Enterprise> enterprises = es.getEnterprises();
 			
 			RequestDispatcher rd = request.getRequestDispatcher( "Main.jsp" );

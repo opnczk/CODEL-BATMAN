@@ -25,43 +25,16 @@ public class AddressDAO extends HibernateDaoSupport {
 		c.setCountry(country);
 		
 		getHibernateTemplate().save(c);
-		//Address c = new Address(placeId, lat, lng, street, city, zip, country);
-		
-		//Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		/*Transaction tx = null;
-		if(!session.getTransaction().isActive()){
-			tx = session.beginTransaction();
-		}else{
-			tx = session.getTransaction();
-		}
-		
-		
-		session.save(c);
-		
-		tx.commit();
-		*/
 		return c;
 	}
 
 	public Address getById(long id) {
-		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		Transaction tx= session.beginTransaction();
-		
-		return (Address)session.get(Address.class, id);
-		*/
 		
 		return (Address)getHibernateTemplate().get(Address.class, id);
 	}
 	
 	public void deleteById(long id){
-		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		Transaction tx=session.beginTransaction();
-		
-		session.delete(id);
-		*/
+
 		getHibernateTemplate().delete(id);
 	}
 }

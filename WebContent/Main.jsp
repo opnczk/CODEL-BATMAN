@@ -102,7 +102,7 @@ desired effect
                 <img src="./starter_fichiers/default-user.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce
+                  Olivier PANCZUK
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>

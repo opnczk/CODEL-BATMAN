@@ -20,7 +20,6 @@ import com.sar2016.services.ContactService;
  */
 public class ProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,8 +33,9 @@ public class ProfileServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+
 		long id = Long.parseLong(request.getParameter("id"));
-		//ContactService cs = new ContactService();
 		ContactService cs = (ContactService)ac.getBean("ContactService");
 		Contact c = cs.getById(id);
 		
