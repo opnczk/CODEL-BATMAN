@@ -3,6 +3,7 @@ package com.sar2016.entities;
 public class Address {
 	long id;
 	String street, city, zip, placeId, country;
+	private long version;
 	
 	public Address() {
 		
@@ -68,5 +69,13 @@ public class Address {
 	public String toString()
 	{
 		return "MemRef :"+super.toString()+" - Address :"+this.street+" - Number :"+this.city;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 }

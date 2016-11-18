@@ -42,6 +42,8 @@
     </bean>
     <bean  id="ContactGroup" class="com.sar2016.entities.ContactGroup" scope="prototype">
     </bean>
+    <bean  id="User" class="com.sar2016.entities.User" scope="prototype">
+    </bean>
    	<bean id="ContactGroupDAO" class="com.sar2016.dao.ContactGroupDAO">
    		<property name="sessionFactory" ref="sessionFactory" />
   	</bean>
@@ -56,11 +58,17 @@
   	</bean>
     <bean id="EnterpriseDAO" parent="ContactDAO" class="com.sar2016.dao.EnterpriseDAO">
   	</bean>
+  	<bean id="UserDAO" class="com.sar2016.dao.UserDAO">
+   		<property name="sessionFactory" ref="sessionFactory" />
+  	</bean>
   	<bean id="AddressService" class="com.sar2016.services.AddressService">
   	<property name="dao" ref="AddressDAO"/>
   		</bean>
   	<bean id="ContactService" class="com.sar2016.services.ContactService">
   	  	<property name="dao" ref="ContactDAO"/>
+  	</bean>
+  	<bean id="ContactGroupService" class="com.sar2016.services.ContactGroupService">
+  	  	<property name="dao" ref="ContactGroupDAO"/>
   	</bean>
     <bean id="EnterpriseService" class="com.sar2016.services.EnterpriseService">
   		<property name="dao" ref="EnterpriseDAO"/>
@@ -68,7 +76,9 @@
   	<bean id="PhoneNumberService" class="com.sar2016.services.PhoneNumberService">
   	  	<property name="dao" ref="PhoneNumberDAO"/>
   	</bean>
-  	
+  	<bean id="UserService" class="com.sar2016.services.UserService">
+  	  	<property name="dao" ref="UserDAO"/>
+  	</bean>
     <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="checkWriteOperations" value="false"/>
@@ -82,7 +92,13 @@
     
     <!-- <bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter">
     	<property name="beans">
-       		<map>
+       		<map>public List<Contact> getContacts() {
+		return dao.getContacts(); 
+	}
+
+	public void setContacts(List<Contact> contacts) {
+		dao.setContacts(contacts); 
+	}
             	<entry key="Hibernate:application=Statistics" value-ref="hibernateStatisticsBean"/>
         	</map>
     	</property>

@@ -5,6 +5,8 @@ public class User {
 	long id;
 	private String firstName, lastName, email, password;
 	
+	private long version;
+	
 	public User(){
 		
 	};
@@ -55,5 +57,13 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 }

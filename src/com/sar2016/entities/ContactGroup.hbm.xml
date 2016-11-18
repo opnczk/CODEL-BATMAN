@@ -7,9 +7,11 @@
    		<generator class="increment"/>
   	 </id>
 	<property name="groupName" column="GNAME"/>
+	<property name="version" column="VERSION"/>
 	<set name="contacts" table="TJ_Contact_Groups">
 		<key column="ID_GROUP" />
 		<many-to-many class="Contact" column="ID_CONTACT" />
 	</set>
+	<many-to-one name="user" column="ID_USER" not-null="true"/>
   </class>
 </hibernate-mapping>

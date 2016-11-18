@@ -1,11 +1,17 @@
 package com.sar2016.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sar2016.entities.User;
 
-public class UserDAO {
-	@Transactional (readOnly = false)
+@Transactional
+public class UserDAO extends HibernateDaoSupport {
+	
+	
 	public void create(String firstName, String lastName, String email, String password) {
 		//ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 		//getHibernateTemplate().setCheckWriteOperations(false);
@@ -27,29 +33,33 @@ public class UserDAO {
 		tx.commit();*/
 	}
 
-	public boolean login(String email, String password) {
-		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	public User login(String email, String password) {
+		String query = "from User as t where t.email = ? and t.password = ?";
 		
-		Transaction tx=session.beginTransaction();
-		String query = "from User as t where t.email = :mail and t.password = :pass";
-		User rs = ((User) session.createQuery(query).setEntity("mail", email).setEntity("pass", password).uniqueResult());
-
-		if(rs != null) 
-			return true;
+	    String[] parameterArray = new String[] { email,password}; 
+		List<?> user = getHibernateTemplate().find(query, parameterArray);
+		
+		if(user.size() > 0)
+			return (User) user.get(0);
 		else
-			return false;*/
-		String query = "from User as t where t.email = :mail and t.password = :pass";
-
-		return false; //getHibernateTemplate().find(query, email, password);
+			return null;
 	}
 
 	public User getById(long id) {
-		/*Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		String query = "from User as t where t.id =  ? ";
 		
-		Transaction tx=session.beginTransaction();
+		List<?> user = getHibernateTemplate().find(query, id);
 		
-		return (User)session.get(User.class, id);*/
-		return null;//(User)getHibernateTemplate().get(User.class, id);
+		if(user.size() > 0)
+			return (User) user.get(0);
+		else
+			return null;
+	}
+
+	public User create(User u) {
+		getHibernateTemplate().persist(u);
+		getHibernateTemplate().save(u);
+		return u;
 	}
 
 }

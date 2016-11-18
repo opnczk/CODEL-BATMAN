@@ -20,11 +20,11 @@ public class EnterpriseService extends ContactService {
 	public Contact create(String nom, String mail, int siret) {
 		return dao.create(nom, mail, siret);
 	}
-	public List<Contact> getAll() {
-		return dao.getAll();
+	public List<Contact> getAll(long id) {
+		return dao.getAll(id);
 	}
-	public List<Enterprise> getEnterprises() {
-		return dao.getEnterprises();
+	public List<Enterprise> getEnterprises(long id) {
+		return dao.getEnterprises(id);
 	}
 
 	public EnterpriseDAO getDao() {

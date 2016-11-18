@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sar2016.dao.ContactDAO;
 import com.sar2016.entities.Contact;
+import com.sar2016.entities.User;
 
 
 public class ContactService {
@@ -21,8 +22,8 @@ public class ContactService {
 		return dao.create(c);
 	}
 	
-	public Contact create(String firstName, String lastName, String nickName, String email) {
-		return dao.create(firstName, lastName, nickName, email);
+	public Contact create(String firstName, String lastName, String nickName, String email, User user) {
+		return dao.create(firstName, lastName, nickName, email, user);
 	}
 	
 	public Contact getById(long id){
@@ -41,12 +42,12 @@ public class ContactService {
 		return dao.getById(id);
 	}
 
-	public List<Contact> getAll() {
-		return dao.getAll();
+	public List<Contact> getAll(long id) {
+		return dao.getAll(id);
 	}
 
-	public List<Contact> getContacts() {
-		return dao.getContacts(); 
+	public List<Contact> getContacts(long id) {
+		return dao.getContacts(id); 
 	}
 
 	public void deleteById(long id) {

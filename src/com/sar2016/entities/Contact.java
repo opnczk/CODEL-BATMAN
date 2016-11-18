@@ -9,6 +9,8 @@ public class Contact {
 	Address address;
 	private Set<ContactGroup> books = new HashSet<ContactGroup>();
 	private Set<PhoneNumber> profiles = new HashSet<PhoneNumber>();
+	private long version;
+	private User user;
 	
 	public Contact()
 	{
@@ -122,6 +124,22 @@ public class Contact {
 	public String toString()
 	{
 		return "MemRef :"+super.toString()+" - FName :"+this.firstName+" - LName :"+this.lastName;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	

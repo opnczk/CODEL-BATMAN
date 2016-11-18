@@ -11,5 +11,6 @@
 	<property name="zip" column="ZIP"/>
 	<property name="country" column="COUNTRY"/>
 	<property name="placeId" column="PLACE_ID"/>
+	<property name="version" column="VERSION"/>
   </class>
 </hibernate-mapping>

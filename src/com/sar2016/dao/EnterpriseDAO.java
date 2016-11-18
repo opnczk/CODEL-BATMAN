@@ -38,11 +38,11 @@ public class EnterpriseDAO extends ContactDAO{
 		getHibernateTemplate().delete(id);
 	}
 	
-	public List<Enterprise> getEnterprises(){
+	public List<Enterprise> getEnterprises(long id){
 
-		String query = "from Contact as t where t.class = Enterprise";
+		String query = "from Contact as t where t.class = Enterprise and t.user.id = ?";
 
-		List<Enterprise> rs = (List<Enterprise>) (getHibernateTemplate().find(query));
+		List<Enterprise> rs = (List<Enterprise>) (getHibernateTemplate().find(query, id));
 		return rs;
 	}
 }

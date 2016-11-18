@@ -7,7 +7,9 @@ public class ContactGroup {
 	long id;
 	String groupName;
 	private Set<Contact> contacts = new HashSet<Contact>();
-
+	private long version;
+	private User user;
+	
 	public ContactGroup() {
 		
 	}
@@ -50,6 +52,22 @@ public class ContactGroup {
 		this.contacts.remove(contact);
 		if(contact.getBooks().contains(this))
 			contact.removeBook(this);
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	

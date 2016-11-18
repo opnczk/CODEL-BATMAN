@@ -4,6 +4,7 @@ public class PhoneNumber {
 	long id;
 	String phoneKind, phoneNumber;
 	Contact contact;
+	private long version;
 	
 	public Contact getContact() {
 		return contact;
@@ -53,5 +54,13 @@ public class PhoneNumber {
 	public String toString()
 	{
 		return "MemRef :"+super.toString()+" - PhoneKind :"+this.phoneKind+" - Number :"+this.phoneNumber;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 }

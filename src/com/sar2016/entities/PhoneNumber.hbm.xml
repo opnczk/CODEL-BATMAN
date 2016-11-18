@@ -8,6 +8,7 @@
   	 </id>
 	<property name="phoneKind" column="PKIND"/>
 	<property name="phoneNumber" column="PNUMB"/>
+	<property name="version" column="VERSION"/>
 	
 	<many-to-one name="contact" column="ID_CONTACT" not-null="false"/>
   </class>

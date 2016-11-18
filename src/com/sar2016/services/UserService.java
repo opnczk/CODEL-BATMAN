@@ -1,11 +1,9 @@
 package com.sar2016.services;
 
-import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
-
 import com.sar2016.dao.UserDAO;
 import com.sar2016.entities.User;
 
-public class UserService extends HibernateDaoSupport{
+public class UserService {
 	private UserDAO dao;
 	
 	public UserService(){
@@ -13,6 +11,10 @@ public class UserService extends HibernateDaoSupport{
 	
 	public UserService(UserDAO dao){
 		this.dao = dao;
+	}
+	
+	public User create(User u) {
+		return dao.create(u);
 	}
 	
 	public void create(String firstName, String lastName,
@@ -24,7 +26,7 @@ public class UserService extends HibernateDaoSupport{
 		return dao.getById(id);
 	}
 	
-	public boolean login(String email,String password){
+	public User login(String email,String password){
 		return dao.login(email, password);
 	}
 

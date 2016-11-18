@@ -6,7 +6,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
+
 import com.sar2016.entities.Contact;
+import com.sar2016.entities.User;
 
 @Transactional
 public class ContactDAO extends HibernateDaoSupport {
@@ -17,7 +19,7 @@ public class ContactDAO extends HibernateDaoSupport {
 		return c;
 	}
 	
-	public Contact create(String firstName, String lastName, String nickName, String email) {
+	public Contact create(String firstName, String lastName, String nickName, String email, User user) {
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 
 		Contact c = (Contact) ac.getBean("Contact");
@@ -25,6 +27,7 @@ public class ContactDAO extends HibernateDaoSupport {
 		c.setLastName(lastName);
 		c.setNickName(nickName);
 		c.setEmail(email);
+		c.setUser(user);
 
 		getHibernateTemplate().persist(c);
 		getHibernateTemplate().save(c);
@@ -56,17 +59,17 @@ public class ContactDAO extends HibernateDaoSupport {
 		getHibernateTemplate().delete(c);
 	}
 
-	public List<Contact> getAll() {
-
-		String query = "from Contact";		
-		List<Contact> rs = ((List<Contact>) getHibernateTemplate().find(query));
+	public List<Contact> getAll(long userId) {
+		
+		String query = "from Contact as t where t.user.id  = ?";		
+		List<Contact> rs = ((List<Contact>) getHibernateTemplate().find(query, userId));
 		return rs;
 	}
 	
-	public List<Contact> getContacts(){
+	public List<Contact> getContacts(long userId){
 
-		String query = "from Contact as t";
-		List<Contact> rs = (List<Contact>) getHibernateTemplate().find(query);
+		String query = "from Contact as t where t.user.id  = ?";
+		List<Contact> rs = (List<Contact>) getHibernateTemplate().find(query, userId);
 		return (List<Contact>) rs;
 	}
 

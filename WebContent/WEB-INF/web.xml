@@ -16,6 +16,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>RegisterServlet</display-name>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>AddContactServlet</display-name>
     <servlet-name>AddContactServlet</servlet-name>
     <servlet-class>com.sar2016.servlets.AddContactServlet</servlet-class>
@@ -23,6 +33,16 @@
   <servlet-mapping>
     <servlet-name>AddContactServlet</servlet-name>
     <url-pattern>/add-contact</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>AddContactGroupServlet</display-name>
+    <servlet-name>AddContactGroupServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.AddContactGroupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddContactGroupServlet</servlet-name>
+    <url-pattern>/add-contact-group</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

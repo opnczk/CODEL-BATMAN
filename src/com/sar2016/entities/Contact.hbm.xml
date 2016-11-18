@@ -10,11 +10,12 @@
 	<property name="firstName" column="FNAME" type="string"/>
 	<property name="lastName" column="LNAME" type="string"/>
 	<property name="nickName" column="NNAME" type="string"/>
+	<property name="version" column="VERSION"/>
 	<property name="email" column="EMAIL" unique="true" type="string"/>
 	<!-- A voir l'utilité ! -->
 	
 	<many-to-one name="address" cascade="all" column="ID_ADDRESS" unique="true" not-null="false"/>
-	
+	<many-to-one name="user" column="ID_USER" not-null="true"/>
 	<set name="books" table="TJ_Contact_Groups" cascade="delete-orphan" inverse="true">
 		<key column="ID_CONTACT" />
 		<many-to-many class="ContactGroup" column="ID_GROUP" />

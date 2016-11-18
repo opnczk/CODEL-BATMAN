@@ -10,5 +10,6 @@
 	<property name="lastName" column="LNAME" type="string"/>
 	<property name="email" column="EMAIL" unique="true" type="string"/>
 	<property name="password" column="PASSWORD" type="string"/>
+	<property name="version" column="VERSION"/>
   </class>
 </hibernate-mapping>
