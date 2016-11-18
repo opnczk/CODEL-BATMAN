@@ -33,12 +33,17 @@
 	 	<property name="hibernate.show_sql">true</property>
 		<!-- Pretty format le SQL généré -->
 		<property name="hibernate.format_sql">true</property>
-	
+		
+		<property name="hibernate.generate_statistics">true</property>
+		
 	 	<!-- liens vers les fichiers de mapping, indiquez le chemin à partir de src -->
 	 	<mapping resource="com/sar2016/entities/User.hbm.xml"/>
 	 	<mapping resource="com/sar2016/entities/Contact.hbm.xml"/>
 	 	<mapping resource="com/sar2016/entities/PhoneNumber.hbm.xml"/>
 	 	<mapping resource="com/sar2016/entities/Address.hbm.xml"/>
 	 	<mapping resource="com/sar2016/entities/ContactGroup.hbm.xml"/>
+	 	
+	 	
+	 	
  	</session-factory>
 </hibernate-configuration>
