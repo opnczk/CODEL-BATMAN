@@ -20,6 +20,7 @@ import com.sar2016.entities.Enterprise;
 import com.sar2016.entities.User;
 import com.sar2016.services.ContactService;
 import com.sar2016.services.EnterpriseService;
+import com.sar2016.services.UserService;
 /**
  * Servlet implementation class LoginServlet
  */
@@ -49,10 +50,26 @@ public class LoginServlet extends HttpServlet {
 
 		String name = request.getParameter( "name" );
 		String password = request.getParameter( "password" );
+		String token = request.getParameter( "idtoken" );
+		
+		
 		
 		UserDAO userDao = (UserDAO) ac.getBean("UserDAO");
 		User user = userDao.login(name, password);
-		
+		if( user == null)
+		{
+			user = userDao.loginGoogle(token, name);
+			if(user == null){
+				User u = new User();
+				UserService uservice = (UserService) ac.getBean("UserService");
+				u.setFirstName(request.getParameter("first_name"));
+				u.setLastName(request.getParameter("last_name"));
+				u.setEmail(name);
+				u.setPassword("");
+				System.out.println("goode ! => création du user");
+				uservice.create(u);
+			}
+		}
 		
 		if(this.redirect || user != null){
 			HttpSession session = request.getSession();

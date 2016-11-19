@@ -6,8 +6,6 @@
 <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="128124732452-h8ja44bqta91s95ui0empsgde5nj122i.apps.googleusercontent.com">
-</head>
-
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 <style>
 /*
@@ -98,13 +96,13 @@ input::-webkit-input-placeholder {
         var id_token = googleUser.getAuthResponse().id_token;
         console.log("ID Token: " + id_token);
       	document.getElementById("idtokeninput").value = '' + id_token ;
+      	document.getElementById("emailinput").value= '' + profile.getEmail();
+      	document.getElementById("firstname").value= '' + profile.getGivenName();
+      	document.getElementById("lastname").value= '' + profile.getFamilyName();
       	document.getElementById("loginForm").submit();
       }
     </script>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head> 
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 
@@ -138,7 +136,9 @@ input::-webkit-input-placeholder {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="email" class="form-control" name="name" id="name"  placeholder="Enter your Mail"/>
+									<input type="email" class="form-control" name="name" id="emailinput"  placeholder="Enter your Mail"/>
+									<input type="hidden" name="first_name" id="firstname" />
+									<input type="hidden" name="last_name" id="lastname" />
 								</div>
 						</div>
 						</div>

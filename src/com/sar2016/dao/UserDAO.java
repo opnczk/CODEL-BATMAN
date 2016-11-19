@@ -62,4 +62,13 @@ public class UserDAO extends HibernateDaoSupport {
 		return u;
 	}
 
+	public User loginGoogle(String token, String email) {
+		String query = "from User as t where t.email = ? ";
+		List<?> user = getHibernateTemplate().find(query, email);
+		if(user.size() > 0)
+			return (User) user.get(0);
+		else
+			return null;
+		}
+
 }
