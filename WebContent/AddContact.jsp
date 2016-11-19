@@ -171,7 +171,7 @@ desired effect
   <div id="morphsearch" class="morphsearch">
 
     <div class="morphsearch-content">
-        <form id="morphsearch-form-front" action="{{ url($prefix[0].'/test/') }}" method="post" class="morphsearch-form" data-ajaxsuccesshandler="adminSearchSuccessHandler" data-ajaxerrorhandler="adminSearchErrorHandler">
+        <form id="morphsearch-form-front" action="#" method="post" class="morphsearch-form" data-ajaxsuccesshandler="adminSearchSuccessHandler" data-ajaxerrorhandler="adminSearchErrorHandler">
             <div class="input-group">
                 <input id="morphsearch-input-open" name="SEARCH_TERMS" class="form-control " placeholder="Search..." autocomplete="off" type="text">
               <span class="input-group-btn">
@@ -246,37 +246,38 @@ desired effect
 				    				<div class="form-group">
 										<input type="text" class="form-control" id="name" name="first_name" placeholder="First name" required>
 									</div>
-									<div class="form-group">
-										<input type="text" class="form-control" id="name" name="last_name" placeholder="Last name" required>
+									<div class="form-group contact-spec">
+										<input type="text" class="form-control" id="name" name="last_name" placeholder="Last name">
 									</div>
 									<div class="form-group">
 										<input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
 									</div>
-									<div class="form-group">
-										<input type="text" class="form-control" id="nick_name" name="nick_name" placeholder="Nickname" required>
+									<div class="form-group contact-spec">
+										<input type="text" class="form-control" id="nick_name" name="nick_name" placeholder="Nickname">
+									</div>
+									<div class="form-group company-spec" style="display: none;">
+										<input type="text" class="form-control" id="siretnum" name="siret_num" placeholder="Siret Number">
 									</div>
 									<div id="phonesList" class="form-group">
 										<div class="input-group">
 									      <input class="form-control" placeholder="Add a phone number" type="text" disabled>
 									      <span class="input-group-btn">
-									      	<input id="nbPhones" name="nb_phones" value="0" hidden/>
+									      	<input id="nbPhones" name="nb_phones" value="0" type="hidden"/>
 									        <button id="addPhoneButton" class="btn btn-secondary" type="button"><i class="fa fa-plus"></i></button>
 									      </span>
 									    </div>
 									    
 									</div>
 									
-									<span style="display : none;">
-										<input class="address-field" name="PLACE_ID" />
-										<input class="address-field" name="ADD_LAT" />
-										<input class="address-field" name="ADD_LNG" />
-										<input class="address-field" name="ADD_ST_NB" />
-										<input class="address-field" name="ADD_STREET" />
-										<input class="address-field" name="ADD_CITY" />
-										<input class="address-field" name="ADD_COUNTRY" />
-										<input class="address-field" name="ADD_ZIPCODE" />
-									</span>
-									
+									<input type="hidden" class="address-field" name="PLACE_ID" />
+									<input type="hidden" class="address-field" name="ADD_LAT" />
+									<input type="hidden" class="address-field" name="ADD_LNG" />
+									<input type="hidden" class="address-field" name="ADD_ST_NB" />
+									<input type="hidden" class="address-field" name="ADD_STREET" />
+									<input type="hidden" class="address-field" name="ADD_CITY" />
+									<input type="hidden" class="address-field" name="ADD_COUNTRY" />
+									<input type="hidden" class="address-field" name="ADD_ZIPCODE" />
+
 									</form>
 									<div class="form-group">
 									<input id="autocomplete" class="form-control" class="controls" type="text"
@@ -298,6 +299,7 @@ desired effect
                     </div>
                     <div class="panel-footer">
                      <button type="submit" form="form" id="submit" name="submit" class="btn btn-primary">Submit Form</button>
+                     <button id="switchButton" class="pull-right btn btn-primary">Company</button>
                     </div>
                 </div>
             </div>
@@ -362,6 +364,19 @@ desired effect
 					$("#autocomplete").val("");
 					$("#selectedAddress").hide();
 					GMapsHelper.deleteMarkers();
+				});
+				
+				$("#switchButton").click(function(){
+					var value = $("#switchButton").html();
+					if(value == "Company"){
+						 $("#switchButton").html("Contact");
+						 $(".contact-spec").show();
+						 $(".company-spec").hide();
+					}else{
+						 $("#switchButton").html("Company");
+						 $(".contact-spec").hide();
+						 $(".company-spec").show();
+					}
 				});
 				
 				$("#addPhoneButton").click(function(){

@@ -73,9 +73,10 @@ public class LoginServlet extends HttpServlet {
 		
 		if(this.redirect || user != null){
 			HttpSession session = request.getSession();
-			session.setAttribute("logged_user", user.getId());
+			if(!this.redirect){
+				session.setAttribute("logged_user", user.getId());
+			}
 			System.out.println("Logged_user_id "+session.getAttribute("logged_user"));
-			
 			ContactService cs = (ContactService) ac.getBean("ContactService");
 			
 			List<Contact> contacts = cs.getContacts((Long) request.getSession().getAttribute("logged_user"));

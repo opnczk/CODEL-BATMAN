@@ -127,6 +127,9 @@ public class AddContactServlet extends HttpServlet {
 						
 						if(kind != null && number != null){						
 							PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
+							pn.setContact(c);
+							pn.setPhoneKind(kind);
+							pn.setPhoneNumber(number);
 							c.addProfile(pn);
 						}
 					}
