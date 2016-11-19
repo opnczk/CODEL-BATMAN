@@ -5,9 +5,9 @@ import java.util.Set;
 
 public class ContactGroup {
 	long id;
+	private long version;
 	String groupName;
 	private Set<Contact> contacts = new HashSet<Contact>();
-	private long version;
 	private User user;
 	
 	public ContactGroup() {

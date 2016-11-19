@@ -5,11 +5,11 @@ import java.util.Set;
 
 public class Contact {
 	long id;
+	private long version;
 	String firstName, lastName, nickName, email;
 	Address address;
 	private Set<ContactGroup> books = new HashSet<ContactGroup>();
 	private Set<PhoneNumber> profiles = new HashSet<PhoneNumber>();
-	private long version;
 	private User user;
 	
 	public Contact()

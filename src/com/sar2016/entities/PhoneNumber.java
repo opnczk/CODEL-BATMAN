@@ -2,9 +2,9 @@ package com.sar2016.entities;
 
 public class PhoneNumber {
 	long id;
+	private long version;
 	String phoneKind, phoneNumber;
 	Contact contact;
-	private long version;
 	
 	public Contact getContact() {
 		return contact;

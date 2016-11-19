@@ -7,12 +7,13 @@ import org.springframework.web.context.ContextLoader;
 
 import com.sar2016.entities.Address;
 
+@Transactional
 public class AddressDAO extends HibernateDaoSupport {
 	
 	public AddressDAO(){
 		
 	}
-	@Transactional (readOnly = false)
+	
 	public Address create(String placeId,String lat,String lng, String street, String city, String zip, String country) {
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 		getHibernateTemplate().setCheckWriteOperations(false);

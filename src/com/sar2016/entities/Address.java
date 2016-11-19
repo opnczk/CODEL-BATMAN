@@ -2,8 +2,8 @@ package com.sar2016.entities;
 
 public class Address {
 	long id;
-	String street, city, zip, placeId, country;
 	private long version;
+	String street, city, zip, placeId, country;
 	
 	public Address() {
 		

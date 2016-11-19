@@ -3,9 +3,10 @@ package com.sar2016.entities;
 public class User {
 	
 	long id;
+	private long version;
 	private String firstName, lastName, email, password;
 	
-	private long version;
+	
 	
 	public User(){
 		
