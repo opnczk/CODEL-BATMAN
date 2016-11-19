@@ -18,18 +18,11 @@
 </head>
 <body>
 	<%List<Object> results = (List<Object>)request.getAttribute("result"); %>
-	ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 	<% for(int i =0; i < results.size(); i++){%>
 		<div>
-		<% if (results.get(i) instanceof Contact)
-			out.println(((Contact)results.get(i)).getFirstName());
-			if (results.get(i) instanceof ContactGroup)
-				out.println(((ContactGroup)results.get(i)).getGroupName()); 
-			if (results.get(i) instanceof Address){
-				//ContactDAO cdao = (ContactDAO)ac.getBean("ContactDAO"); 
-				out.println(((Contact)results.get(i)).getFirstName());
-			}
-			%>
+		<%
+			out.println(((Contact)results.get(i)).getEmail());
+		%>
 		</div>
 	<%}%>
 </body>

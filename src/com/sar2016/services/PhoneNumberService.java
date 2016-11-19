@@ -1,5 +1,7 @@
 package com.sar2016.services;
 
+import java.util.List;
+
 import com.sar2016.dao.PhoneNumberDAO;
 import com.sar2016.entities.PhoneNumber;
 
@@ -24,5 +26,9 @@ public class PhoneNumberService {
 
 	public void setDao(PhoneNumberDAO dao) {
 		this.dao = dao;
+	}
+	
+	public List<PhoneNumber> getByPart(String str){
+		return dao.searchByPart(str);
 	}
 }

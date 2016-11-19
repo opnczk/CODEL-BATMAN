@@ -30,6 +30,10 @@ public class ContactService {
 		return dao.getById(id);
 	}
 	
+	public List<Contact> getByPart(String str){
+		return dao.searchByPart(str);
+	}
+	
 	public Contact getByMail(String mail){
 		return dao.getByMail(mail);
 	}

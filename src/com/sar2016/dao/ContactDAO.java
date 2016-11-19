@@ -77,4 +77,14 @@ public class ContactDAO extends HibernateDaoSupport {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public List<Contact> searchByPart(String str) {
+		//Written in HQL
+		String query = "from Contact as t where t.firstName like ? or t.lastName like ? or t.nickName like ? or  t.email like ?";		
+		String param ="%"+str+"%";
+	
+		List<Contact> rs = ((List<Contact>) getHibernateTemplate().find(query, "%"+param+"%", "%"+param+"%", "%"+param+"%", "%"+param+"%"));
+		return rs;
+	}
+	
 }

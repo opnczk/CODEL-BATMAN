@@ -50,4 +50,8 @@ public class ContactGroupService {
 	public void setDao(ContactGroupDAO dao) {
 		this.dao = dao;
 	}
+	
+	public List<ContactGroup> getByPart(String str){
+		return dao.searchByPart(str);
+	}
 }

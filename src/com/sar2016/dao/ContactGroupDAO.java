@@ -53,4 +53,13 @@ public class ContactGroupDAO extends HibernateDaoSupport {
 	public void delete(ContactGroup c) {
 		getHibernateTemplate().delete(c);
 	}
+
+	public List<ContactGroup> searchByPart(String str) {
+		//Written in HQL
+		String query = "from ContactGroup as t where t.groupName = ?";		
+		String param ="%"+str+"%";
+	
+		List<ContactGroup> rs = ((List<ContactGroup>) getHibernateTemplate().find(query, "%"+param+"%"));
+		return rs;
+	}
 }

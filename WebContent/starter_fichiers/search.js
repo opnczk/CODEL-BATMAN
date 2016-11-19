@@ -94,11 +94,22 @@
             }
             var keyCode = ev.keyCode || ev.which;
             if(keyCode != 8 && keyCode != 46) { // backspace
+
                 searchTrigger();
             }
         } );
         document.getElementById('morphsearch-input-open').addEventListener( 'keydown', function( ev ) {
             var keyCode = ev.keyCode || ev.which;
+            $.ajax({
+            	  type: "POST",
+            	  url: "/GestionContact/ResearchAllServlet",
+            	  data: {"param":this.value},
+            	  success: function(data){
+            		 
+            		  $("#users-results h3").html(data);
+            	  }
+
+            	});
             if(keyCode != 8 && keyCode != 46) { // backspace
                 searchTrigger();
             }

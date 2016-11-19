@@ -64,6 +64,21 @@
     <servlet-name>ResearchContactServlet</servlet-name>
     <url-pattern>/ResearchContactServlet</url-pattern>
   </servlet-mapping>
+  
+  
+    <servlet>
+    <description></description>
+    <display-name>ResearchAllServlet</display-name>
+    <servlet-name>ResearchAllServlet</servlet-name>
+    <servlet-class>com.sar2016.servlets.ResearchAllServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResearchAllServlet</servlet-name>
+    <url-pattern>/ResearchAllServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
   <servlet>
     <description></description>
     <display-name>AddAddressServlet</display-name>
