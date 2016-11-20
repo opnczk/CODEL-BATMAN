@@ -16,8 +16,10 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sar2016.dao.UserDAO;
 import com.sar2016.entities.Contact;
+import com.sar2016.entities.ContactGroup;
 import com.sar2016.entities.Enterprise;
 import com.sar2016.entities.User;
+import com.sar2016.services.ContactGroupService;
 import com.sar2016.services.ContactService;
 import com.sar2016.services.EnterpriseService;
 import com.sar2016.services.UserService;
@@ -66,8 +68,25 @@ public class LoginServlet extends HttpServlet {
 				u.setLastName(request.getParameter("last_name"));
 				u.setEmail(name);
 				u.setPassword("");
-				System.out.println("goode ! => création du user");
+				
 				uservice.create(u);
+				
+				ContactGroupService cgservice = (ContactGroupService) ac.getBean("ContactGroupService");
+				ContactGroup cgWork = (ContactGroup) ac.getBean("ContactGroup");
+				cgWork.setGroupName("Work");
+				cgWork.setUser(u);
+				ContactGroup cgFamily = (ContactGroup) ac.getBean("ContactGroup");
+				cgFamily.setGroupName("Family");
+				cgFamily.setUser(u);
+				ContactGroup cgFriends = (ContactGroup) ac.getBean("ContactGroup");
+				cgFriends.setGroupName("Friends");
+				cgFriends.setUser(u);
+				
+				
+				user = u;
+				cgservice.create(cgWork);
+				cgservice.create(cgFamily);
+				cgservice.create(cgFriends);
 			}
 		}
 		

@@ -20,9 +20,11 @@ import com.sar2016.dao.EnterpriseDAO;
 import com.sar2016.dao.UserDAO;
 import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
+import com.sar2016.entities.ContactGroup;
 import com.sar2016.entities.Enterprise;
 import com.sar2016.entities.PhoneNumber;
 import com.sar2016.services.AddressService;
+import com.sar2016.services.ContactGroupService;
 import com.sar2016.services.ContactService;
 import com.sar2016.services.EnterpriseService;
 import com.sar2016.services.PhoneNumberService;
@@ -42,7 +44,22 @@ public class AddContactServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-	/**
+    /**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+    @Autowired
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+		
+    	RequestDispatcher rd = request.getRequestDispatcher( "AddContact.jsp" );
+		
+    	List<ContactGroup> contactGroups = ((ContactGroupService) ac.getBean("ContactGroupService")).getAll(Long.parseLong(request.getSession().getAttribute("logged_user").toString()));
+		request.setAttribute("contactGroups", contactGroups);
+		
+		rd.forward(request, response);
+    }
+
+    /**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
     @Autowired

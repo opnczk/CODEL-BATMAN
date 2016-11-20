@@ -34,7 +34,7 @@
     <servlet-name>AddContactServlet</servlet-name>
     <url-pattern>/add-contact</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>AddContactGroupServlet</display-name>
     <servlet-name>AddContactGroupServlet</servlet-name>
@@ -64,9 +64,7 @@
     <servlet-name>ResearchContactServlet</servlet-name>
     <url-pattern>/ResearchContactServlet</url-pattern>
   </servlet-mapping>
-  
-  
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>ResearchAllServlet</display-name>
     <servlet-name>ResearchAllServlet</servlet-name>
@@ -76,9 +74,6 @@
     <servlet-name>ResearchAllServlet</servlet-name>
     <url-pattern>/ResearchAllServlet</url-pattern>
   </servlet-mapping>
-  
-  
-  
   <servlet>
     <description></description>
     <display-name>AddAddressServlet</display-name>
@@ -139,14 +134,11 @@
     <servlet-name>ImportContactServlet</servlet-name>
     <url-pattern>/import-contacts</url-pattern>
   </servlet-mapping>
-  
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/applicationContext.xml</param-value>
   </context-param>
-
   <listener>
-	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-    
 </web-app>

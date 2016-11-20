@@ -10,13 +10,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sar2016.entities.Contact;
+import com.sar2016.entities.ContactGroup;
 import com.sar2016.entities.Enterprise;
 import com.sar2016.entities.User;
+import com.sar2016.services.ContactGroupService;
 import com.sar2016.services.ContactService;
 import com.sar2016.services.EnterpriseService;
 import com.sar2016.services.UserService;
@@ -63,10 +66,25 @@ public class RegisterServlet extends HttpServlet {
 				u.setLastName(lastName);
 				u.setEmail(email);
 				u.setPassword(password);
-				System.out.println("goode ! => création du user");
 				uservice.create(u);
 				success =true;
-
+				
+				ContactGroupService cgservice = (ContactGroupService) ac.getBean("ContactGroupService");
+				ContactGroup cgWork = (ContactGroup) ac.getBean("ContactGroup");
+				cgWork.setGroupName("Work");
+				cgWork.setUser(u);
+				ContactGroup cgFamily = (ContactGroup) ac.getBean("ContactGroup");
+				cgFamily.setGroupName("Family");
+				cgFamily.setUser(u);
+				ContactGroup cgFriends = (ContactGroup) ac.getBean("ContactGroup");
+				cgFriends.setGroupName("Friends");
+				cgFriends.setUser(u);
+				
+				cgservice.create(cgWork);
+				cgservice.create(cgFamily);
+				cgservice.create(cgFriends);
+				
+				request.getSession().setAttribute("logged_user", u.getId());
 			}
 		}else{
 			System.out.println("BAD ! => rejet");
