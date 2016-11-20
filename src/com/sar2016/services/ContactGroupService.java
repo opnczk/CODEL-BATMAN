@@ -54,4 +54,8 @@ public class ContactGroupService {
 	public List<ContactGroup> getByPart(String str){
 		return dao.searchByPart(str);
 	}
+
+	public void update(ContactGroup cg) {
+		dao.updateContactGroup(cg);
+	}
 }

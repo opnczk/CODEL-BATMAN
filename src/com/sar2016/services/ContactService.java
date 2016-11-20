@@ -61,6 +61,9 @@ public class ContactService {
 	public void delete(Contact c) {
 		dao.delete(c);
 	}
+	public void update(Contact c){
+		dao.updateContact(c);
+	}
 	
 	public ContactDAO getDao() {
 		return dao;

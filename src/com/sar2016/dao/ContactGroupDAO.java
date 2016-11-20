@@ -62,4 +62,9 @@ public class ContactGroupDAO extends HibernateDaoSupport {
 		List<ContactGroup> rs = ((List<ContactGroup>) getHibernateTemplate().find(query, "%"+param+"%"));
 		return rs;
 	}
+
+	public void updateContactGroup(ContactGroup cg) {
+		getHibernateTemplate().merge(cg); 
+		getHibernateTemplate().update(cg);
+	}
 }

@@ -87,4 +87,8 @@ public class ContactDAO extends HibernateDaoSupport {
 		return rs;
 	}
 	
+	public void updateContact (Contact c){
+		getHibernateTemplate().merge(c); 
+		getHibernateTemplate().update(c);
+	}
 }
