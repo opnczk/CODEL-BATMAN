@@ -134,20 +134,16 @@ public class AddContactServlet extends HttpServlet {
 					cg = (ContactGroup) ac.getBean("ContactGroup");
 					cg.setGroupName(request.getParameter("groupName"));
 					cg.setUser(((UserService) ac.getBean("UserService")).getById((Long) request.getSession().getAttribute("logged_user")));
-					cg=cgService.create(cg);
-					
-					c.addBook(cg);
-				
+					cgService.create(cg);
 				}else if(request.getParameter("contactGroup") != ""){
 					String tempStr = request.getParameter("contactGroup");
 					tempStr.trim();
 					cg = cgService.getById(Long.parseLong(tempStr));
-					System.out.println("ContactGroup"+cg);
-					//cg.addContact(c);
-					c.addBook(cg);
+					System.out.println("ContactGroup"+cg);	
 				}
-				c=service.create(c);
 				cg.addContact(c);
+				c.addBook(cg);
+				service.create(c);
 			}else{
 				ContactService service = null;
 				Contact c = null;
@@ -184,17 +180,15 @@ public class AddContactServlet extends HttpServlet {
 					cg = (ContactGroup) ac.getBean("ContactGroup");
 					cg.setGroupName(request.getParameter("groupName"));
 					cg.setUser(((UserService) ac.getBean("UserService")).getById((Long) request.getSession().getAttribute("logged_user")));
-					cg.addContact(c);
-					c.addBook(cg);
 					cgService.create(cg);
 				}else if(request.getParameter("contactGroup") != ""){
 					String tempStr = request.getParameter("contactGroup");
 					tempStr.trim();
 					cg = cgService.getById(Long.parseLong(tempStr));
-					System.out.println("ContactGroup"+cg);
-					cg.addContact(c);
-					c.addBook(cg);
+					System.out.println("ContactGroup"+cg);	
 				}
+				cg.addContact(c);
+				c.addBook(cg);
 				service.create(c);
 			}			
 		}
