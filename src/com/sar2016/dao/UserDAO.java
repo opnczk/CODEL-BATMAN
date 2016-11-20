@@ -58,7 +58,8 @@ public class UserDAO extends HibernateDaoSupport {
 
 	public User create(User u) {
 		getHibernateTemplate().persist(u);
-		getHibernateTemplate().save(u);
+		long id=(long) getHibernateTemplate().save(u);
+		u=(User) getHibernateTemplate().get(User.class, id);
 		return u;
 	}
 

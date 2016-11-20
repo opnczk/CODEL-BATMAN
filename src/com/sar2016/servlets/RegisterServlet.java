@@ -66,7 +66,8 @@ public class RegisterServlet extends HttpServlet {
 				u.setLastName(lastName);
 				u.setEmail(email);
 				u.setPassword(password);
-				uservice.create(u);
+				u=uservice.create(u);
+				
 				success =true;
 				
 				ContactGroupService cgservice = (ContactGroupService) ac.getBean("ContactGroupService");
@@ -93,6 +94,7 @@ public class RegisterServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		
 		if(success){
+			System.out.println("DANS LE IF SUCCESS");
 			ContactService cs = (ContactService) ac.getBean("ContactService");
 			List<Contact> contacts = cs.getContacts((Long) request.getSession().getAttribute("logged_user"));
 			

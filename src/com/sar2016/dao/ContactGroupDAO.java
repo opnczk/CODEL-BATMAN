@@ -2,24 +2,23 @@ package com.sar2016.dao;
 
 import java.util.List;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
-import com.sar2016.entities.Contact;
 import com.sar2016.entities.ContactGroup;
 
 @Transactional
 public class ContactGroupDAO extends HibernateDaoSupport {
 	
-	public ContactGroup create(ContactGroup c) {
+	public ContactGroup create(ContactGroup cg) {
 		
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-		getHibernateTemplate().setCheckWriteOperations(false);
-		
-		getHibernateTemplate().save(c);
-		return c;
+		getHibernateTemplate().persist(cg);
+		getHibernateTemplate().save(cg);
+		return cg;
 	}
 	
 	public ContactGroup getById(long id) {
@@ -35,12 +34,11 @@ public class ContactGroupDAO extends HibernateDaoSupport {
 	public ContactGroup create(String c2) {
 		
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-		getHibernateTemplate().setCheckWriteOperations(false);
 
 		ContactGroup c = (ContactGroup) ac.getBean("ContactGroup");
 		c.setGroupName(c2);
-		
-		getHibernateTemplate().save(c);
+		getHibernateTemplate().persist(c2);
+		getHibernateTemplate().save(c2);
 		return c;
 	}
 
@@ -67,4 +65,5 @@ public class ContactGroupDAO extends HibernateDaoSupport {
 		getHibernateTemplate().merge(cg); 
 		getHibernateTemplate().update(cg);
 	}
+	
 }

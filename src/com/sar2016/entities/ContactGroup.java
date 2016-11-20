@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class ContactGroup {
 	long id;
-	private long version;
+	private int version;
 	String groupName;
 	private Set<Contact> contacts = new HashSet<Contact>();
 	private User user;
@@ -54,11 +54,11 @@ public class ContactGroup {
 			contact.removeBook(this);
 	}
 
-	public long getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 

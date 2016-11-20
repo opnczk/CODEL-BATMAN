@@ -6,10 +6,10 @@
   	 <id name="id" column="ID_USER" type="long">
    		<generator class="increment"/>
   	 </id>
+  	<version name="version" access="field" column="VERSION" />
 	<property name="firstName" column="FNAME" type="string"/>
 	<property name="lastName" column="LNAME" type="string"/>
 	<property name="email" column="EMAIL" unique="true" type="string"/>
 	<property name="password" column="PASSWORD" type="string"/>
-	<property name="version" column="VERSION"/>
   </class>
 </hibernate-mapping>

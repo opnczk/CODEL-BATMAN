@@ -6,10 +6,12 @@
   	 <id name="id" type="long" column="ID_GROUP" >
    		<generator class="increment"/>
   	 </id>
-	<property name="groupName" column="GNAME"></property>
-	<set name="contacts" table="TJ_Contact_Groups">
+  	<version name="version" access="field"  column="VERSION"/>
+	<property name="groupName" column="GNAME"/>
+	<set name="contacts" table="TJ_Contact_Groups" lazy="false">
 		<key column="ID_GROUP" />
-		<many-to-many class="Contact" column="ID_CONTACT" />
+		<many-to-many class="Contact" column="ID_CONTACT" lazy="false"/>
 	</set>
+	<many-to-one name="user" column="ID_USER" not-null="true"/>
   </class>
 </hibernate-mapping>

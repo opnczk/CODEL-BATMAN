@@ -2,7 +2,7 @@ package com.sar2016.entities;
 
 public class Address {
 	long id;
-	private long version;
+	private int version;
 	String street, city, zip, placeId, country;
 	
 	public Address() {
@@ -71,11 +71,11 @@ public class Address {
 		return "MemRef :"+super.toString()+" - Address :"+this.street+" - Number :"+this.city;
 	}
 
-	public long getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 }

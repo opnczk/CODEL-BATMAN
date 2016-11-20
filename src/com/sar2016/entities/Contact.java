@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Contact {
 	long id;
-	private long version;
+	private int version;
 	String firstName, lastName, nickName, email;
 	Address address;
 	private Set<ContactGroup> books = new HashSet<ContactGroup>();
@@ -126,11 +126,11 @@ public class Contact {
 		return "MemRef :"+super.toString()+" - FName :"+this.firstName+" - LName :"+this.lastName;
 	}
 
-	public long getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 

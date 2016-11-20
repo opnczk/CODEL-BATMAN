@@ -2,7 +2,7 @@ package com.sar2016.entities;
 
 public class PhoneNumber {
 	long id;
-	private long version;
+	private int version;
 	String phoneKind, phoneNumber;
 	Contact contact;
 	
@@ -56,11 +56,11 @@ public class PhoneNumber {
 		return "MemRef :"+super.toString()+" - PhoneKind :"+this.phoneKind+" - Number :"+this.phoneNumber;
 	}
 
-	public long getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 }

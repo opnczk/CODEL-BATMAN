@@ -4,8 +4,8 @@
 <hibernate-configuration>
 	<session-factory name="">
 	 	<!-- bloc de 5 propriétés pour décrire les info de connexion-->
-	 	<!--<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
-	 	<!--<property name="hibernate.connection.url">jdbc:mysql://localhost/agenda</property>-->
+	 	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+	 	<property name="hibernate.connection.url">jdbc:mysql://localhost/agenda</property>
 	 	<!-- <property name="hibernate.connection.username">root</property>-->
 	 	<!-- <property name="hibernate.connection.password"/>-->
 	 	<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>

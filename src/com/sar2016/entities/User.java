@@ -3,7 +3,7 @@ package com.sar2016.entities;
 public class User {
 	
 	long id;
-	private long version;
+	private int version;
 	private String firstName, lastName, email, password;
 	
 	
@@ -60,11 +60,11 @@ public class User {
 		this.password = password;
 	}
 
-	public long getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 }

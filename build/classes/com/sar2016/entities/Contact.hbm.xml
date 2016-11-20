@@ -6,26 +6,27 @@
   	 <id name="id" column="ID_CONTACT" type="long">
    		<generator class="increment"/>
   	 </id>
-  	 <discriminator column="TYPE" type="character"/>
-	<property name="firstName" column="FNAME" type="string"></property>
-	<property name="lastName" column="LNAME" type="string"></property>
-	<property name="nickName" column="NNAME" type="string"></property>
-	<property name="email" column="EMAIL" unique="true" type="string"></property>
+  	<discriminator column="TYPE" type="character"/>
+  	<version name="version" access="field" column="VERSION"/>
+	<property name="firstName" column="FNAME" type="string"/>
+	<property name="lastName" column="LNAME" type="string"/>
+	<property name="nickName" column="NNAME" type="string"/>
+	<property name="email" column="EMAIL" unique="true" type="string"/>
 	<!-- A voir l'utilité ! -->
 	
-	<many-to-one name="address" cascade="delete-orphan" column="ID_ADDRESS" unique="true" not-null="false"/>
-	
-	<set name="books" table="TJ_Contact_Groups" cascade="delete-orphan" inverse="true">
+	<many-to-one name="address" cascade="all" column="ID_ADDRESS" unique="true" not-null="true" lazy="false"/>
+	<many-to-one name="user" column="ID_USER" not-null="true"/>
+	<set name="books" table="TJ_Contact_Groups" lazy="false">
 		<key column="ID_CONTACT" />
 		<many-to-many class="ContactGroup" column="ID_GROUP" />
 	</set>
 	
-	<set name="profiles" cascade="delete-orphan" table="Phone_Numbers">
+	<set name="profiles" cascade="all" table="Phone_Numbers">
 		<key column="ID_CONTACT" />
-		<many-to-many class="PhoneNumber" column="ID_PHONE" />
+		<many-to-many class="PhoneNumber" column="ID_PHONE" lazy="false"/>
 	</set>
 	<subclass name="Enterprise" discriminator-value="E">
-		<property name="numSiret" column="NUM_SIRET" type="integer" unique="true"/>
+		<property name="numSiret" column="NUM_SIRET" type="long" unique="true"/>
 	</subclass>
   </class>
 </hibernate-mapping>
