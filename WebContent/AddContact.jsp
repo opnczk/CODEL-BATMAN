@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise, com.sar2016.entities.ContactGroup"
+	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Address, com.sar2016.entities.Enterprise, com.sar2016.entities.ContactGroup"
 %>
 
 <jsp:include page="Head.jsp" />
 
- <%Contact contact = (Contact)request.getAttribute("contact"); %>
-  <%boolean modify = (boolean)request.getAttribute("modify"); %>
+ <% Contact contact = (Contact)request.getAttribute("contact"); %>
+  <% Address address = (Address)request.getAttribute("contact-address"); %>
   <% boolean enterprise = false; %>
-  <% if(contact instanceof Enterprise){
-	  enterprise = true;
-  } %>
+  <% if(contact instanceof Enterprise){ enterprise = true; } %>
   <!-- Content Wrapper. Contains page content -->
   <div style="min-height: 892px;" class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -75,24 +73,24 @@
 									</div>
 									
 									<input type="hidden" id="companyInput" name="companyOrNot" value="false" />
-									<input type="hidden" class="address-field" name="PLACE_ID" />
-									<input type="hidden" class="address-field" name="ADD_LAT" />
-									<input type="hidden" class="address-field" name="ADD_LNG" />
+									<input type="hidden" class="address-field" name="PLACE_ID" <%if(address != null){ out.println("value=\""+address.getPlaceId()+"\""); }%>/>
+									<input type="hidden" class="address-field" name="ADD_LAT" <%if(address != null){ out.println("value=\""+address.getLat()+"\""); }%>/>
+									<input type="hidden" class="address-field" name="ADD_LNG" <%if(address != null){ out.println("value=\""+address.getLng()+"\""); }%>/>
 									<input type="hidden" class="address-field" name="ADD_ST_NB" />
-									<input type="hidden" class="address-field" name="ADD_STREET" />
-									<input type="hidden" class="address-field" name="ADD_CITY" />
-									<input type="hidden" class="address-field" name="ADD_COUNTRY" />
-									<input type="hidden" class="address-field" name="ADD_ZIPCODE" />
+									<input type="hidden" class="address-field" name="ADD_STREET" <%if(address != null){ out.println("value=\""+address.getStreet()+"\""); }%>/>
+									<input type="hidden" class="address-field" name="ADD_CITY" <%if(address != null){ out.println("value=\""+address.getCity()+"\""); }%>/>
+									<input type="hidden" class="address-field" name="ADD_COUNTRY" <%if(address != null){ out.println("value=\""+address.getCountry()+"\""); }%>/>
+									<input type="hidden" class="address-field" name="ADD_ZIPCODE" <%if(address != null){ out.println("value=\""+address.getZip()+"\""); }%>/>
 
 									</form>
 									<div class="form-group">
 									<input id="autocomplete" class="form-control" class="controls" type="text"
-        placeholder="Enter a location">
+        placeholder="Enter a location" <%if(address != null){%> style="display: none;" <%} %>>
         							</div>
         							<div class="form-group">
-        							<div id="selectedAddress" class="form-group" style="display: none;">
+        							<div id="selectedAddress" class="form-group" <% if(address == null){%> style="display: none;"<%} %>>
 										<div class="input-group">
-									      <input id="selectedAddressInput" class="form-control" placeholder="Address selected" type="text" disabled>
+									      <input id="selectedAddressInput" class="form-control" placeholder="<% if(address != null){ out.println(address.getStreet()+" "); }else{ %>Address selected<%} %>" type="text" disabled>
 									      <span class="input-group-btn">
 									        <button id="cancelAddress" class="btn btn-secondary btn-danger" type="button"><i class="fa fa-times"></i></button>
 									      </span>

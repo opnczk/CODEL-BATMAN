@@ -50,8 +50,9 @@ public class UpdateContactServlet extends HttpServlet {
 			request.setAttribute("contact", c);
 			
 			Address add = c.getAddress();
+			System.out.println("Address" + add);
 			if(add != null)
-				request.setAttribute("contact-address", c.getAddress());
+				request.setAttribute("contact-address", add);
 				
 			RequestDispatcher rd = request.getRequestDispatcher( "AddContact.jsp" );
 			
