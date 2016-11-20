@@ -105,15 +105,28 @@
             	  url: "/GestionContact/ResearchAllServlet",
             	  data: {"param":this.value},
             	  success: function(data){
+            		 var json = JSON.parse(data);
+            		 var html = "";
             		 
-            		  $("#users-results h3").html(data);
+            		 json.contacts.forEach(function(entry) {
+            			 var contactHtml = "";
+	               		 contactHtml += '<a class="dummy-media-object" href="./profile?id='+entry.id+'">';
+	               		 contactHtml += '<img class="round" src="./starter_fichiers/default-user.jpg" alt="">';
+	               		 contactHtml +=	'<h3>'+entry.first_name+' '+entry.last_name+'</h3>'
+	               		 contactHtml += '<p>'+entry.email+'</p>';
+	               		 contactHtml += '</a>';
+	               		 html += contactHtml;
+					});
+            		 $("#users-results").html(html);
+            		 
+            		 
+            		 
             	  }
-
             	});
             if(keyCode != 8 && keyCode != 46) { // backspace
                 searchTrigger();
             }
         } );
         /***** for demo purposes only: don't allow to submit the form *****/
-        //morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
+        morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
     })();

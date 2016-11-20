@@ -164,7 +164,7 @@ desired effect
   <div id="morphsearch" class="morphsearch">
 
     <div class="morphsearch-content">
-        <form id="morphsearch-form-front" action="{{ url($prefix[0].'/test/') }}" method="post" class="morphsearch-form" data-ajaxsuccesshandler="adminSearchSuccessHandler" data-ajaxerrorhandler="adminSearchErrorHandler">
+        <form id="morphsearch-form-front" action="#" method="post" class="morphsearch-form" data-ajaxsuccesshandler="adminSearchSuccessHandler" data-ajaxerrorhandler="adminSearchErrorHandler">
             <div class="input-group">
                 <input id="morphsearch-input-open" name="SEARCH_TERMS" class="form-control " placeholder="Search..." autocomplete="off" type="text">
               <span class="input-group-btn">

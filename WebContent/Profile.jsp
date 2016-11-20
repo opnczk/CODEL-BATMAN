@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise, com.sar2016.entities.Address,com.sar2016.entities.PhoneNumber, java.util.Set"
+	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.ContactGroup, com.sar2016.entities.Enterprise, com.sar2016.entities.Address,com.sar2016.entities.PhoneNumber, java.util.Set"
 %>
 <!DOCTYPE html>
 <!--
@@ -258,6 +258,15 @@ desired effect
                                     <tr>
                                         <td><% out.println(((PhoneNumber)numbers[i]).getPhoneKind()); %></td>
                                         <td><% out.println(((PhoneNumber)numbers[i]).getPhoneNumber()); %></td>
+                                    </tr>
+                                     <%} %>
+						            <tr>
+                                    <td>Groups :</td>
+                                   
+                                     <% Object[] books = contact.getBooks().toArray(); %>
+                                    <% for(int i =0; i < books.length; i ++){ %>
+                                 
+                                        <td><% out.println(((ContactGroup)books[i]).getGroupName()); %></td>
                                     </tr>
                                      <%} %>
                                      <%Address address = (Address)request.getAttribute("contact-address"); %>

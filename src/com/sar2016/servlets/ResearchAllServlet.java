@@ -2,10 +2,10 @@ package com.sar2016.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.JsonGenerator;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
 import com.sar2016.entities.ContactGroup;
@@ -56,9 +59,50 @@ public class ResearchAllServlet extends HttpServlet {
 				results.addAll(resultsC);
 				results.addAll(resultsCG);
 				results.addAll(resultsPN);
-		for(Object r:results){
+		/*for(Object r:results){
 			out.println("<div>"+r.toString()+"</div>");
+		}*/
+				
+		StringWriter sw = new StringWriter();
+		JsonFactory factory = new JacksonFactory();
+		JsonGenerator jsonGen = factory.createJsonGenerator(sw);
+		jsonGen.writeStartObject();
+		jsonGen.writeFieldName("contacts");
+		jsonGen.writeStartArray();
+		for(int i = 0; i < resultsC.size(); i ++){
+			Contact c = resultsC.get(i);
+			jsonGen.writeStartObject();
+		
+			jsonGen.writeFieldName("id");
+			jsonGen.writeString(String.valueOf(c.getId()));
+			
+			jsonGen.writeFieldName("first_name");
+			jsonGen.writeString(c.getFirstName());
+			
+			jsonGen.writeFieldName("last_name");
+			jsonGen.writeString(c.getLastName());
+		
+			jsonGen.writeFieldName("email");
+			jsonGen.writeString(c.getEmail());
+			
+			jsonGen.writeEndObject();
 		}
+		jsonGen.writeEndArray();
+		
+		jsonGen.writeFieldName("contactGroups");
+		jsonGen.writeStartArray();
+		jsonGen.writeEndArray();
+		
+		jsonGen.writeFieldName("phoneNumbers");
+		jsonGen.writeStartArray();
+		jsonGen.writeEndArray();
+		
+		jsonGen.writeEndObject();
+		jsonGen.close();
+		
+		String doc = sw.toString();
+		System.out.println(doc);
+		out.println(doc);
 		//RequestDispatcher rd = request.getRequestDispatcher( "AllSearchResults.jsp" );
 		
 		//request.setAttribute("results", results);		
