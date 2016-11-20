@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise"
+	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise, com.sar2016.entities.ContactGroup"
 %>
 <!DOCTYPE html>
 <!--
@@ -258,6 +258,7 @@ desired effect
 									<div class="form-group company-spec" >
 										<input type="text" class="form-control" id="siretnum" name="num_siret" placeholder="Siret Number">
 									</div>
+									
 									<div id="phonesList" class="form-group">
 										<div class="input-group">
 									      <input class="form-control" placeholder="Add a phone number" type="text" disabled>
@@ -266,7 +267,18 @@ desired effect
 									        <button id="addPhoneButton" class="btn btn-secondary" type="button"><i class="fa fa-plus"></i></button>
 									      </span>
 									    </div>
-									    
+									</div>
+									
+									<div id="contactGroups" class="form-group">
+									    <label >Assign to a group :</label>
+									    <select class="form-control" name="contactGroup">
+									    <%List<ContactGroup> contactGroups = (List<ContactGroup>)request.getAttribute("contactGroups"); %>
+										<% for(int i =0; i < contactGroups.size(); i++){%>
+											<option value=<% out.println(contactGroups.get(i).getId()); %> ><% out.println(contactGroups.get(i).getGroupName()); %></option>
+										<%}%>
+										</select>
+										<label >Or create a new one :</label>
+										<input type="text" name="groupName" class="form-control"/>
 									</div>
 									
 									<input type="hidden" id="companyInput" name="companyOrNot" value="false" />

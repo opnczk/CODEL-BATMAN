@@ -2,7 +2,9 @@ package com.sar2016.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -157,6 +159,22 @@ public class AddContactServlet extends HttpServlet {
 							c.addProfile(pn);
 						}
 					}
+				}
+				ContactGroup cg = null;
+				if(request.getParameter("groupName") != ""){
+					cg = (ContactGroup) ac.getBean("ContactGroup");
+					cg.setGroupName(request.getParameter("groupName"));
+				}else if(request.getParameter("contactGroup") != ""){
+					ContactGroupService cgService = (ContactGroupService) ac.getBean("ContactGroupService");
+					String tempStr = request.getParameter("contactGroup");
+					tempStr.trim();
+					cg = cgService.getById(Long.parseLong(tempStr));
+					System.out.println("ContactGroup"+cg);
+				}
+				if(cg != null){
+					Set<ContactGroup> hset = new HashSet<ContactGroup>();
+					hset.add(cg);
+					c.addBook(cg);
 				}
 				service.create(c);
 			}			
