@@ -52,17 +52,16 @@ var GMapsHelper = {};
 		for(k in curQueryElChunks){
 			var elDef = curQueryElChunks[k].split('=');
 			curQueryEl[elDef[0]] = elDef[1];
-		}
-		*/
+		}*/
+		
 		var scriptElement = document.createElement('script');
 
         var queryEl = [];
         var srcStr = "https://maps.googleapis.com/maps/api/js?key="+GMapsHelper.APIKey;
-        if(GMapsHelper.autocomplete || (('libraries' in curQueryEl) && curQueryEl['libraries'] == 'places'))
+        if(GMapsHelper.autocomplete)
             queryEl['libraries'] = "places";
             //srcStr += "&libraries=places";
-        if(GMapsHelper.callback != null || ('callback' in curQueryEl))
-            queryEl['callback'] = GMapsHelper.callback
+        queryEl['callback'] = GMapsHelper.callback
             //srcStr += "&callback="+GMapsHelper.callback;
 
         for(k in queryEl)

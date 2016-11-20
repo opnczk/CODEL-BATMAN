@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise, com.sar2016.entities.Address, java.util.Set"
+	import="java.util.List, com.sar2016.entities.Contact, com.sar2016.entities.Enterprise, com.sar2016.entities.Address,com.sar2016.entities.PhoneNumber, java.util.Set"
 %>
 <!DOCTYPE html>
 <!--
@@ -234,67 +234,58 @@ desired effect
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
-                                <img class="img-circle" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" alt="User Pic">
+                                <img class="img-circle" src="./starter_fichiers/default-user.jpg" alt="User Pic">
                             </div>
                             <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
-                                <img class="img-circle" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50" alt="User Pic">
+                                <img class="img-circle" src="./starter_fichiers/default-user.jpg" alt="User Pic">
                             </div>
-                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
-                                <strong>Cyruxx</strong><br>
-                                <dl>
-                                    <dt>User level:</dt>
-                                    <dd>Administrator</dd>
-                                    <dt>Registered since:</dt>
-                                    <dd>11/12/2013</dd>
-                                    <dt>Topics</dt>
-                                    <dd>15</dd>
-                                    <dt>Warnings</dt>
-                                    <dd>0</dd>
-                                </dl>
-                            </div>
+                            <%Contact contact = (Contact)request.getAttribute("contact"); %>
+						
                             <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
-                                <strong>Cyruxx</strong><br>
+                                <strong><% out.println(contact.getFirstName()); %> 
+						                  <% out.println(contact.getLastName()); %></strong><br>
                                 <table class="table table-user-information">
                                     <tbody>
                                     <tr>
-                                         <%Contact contact = (Contact)request.getAttribute("contact"); %>
-						
-						                  <% out.println(contact.getFirstName()); %>
-						                  <% out.println(contact.getLastName()); %>
-						                  <% out.println(contact.getEmail()); %>
-						                  <%Address address = (Address)request.getAttribute("contact-address"); %>
+                                        <td>Email :</td>
+                                        <td><% out.println(contact.getEmail()); %></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Phone numbers :</td>
+                                    </tr>
+                                     <% Object[] numbers = contact.getProfiles().toArray(); %>
+                                    <% for(int i =0; i < numbers.length; i ++){ %>
+                                    <tr>
+                                        <td><% out.println(((PhoneNumber)numbers[i]).getPhoneKind()); %></td>
+                                        <td><% out.println(((PhoneNumber)numbers[i]).getPhoneNumber()); %></td>
+                                    </tr>
+                                     <%} %>
+                                     <%Address address = (Address)request.getAttribute("contact-address"); %>
 						                   <%if(address != null){ %>
-						                   <% out.println(address.getStreet()); %>
-						                   <%} %>
-						                   <% Set numbers = contact.getProfiles(); %>
-						                   <% %>
-                                        <td>User level:</td>
-                                        <td>Administrator</td>
+						            <tr>
+						            <td>Address :</td>
+						           
+						            <td>
+						            <% out.print(address.getStreet()); %>
+						            <% out.print(address.getCity()); %>
+						            <% out.print(address.getZip()); %>
+						            <% out.print(address.getCountry()); %>
+						            </td>
+						            </tr>
+                                    <tr> 
+                                       <td id="map" style="height: 375px" colspan="2">
+											</td>
                                     </tr>
-                                    <tr>
-                                        <td>Registered since:</td>
-                                        <td>11/12/2013</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Topics</td>
-                                        <td>15</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Warnings</td>
-                                        <td>0</td>
-                                    </tr>
+                                     <%} %>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
-                        <span class="pull-right">
-                            <button class="btn btn-sm btn-warning" type="button" data-toggle="tooltip" data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
-                            <a href="./remove-contact?id=<% out.print(contact.getId());%>"><button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button></a>
-                        </span>
-                    </div>
+                       <button class="btn btn-sm btn-warning" type="button" data-toggle="tooltip" data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
+                       <a href="./remove-contact?id=<% out.print(contact.getId());%>"><button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button></a>
+               		</div>
                 </div>
             </div>
         </div>
@@ -346,7 +337,15 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
-
-
+<script src="./js/GMapsHelper.js"></script>
+<%if(address != null){ %>               	                  
+		<script>
+				GMapsHelper.init({
+					marker : "true",
+					lat : <% out.print(address.getLat()); %>,
+					lng: <% out.print(address.getLng()); %>
+				});
+		</script>
+ <%} %>
 
 </body></html>

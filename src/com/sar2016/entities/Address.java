@@ -4,6 +4,8 @@ public class Address {
 	long id;
 	private int version;
 	String street, city, zip, placeId, country;
+	private String lat;
+	private String lng;
 	
 	public Address() {
 		
@@ -78,4 +80,21 @@ public class Address {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+
+	public String getLng() {
+		return lng;
+	}
+
+	public void setLng(String lng) {
+		this.lng = lng;
+	}
+
 }

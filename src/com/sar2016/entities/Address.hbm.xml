@@ -12,5 +12,7 @@
 	<property name="zip" column="ZIP"/>
 	<property name="country" column="COUNTRY"/>
 	<property name="placeId" column="PLACE_ID"/>
+	<property name="lat" column="LAT"/>
+	<property name="lng" column="LNG"/>
   </class>
 </hibernate-mapping>

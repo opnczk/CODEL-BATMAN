@@ -91,6 +91,8 @@ public class AddContactServlet extends HttpServlet {
 			add.setPlaceId(placeId);
 			add.setStreet(street);
 			add.setZip(zipcode);
+			add.setLat(lat);
+			add.setLng(lng);
 			
 			int nbPhones = Integer.parseInt(request.getParameter("nb_phones"));
 			System.out.println("NBPhones "+nbPhones);
