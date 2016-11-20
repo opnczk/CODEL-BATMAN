@@ -5,6 +5,12 @@
 
 <jsp:include page="Head.jsp" />
 
+ <%Contact contact = (Contact)request.getAttribute("contact"); %>
+  <%boolean modify = (boolean)request.getAttribute("modify"); %>
+  <% boolean enterprise = false; %>
+  <% if(contact instanceof Enterprise){
+	  enterprise = true;
+  } %>
   <!-- Content Wrapper. Contains page content -->
   <div style="min-height: 892px;" class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -31,19 +37,19 @@
 						        <div class="form-wrapper form-horizontal">
 						        <form id="form" method="post" role="form" action="add-contact">
 				    				<div class="form-group">
-										<input type="text" class="form-control" id="name" name="first_name" placeholder="First name" required>
+										<input type="text" class="form-control" id="name" name="first_name" placeholder="First name" <%if(contact != null){ out.println("value=\""+contact.getFirstName()+"\""); }%> required>
 									</div>
 									<div class="form-group contact-spec">
-										<input type="text" class="form-control" id="name" name="last_name" placeholder="Last name">
+										<input type="text" class="form-control" id="name" name="last_name" placeholder="Last name" <%if(contact != null){ out.println("value=\""+contact.getLastName()+"\""); }%>>
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+										<input type="text" class="form-control" id="email" name="email" placeholder="Email" <%if(contact != null){ out.println("value=\""+contact.getEmail()+"\""); }%> required>
 									</div>
 									<div class="form-group contact-spec">
-										<input type="text" class="form-control" id="nick_name" name="nick_name" placeholder="Nickname">
+										<input type="text" class="form-control" id="nick_name" name="nick_name" placeholder="Nickname" <%if(contact != null){ out.println("value=\""+contact.getNickName()+"\""); }%>>
 									</div>
 									<div class="form-group company-spec" >
-										<input type="text" class="form-control" id="siretnum" name="num_siret" placeholder="Siret Number">
+										<input type="text" class="form-control" id="siretnum" name="num_siret" placeholder="Siret Number" <%if(contact != null && enterprise){ out.println("value=\""+((Enterprise)contact).getNumSiret()+"\""); }%>>
 									</div>
 									
 									<div id="phonesList" class="form-group">

@@ -86,8 +86,10 @@ var GMapsHelper = {};
         if(context.type == 'address'){
             GMapsHelper.initAddressSearch();
         }else {
-            if (context.marker)
+            if (context.marker){
                 GMapsHelper.addMarker(context.lat, context.lng);
+                
+            }
 
             if (context.type == "markedMap" && context.start && context.end) {
                 GMapsHelper.markedMap(context);

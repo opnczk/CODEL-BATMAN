@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                       <button class="btn btn-sm btn-warning" type="button" data-toggle="tooltip" data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
+                       <a href="./modify-contact?id=<% out.print(contact.getId());%>"><button class="btn btn-sm btn-warning" type="button" data-toggle="tooltip" data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button></a>
                        <a href="./remove-contact?id=<% out.print(contact.getId());%>"><button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button></a>
                		</div>
                 </div>

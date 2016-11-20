@@ -52,7 +52,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UpdateContactServlet</servlet-name>
-    <url-pattern>/UpdateContactServlet</url-pattern>
+    <url-pattern>/modify-contact</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
