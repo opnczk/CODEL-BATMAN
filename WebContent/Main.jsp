@@ -63,7 +63,7 @@
 					<% for(int i =0; i < enterprises.size(); i++){%>
 						<li>
 	                      <img src="./starter_fichiers/default-company.jpg" alt="User Image">
-	                      <a class="users-list-name" href="#"><% out.println(enterprises.get(i).getFirstName()); %> <% out.println(enterprises.get(i).getLastName()); %></a>
+	                      <a class="users-list-name" href="./profile?id=<% out.println(enterprises.get(i).getId()); %>"><% out.println(enterprises.get(i).getFirstName()); %></a>
 	                    </li>
 					<%}%>
                   </ul>
