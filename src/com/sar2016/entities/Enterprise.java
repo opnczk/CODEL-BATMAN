@@ -2,7 +2,7 @@ package com.sar2016.entities;
 
 public class Enterprise extends Contact{
 	long id;
-	int numSiret;
+	long numSiret;
 	
 	public Enterprise() {
 		
@@ -24,11 +24,11 @@ public class Enterprise extends Contact{
 		this.id = id;
 	}
 
-	public int getNumSiret() {
+	public long getNumSiret() {
 		return numSiret;
 	}
 
-	public void setNumSiret(int numSiret) {
+	public void setNumSiret(long numSiret) {
 		this.numSiret = numSiret;
 	}
 

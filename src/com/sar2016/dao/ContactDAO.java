@@ -68,7 +68,7 @@ public class ContactDAO extends HibernateDaoSupport {
 	
 	public List<Contact> getContacts(long userId){
 
-		String query = "from Contact as t where t.user.id  = ?";
+		String query = "from Contact as t where t.user.id  = ? and t.class = Contact";
 		List<Contact> rs = (List<Contact>) getHibernateTemplate().find(query, userId);
 		return (List<Contact>) rs;
 	}

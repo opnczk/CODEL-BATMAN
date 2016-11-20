@@ -255,8 +255,8 @@ desired effect
 									<div class="form-group contact-spec">
 										<input type="text" class="form-control" id="nick_name" name="nick_name" placeholder="Nickname">
 									</div>
-									<div class="form-group company-spec" style="display: none;">
-										<input type="text" class="form-control" id="siretnum" name="siret_num" placeholder="Siret Number">
+									<div class="form-group company-spec" >
+										<input type="text" class="form-control" id="siretnum" name="num_siret" placeholder="Siret Number">
 									</div>
 									<div id="phonesList" class="form-group">
 										<div class="input-group">
@@ -269,6 +269,7 @@ desired effect
 									    
 									</div>
 									
+									<input type="hidden" id="companyInput" name="companyOrNot" value="false" />
 									<input type="hidden" class="address-field" name="PLACE_ID" />
 									<input type="hidden" class="address-field" name="ADD_LAT" />
 									<input type="hidden" class="address-field" name="ADD_LNG" />
@@ -352,6 +353,8 @@ desired effect
 <script src="./starter_fichiers/classie.js"></script>
 		<script src="./js/GMapsHelper.js"></script>
 		<script>
+				$(".company-spec").hide();
+				var companySwitch = true;
 				$("#nbPhones").val(""+$(".deletePhoneNumber").size());
 				console.log($("#nbPhones").val());
 				GMapsHelper.init({
@@ -367,15 +370,18 @@ desired effect
 				});
 				
 				$("#switchButton").click(function(){
-					var value = $("#switchButton").html();
-					if(value == "Company"){
+					if(companySwitch){
 						 $("#switchButton").html("Contact");
-						 $(".contact-spec").show();
-						 $(".company-spec").hide();
-					}else{
-						 $("#switchButton").html("Company");
 						 $(".contact-spec").hide();
 						 $(".company-spec").show();
+						 companySwitch = false;
+						 $("#companyInput").val(!companySwitch);
+					}else{
+						 $("#switchButton").html("Company");
+						 $(".contact-spec").show();
+						 $(".company-spec").hide();
+						 companySwitch = true;
+						 $("#companyInput").val(!companySwitch);
 					}
 				});
 				

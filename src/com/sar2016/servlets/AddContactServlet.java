@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sar2016.dao.ContactDAO;
+import com.sar2016.dao.EnterpriseDAO;
 import com.sar2016.dao.UserDAO;
 import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
@@ -77,17 +78,21 @@ public class AddContactServlet extends HttpServlet {
 			System.out.println("NBPhones "+nbPhones);
 
 			
-			if(request.getParameter("num_siret") != null){
+			if(request.getParameter("num_siret") != null && request.getParameter("companyOrNot").contentEquals("true")){
+				System.out.println("AJOUT D'une entreprise");
 				EnterpriseService service = null;
 				Enterprise c = null;
-				int numSiret = Integer.parseInt(request.getParameter("num_siret"));
+				long numSiret = Long.parseLong(request.getParameter("num_siret"));
 				
 				service = (EnterpriseService) ac.getBean("EnterpriseService");
+				service.setDao((EnterpriseDAO) ac.getBean("EnterpriseDAO"));
+				
 				c = (Enterprise) ac.getBean("Enterprise");
 				c.setFirstName(firstName);
 				c.setEmail(email);
 				c.setNumSiret(numSiret);
 				c.setAddress(add);				
+				c.setUser(((UserDAO)ac.getBean("UserDAO")).getById(Long.parseLong(request.getSession().getAttribute("logged_user").toString())));
 
 				if(nbPhones >= 0){
 					PhoneNumberService phoneService = (PhoneNumberService) ac.getBean("PhoneNumberService");
@@ -98,8 +103,10 @@ public class AddContactServlet extends HttpServlet {
 						
 						if(kind != null && number != null){						
 							PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
+							pn.setContact(c);
+							pn.setPhoneKind(kind);
+							pn.setPhoneNumber(number);
 							c.addProfile(pn);
-							phoneService.getDao().getHibernateTemplate().saveOrUpdate(pn);
 						}
 					}
 				}
@@ -142,7 +149,6 @@ public class AddContactServlet extends HttpServlet {
 		
 		if(success){
 			ContactService cs = (ContactService) ac.getBean("ContactService");
-
 
 			List<Contact> contacts = cs.getContacts((Long) request.getSession().getAttribute("logged_user"));
 			EnterpriseService es = (EnterpriseService) ac.getBean("EnterpriseService");

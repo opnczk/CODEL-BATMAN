@@ -26,7 +26,7 @@
 		<many-to-many class="PhoneNumber" column="ID_PHONE" />
 	</set>
 	<subclass name="Enterprise" discriminator-value="E">
-		<property name="numSiret" column="NUM_SIRET" type="integer" unique="true"/>
+		<property name="numSiret" column="NUM_SIRET" type="long" unique="true"/>
 	</subclass>
   </class>
 </hibernate-mapping>

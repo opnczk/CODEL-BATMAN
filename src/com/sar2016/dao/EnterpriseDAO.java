@@ -3,6 +3,7 @@ package com.sar2016.dao;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
@@ -10,11 +11,9 @@ import com.sar2016.entities.Contact;
 import com.sar2016.entities.Enterprise;
 
 @Transactional
-public class EnterpriseDAO extends ContactDAO{
+public class EnterpriseDAO extends HibernateDaoSupport {
 	
-	public Contact create(String nom, String mail, int siret) {
-		
-		
+	public Enterprise create(String nom, String mail, long siret) {
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 		getHibernateTemplate().setCheckWriteOperations(false);
 
@@ -44,5 +43,11 @@ public class EnterpriseDAO extends ContactDAO{
 
 		List<Enterprise> rs = (List<Enterprise>) (getHibernateTemplate().find(query, id));
 		return rs;
+	}
+
+	public Enterprise create(Enterprise c) {
+		getHibernateTemplate().persist(c);
+		getHibernateTemplate().save(c);
+		return c;
 	}
 }

@@ -8,7 +8,7 @@ import com.sar2016.entities.User;
 
 
 public class ContactService {
-	private ContactDAO dao;
+	protected ContactDAO dao;
 	
 	public ContactService(){
 
