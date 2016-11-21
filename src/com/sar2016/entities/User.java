@@ -6,14 +6,11 @@ public class User {
 	private int version;
 	private String firstName, lastName, email, password;
 	
-	
-	
 	public User(){
 		
 	};
 	
-	public User(String firstName, String lastName, String email,
-			String password) {
+	public User(String firstName, String lastName, String email, String password) {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setPassword(password);

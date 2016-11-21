@@ -17,8 +17,7 @@ public class UserService {
 		return dao.create(u);
 	}
 	
-	public void create(String firstName, String lastName,
-			String email,String password) {
+	public void create(String firstName, String lastName, String email,String password) {
 		dao.create(firstName, lastName, email, password);
 	}
 	

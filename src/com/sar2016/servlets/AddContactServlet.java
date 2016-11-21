@@ -166,7 +166,9 @@ public class AddContactServlet extends HttpServlet {
 				c.setLastName(lastName);
 				c.setNickName(nickName);
 				c.setEmail(email);
-				c.setAddress(add);
+				
+				if(add != null)
+					c.setAddress(add);
 				c.setUser(((UserDAO)ac.getBean("UserDAO")).getById(Long.parseLong(request.getSession().getAttribute("logged_user").toString())));
 
 				if(nbPhones >= 0){

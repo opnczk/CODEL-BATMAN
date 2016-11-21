@@ -7,7 +7,6 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
-import com.sar2016.entities.Contact;
 import com.sar2016.entities.Enterprise;
 
 @Transactional
@@ -15,16 +14,22 @@ public class EnterpriseDAO extends HibernateDaoSupport {
 	
 	public Enterprise create(String nom, String mail, long siret) {
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-		getHibernateTemplate().setCheckWriteOperations(false);
 
-		Enterprise c = (Enterprise) ac.getBean("Entreprise");
-		c.setFirstName(nom);
-		c.setEmail(mail);
-		c.setNumSiret(siret);
+		Enterprise e = (Enterprise) ac.getBean("Enterprise");
+		e.setFirstName(nom);
+		e.setEmail(mail);
+		e.setNumSiret(siret);
 		
-		getHibernateTemplate().save(c);
+		getHibernateTemplate().persist(e);
+		getHibernateTemplate().save(e);
 		
-		return c;
+		return e;
+	}
+	
+	public Enterprise create(Enterprise e) {
+		getHibernateTemplate().persist(e);
+		getHibernateTemplate().save(e);
+		return e;
 	}
 	
 	public Enterprise getById(long id) {
@@ -37,17 +42,16 @@ public class EnterpriseDAO extends HibernateDaoSupport {
 		getHibernateTemplate().delete(id);
 	}
 	
-	public List<Enterprise> getEnterprises(long id){
+	public List<Enterprise> getEnterprises(long user_id){
 
 		String query = "from Contact as t where t.class = Enterprise and t.user.id = ?";
 
-		List<Enterprise> rs = (List<Enterprise>) (getHibernateTemplate().find(query, id));
+		List<Enterprise> rs = (List<Enterprise>) (getHibernateTemplate().find(query, user_id));
 		return rs;
 	}
 
-	public Enterprise create(Enterprise c) {
-		getHibernateTemplate().persist(c);
-		getHibernateTemplate().save(c);
-		return c;
+	public void update(Enterprise e) {
+		getHibernateTemplate().merge(e);
+		//getHibernateTemplate().update(e);
 	}
 }

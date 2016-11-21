@@ -2,7 +2,6 @@ package com.sar2016.dao;
 
 import java.util.List;
 
-import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +13,6 @@ import com.sar2016.entities.ContactGroup;
 public class ContactGroupDAO extends HibernateDaoSupport {
 	
 	public ContactGroup create(ContactGroup cg) {
-		
-		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 		getHibernateTemplate().persist(cg);
 		getHibernateTemplate().save(cg);
 		return cg;

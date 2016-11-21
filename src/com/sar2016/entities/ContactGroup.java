@@ -43,15 +43,15 @@ public class ContactGroup {
 	}
 
 	public void addContact(Contact contact) {
-		this.contacts.add(contact);
 		if(!contact.getBooks().contains(this))
 			contact.addBook(this);
+		this.contacts.add(contact);
 	}
 
 	public void removeContact(Contact contact) {
-		this.contacts.remove(contact);
 		if(contact.getBooks().contains(this))
 			contact.removeBook(this);
+		this.contacts.remove(contact);
 	}
 
 	public int getVersion() {
@@ -69,6 +69,4 @@ public class ContactGroup {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
 }

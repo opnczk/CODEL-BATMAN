@@ -1,10 +1,11 @@
 package com.sar2016.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.ContextLoader;
 
 import com.sar2016.entities.User;
 
@@ -12,25 +13,25 @@ import com.sar2016.entities.User;
 public class UserDAO extends HibernateDaoSupport {
 	
 	
-	public void create(String firstName, String lastName, String email, String password) {
-		//ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-		//getHibernateTemplate().setCheckWriteOperations(false);
+	public User create(String firstName, String lastName, String email, String password) {
+		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
 
-		//User c = (User)ac.getBean("User");
-		//c.setFirstName(firstName);
-		//c.setLastName(lastName);
-		//c.setEmail(email);
-		//c.setPassword(password);
-		
-		/*User c = new User(firstName, lastName, email, password);
+		User u = (User)ac.getBean("User");
+		u.setFirstName(firstName);
+		u.setLastName(lastName);
+		u.setEmail(email);
+		u.setPassword(password);
 
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		
-		Transaction tx=session.beginTransaction();
-		
-		session.save(c);
-		
-		tx.commit();*/
+		getHibernateTemplate().persist(u);
+		getHibernateTemplate().save(u);
+		return u;
+	}
+	
+	public User create(User u) {
+		getHibernateTemplate().persist(u);
+		long id=(long) getHibernateTemplate().save(u);
+		u=(User) getHibernateTemplate().get(User.class, id);
+		return u;
 	}
 
 	public User login(String email, String password) {
@@ -54,13 +55,6 @@ public class UserDAO extends HibernateDaoSupport {
 			return (User) user.get(0);
 		else
 			return null;
-	}
-
-	public User create(User u) {
-		getHibernateTemplate().persist(u);
-		long id=(long) getHibernateTemplate().save(u);
-		u=(User) getHibernateTemplate().get(User.class, id);
-		return u;
 	}
 
 	public User loginGoogle(String token, String email) {

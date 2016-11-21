@@ -25,8 +25,12 @@ public class AddressService {
 		this.dao = dao;
 	}
 	
-	public Address create(String placeId,String lat,String lng, String street, String city, String zip, String country) {
-		return dao.create(placeId, lat, lng, street, city, zip, country);
+	public Address create(String placeId,String lat,String lng, String street, String city, String zip, String country, long streetNb) {
+		return dao.create(placeId, lat, lng, street, city, zip, country, streetNb);
+	}
+	
+	public Address create(Address a){
+		return dao.create(a);
 	}
 	
 	public List<Address> getByPart(String str){

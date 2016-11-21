@@ -12,12 +12,13 @@ public class Address {
 		
 	}
 	
-	public Address(String placeId,String lat,String lng, String street, String city, String zip, String country) {
+	public Address(String placeId,String lat,String lng, String street, String city, String zip, String country, long streetNb) {
 		this.placeId = placeId;
 		this.street = street;
 		this.city = city;
 		this.zip = zip;
 		this.country = country;
+		this.streetNb = streetNb;
 	}
 
 	public long getId() {

@@ -18,8 +18,14 @@ public class Contact {
 		this.lastName = null;
 		this.nickName = null;
 		this.email = null;
-		System.out.println("Null POJO Construct Call.");
-		System.out.println(this);
+	}
+	
+	public Contact ( String firstName, String lastName, String nickName, String email)
+	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.nickName = nickName;
+		this.email = email;
 	}
 	
 	public Address getAddress() {
@@ -28,15 +34,6 @@ public class Contact {
 
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-
-	public Contact ( String firstName, String lastName, String nickName, String email)
-	{
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.nickName = nickName;
-		this.email = email;
-		System.out.println(this);
 	}
 	
 	public String getMail()
@@ -93,15 +90,15 @@ public class Contact {
 	}
 	
 	public void addBook(ContactGroup group){
-		this.books.add(group);
 		if(!group.getContacts().contains(this))
 			group.addContact(this);
+		this.books.add(group);
 	}
 	
 	public void removeBook(ContactGroup group){
-		this.books.remove(group);
 		if(group.getContacts().contains(this))
 			group.removeContact(this);
+		this.books.remove(group);
 	}
 	
 	public Set<PhoneNumber> getProfiles(){
@@ -114,7 +111,6 @@ public class Contact {
 	
 	public void addProfile(PhoneNumber phoneNumber) {
 		if(phoneNumber.getContact() == null){
-			System.out.println("Contact ref");
 			phoneNumber.setContact(this);
 		}
 		this.profiles.add(phoneNumber);

@@ -89,6 +89,6 @@ public class ContactDAO extends HibernateDaoSupport {
 	
 	public void updateContact (Contact c){
 		getHibernateTemplate().merge(c); 
-		getHibernateTemplate().update(c);
+		//getHibernateTemplate().update(c);
 	}
 }

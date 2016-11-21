@@ -6,17 +6,6 @@ public class PhoneNumber {
 	String phoneKind, phoneNumber;
 	Contact contact;
 	
-	public Contact getContact() {
-		return contact;
-	}
-
-	public void setContact(Contact contact) {
-		this.contact = contact;
-		if (!contact.getProfiles().contains(this)) {
-			contact.addProfile(this);
-		}	
-	}
-
 	public PhoneNumber() {
 		
 	}
@@ -24,6 +13,16 @@ public class PhoneNumber {
 	public PhoneNumber(String phoneKind, String phoneNumber) {
 		this.phoneKind = phoneKind;
 		this.phoneNumber = phoneNumber;
+	}	
+	
+	public Contact getContact() {
+		return contact;
+	}
+
+	public void setContact(Contact contact) {
+		if (!contact.getProfiles().contains(this))
+			contact.addProfile(this);
+		this.contact = contact;	
 	}
 
 	public long getId() {

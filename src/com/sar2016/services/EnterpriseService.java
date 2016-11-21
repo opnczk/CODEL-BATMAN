@@ -21,12 +21,12 @@ public class EnterpriseService {
 		return dao.create(nom, mail, siret);
 	}
 	
-	public Enterprise create(Enterprise c ){
-		return dao.create(c);
+	public Enterprise create(Enterprise e ){
+		return dao.create(e);
 	}
 	
-	public List<Enterprise> getEnterprises(long id) {
-		return dao.getEnterprises(id);
+	public List<Enterprise> getEnterprises(long user_id) {
+		return dao.getEnterprises(user_id);
 	}
 
 	public EnterpriseDAO getDao() {
@@ -35,5 +35,9 @@ public class EnterpriseService {
 
 	public void setDao(EnterpriseDAO dao) {
 		this.dao = dao;
+	}
+
+	public void update(Enterprise e) {
+		this.dao.update(e);
 	}	
 }

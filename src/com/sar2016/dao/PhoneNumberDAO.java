@@ -7,14 +7,13 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.ContextLoader;
 
-import com.sar2016.entities.Contact;
 import com.sar2016.entities.PhoneNumber;
 
 @Transactional
 public class PhoneNumberDAO extends HibernateDaoSupport {
+	
 	public PhoneNumber create(String phoneKind, String phoneNumber) {
 		ApplicationContext ac = ContextLoader.getCurrentWebApplicationContext();
-		getHibernateTemplate().setCheckWriteOperations(false);
 
 		PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
 		pn.setPhoneKind(phoneKind);
@@ -22,6 +21,12 @@ public class PhoneNumberDAO extends HibernateDaoSupport {
 		getHibernateTemplate().persist(pn);
 		getHibernateTemplate().save(pn);
 
+		return pn;
+	}
+	
+	public PhoneNumber create(PhoneNumber pn){
+		getHibernateTemplate().persist(pn);
+		getHibernateTemplate().save(pn);
 		return pn;
 	}
 	

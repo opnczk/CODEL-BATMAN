@@ -19,6 +19,10 @@ public class PhoneNumberService {
 	public PhoneNumber create(String kind, String number) {
 		return dao.create(kind, number);
 	}
+	
+	public PhoneNumber create(PhoneNumber pn){
+		return dao.create(pn);
+	}
 
 	public PhoneNumberDAO getDao() {
 		return dao;

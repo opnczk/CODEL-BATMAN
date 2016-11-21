@@ -13,7 +13,6 @@ public class Enterprise extends Contact{
 		this.numSiret = Integer.parseInt(siret);
 		this.firstName = nom;
 		this.email = mail;
-		System.out.println(this);
 	}
 
 	public long getId() {
