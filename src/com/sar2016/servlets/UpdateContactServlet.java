@@ -68,11 +68,15 @@ public class UpdateContactServlet extends HttpServlet {
 	 */
     @Transactional
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		long id = Long.parseLong(request.getParameter("contact_id"));
+    	String str = request.getParameter("contact_id");
+    	str.replace("\"", "");
+    	str.trim();
+		long id = Long.parseLong(str);
 		
 		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		ContactService cs = (ContactService)ac.getBean("ContactService");
 		Contact c = cs.getById(id);
+		System.out.println("Coucou modif !");
 	}
 
 }

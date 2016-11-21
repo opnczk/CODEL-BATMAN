@@ -35,7 +35,7 @@
 						        <div class="form-wrapper form-horizontal">
 						        <form id="form" method="post" role="form" action="<%if(contact != null){%>modify-contact<% }else{%>add-contact<%}%>">
 						        
-						        <%if(contact != null){%><input type="hidden" name="contact_id" value="<% out.println(contact.getId());%>"/><%}%>
+						        <%if(contact != null){%><input type="hidden" name="contact_id" value=<% out.println(contact.getId());%> /><%}%>
 						        	
 				    				<div class="form-group">
 										<input type="text" class="form-control" id="name" name="first_name" placeholder="First name" <%if(contact != null && contact.getFirstName() != null){ out.println("value=\""+contact.getFirstName()+"\""); }%> required>
