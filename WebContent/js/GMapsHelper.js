@@ -134,13 +134,14 @@ var GMapsHelper = {};
                         $('.address-field[name="'+inputName+'"]').val(tabElem.long_name);
                         console.log( $('.address-field[name="'+inputName+'"]').val());
                     }
-                    /*if(typeElem == "street_number")
-                        str_nb = tabElem.long_name;
-                    if(typeElem == "route")
+                    if(typeElem == "street_number")
+                    	$('.address-field[name="ADD_ST_NB"]').val(tabElem.long_name);
+                    /*if(typeElem == "route")
                         route = tabElem.long_name;*/
                 }
             }
 
+            /*$('.address-field[name="ADD_ST_NB"]').val(str_nb);
             /*$('.address-field[name="ADD_LINE_1"]').val(str_nb+' '+route);
             console.log($('.address-field[name="ADD_LINE_1"]').val());*/
             $('#selectedAddress').show();

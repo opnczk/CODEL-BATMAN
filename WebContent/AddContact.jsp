@@ -97,7 +97,7 @@
 									<input type="hidden" class="address-field" name="PLACE_ID" <%if(address != null && address.getPlaceId() != null){ out.println("value=\""+address.getPlaceId()+"\""); }%>/>
 									<input type="hidden" class="address-field" name="ADD_LAT" <%if(address != null && address.getLat() != null){ out.println("value=\""+address.getLat()+"\""); }%>/>
 									<input type="hidden" class="address-field" name="ADD_LNG" <%if(address != null && address.getLng() != null){ out.println("value=\""+address.getLng()+"\""); }%>/>
-									<input type="hidden" class="address-field" name="ADD_ST_NB" />
+									<input type="hidden" class="address-field" name="ADD_ST_NB" <%if(address != null){ out.println("value=\""+address.getStreetNb()+"\""); }%>/>
 									<input type="hidden" class="address-field" name="ADD_STREET" <%if(address != null && address.getStreet() != null){ out.println("value=\""+address.getStreet()+"\""); }%>/>
 									<input type="hidden" class="address-field" name="ADD_CITY" <%if(address != null && address.getCity() != null){ out.println("value=\""+address.getCity()+"\""); }%>/>
 									<input type="hidden" class="address-field" name="ADD_COUNTRY" <%if(address != null && address.getCountry() != null){ out.println("value=\""+address.getCountry()+"\""); }%>/>
