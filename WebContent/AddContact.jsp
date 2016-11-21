@@ -50,7 +50,7 @@
 										<input type="text" class="form-control" id="nick_name" name="nick_name" placeholder="Nickname" <%if(contact != null && contact.getNickName() != null){ out.println("value=\""+contact.getNickName()+"\""); }%>>
 									</div>
 									<div class="form-group company-spec" >
-										<input type="text" class="form-control" id="siretnum" name="num_siret" placeholder="Siret Number" <%if(contact != null && enterprise && ((Enterprise)contact).getNumSiret() != 0){ out.println("value=\""+((Enterprise)contact).getNumSiret()+"\""); }%>>
+										<input type="text" class="form-control" id="siretnum" name="num_siret" placeholder="Siret Number" <%if(contact != null && enterprise && ((Enterprise)contact).getNumSiret() != 0){ out.println("value=\""+((Enterprise)contact).getNumSiret()+"\""); }%> >
 									</div>
 									
 									<div id="phonesList" class="form-group">
@@ -124,7 +124,11 @@
                     </div>
                     <div class="panel-footer">
                      <button type="submit" form="form" id="submit" name="submit" class="btn btn-primary">Submit Form</button>
-                     <button id="switchButton" class="pull-right btn btn-primary">Company</button>
+                     <% if(contact != null && enterprise){%>
+						<button id="switchButton" class="pull-right btn btn-primary">Contact</button>
+					<%}else{%>
+						<button id="switchButton" class="pull-right btn btn-primary">Company</button>
+					<%}%>
                     </div>
                 </div>
             </div>
@@ -138,8 +142,14 @@
 
 		<script src="./js/GMapsHelper.js"></script>
 		<script>
+			<% if(contact != null && enterprise){%>
+				$(".contact-spec").hide();
+				var companySwitch = false;
+			<%}else{%>
 				$(".company-spec").hide();
 				var companySwitch = true;
+			<%}%>
+				
 				$("#nbPhones").val($(".deletePhoneNumber").size());
 				console.log($("#nbPhones").val());
 				GMapsHelper.init({
