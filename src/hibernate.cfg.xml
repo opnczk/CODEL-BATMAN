@@ -15,10 +15,10 @@
 		<!-- fait en sorte qu'Hibernate gere automatiquement la session -->
 		<!-- Celle-ci est liée au thread local. -->
 	 	<property name="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</property>
-	 	<!-- <property name="hibernate.connection.CharSet">utf8</property>
+	 	<property name="hibernate.connection.CharSet">utf8</property>
 	    <property name="hibernate.connection.characterEncoding">utf8</property>
 	    <property name="hibernate.connection.useUnicode">true</property>
-		fait en sorte qu'Hibernate gere automatiquement la session 
+		<!-- fait en sorte qu'Hibernate gere automatiquement la session 
 		Celle-ci est liée au thread local. -->
 	 	<!-- <property name="current_session_context_class">thread</property>-->
 	

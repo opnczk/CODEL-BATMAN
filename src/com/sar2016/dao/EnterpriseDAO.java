@@ -50,4 +50,9 @@ public class EnterpriseDAO extends HibernateDaoSupport {
 		getHibernateTemplate().save(c);
 		return c;
 	}
+
+	public void update(Enterprise c) {
+		getHibernateTemplate().merge(c);
+		//getHibernateTemplate().update(c);
+	}
 }

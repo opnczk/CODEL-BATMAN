@@ -35,5 +35,9 @@ public class EnterpriseService {
 
 	public void setDao(EnterpriseDAO dao) {
 		this.dao = dao;
+	}
+
+	public void update(Enterprise e) {
+		this.dao.update(e);
 	}	
 }
