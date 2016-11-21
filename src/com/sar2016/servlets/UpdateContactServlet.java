@@ -76,6 +76,24 @@ public class UpdateContactServlet extends HttpServlet {
 		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		ContactService cs = (ContactService)ac.getBean("ContactService");
 		Contact c = cs.getById(id);
+		
+		String firstName = request.getParameter("first_name");
+		String lastName = request.getParameter("last_name");
+		String nickName = request.getParameter("nickname");
+		String email = request.getParameter("email");
+				
+		String placeId = request.getParameter( "PLACE_ID" );
+		String lat = request.getParameter( "ADD_LAT" );
+		String lng = request.getParameter( "ADD_LNG" );
+		String streetNb = request.getParameter( "ADD_ST_NB" );
+		String street = request.getParameter( "ADD_STREET" );
+		String city = request.getParameter( "ADD_CITY" );
+		String country = request.getParameter( "ADD_COUNTRY" );
+		String zipcode = request.getParameter( "ADD_ZIPCODE" );
+
+		string cg = "";
+		
+		
 		System.out.println("Coucou modif !");
 	}
 
