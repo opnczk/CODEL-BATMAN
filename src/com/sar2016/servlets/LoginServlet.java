@@ -90,6 +90,10 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		
+		if(user != null){
+			request.getSession().setAttribute("logged_user", user.getId());
+		}
+		
 		if(this.redirect || user != null){
 			HttpSession session = request.getSession();
 			if(!this.redirect){

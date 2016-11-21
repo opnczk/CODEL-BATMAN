@@ -68,7 +68,11 @@ public class UpdateContactServlet extends HttpServlet {
 	 */
     @Transactional
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		long id = Long.parseLong(request.getParameter("contact_id"));
+		
+		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+		ContactService cs = (ContactService)ac.getBean("ContactService");
+		Contact c = cs.getById(id);
 	}
 
 }
