@@ -50,12 +50,14 @@ public class ResearchAllServlet extends HttpServlet {
 		PhoneNumberService pns = (PhoneNumberService)ac.getBean("PhoneNumberService");
 		AddressService as = (AddressService)ac.getBean("AddressService");
 		
-		List<Contact> resultsC = cs.getByPart((String)request.getParameter("param"));
-		List<ContactGroup> resultsCG = cgs.getByPart((String)request.getParameter("param"));
-		List<PhoneNumber> resultsPN = pns.getByPart((String)request.getParameter("param"));
+		Long user_id = (Long) request.getSession().getAttribute("logged_user");
+		
+		List<Contact> resultsC = cs.getByPart((String)request.getParameter("param"), user_id);
+		//List<ContactGroup> resultsCG = cgs.getByPart((String)request.getParameter("param"), user_id);
+		//List<PhoneNumber> resultsPN = pns.getByPart((String)request.getParameter("param"), user_id);
 		List<Address> resultsA = as.getByPart((String)request.getParameter("param"));
 		
-		List<Object> results = new ArrayList<Object>();
+		/*List<Object> results = new ArrayList<Object>();
 				results.addAll(resultsC);
 				results.addAll(resultsCG);
 				results.addAll(resultsPN);

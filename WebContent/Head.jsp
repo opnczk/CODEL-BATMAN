@@ -169,7 +169,7 @@ desired effect
             </div>
         </form>
             <div class="dummy-column">
-                <h2>Utilisateurs</h2>
+                <h2>Contacts & Companies</h2>
                             <span id="users-results">
                                 <span class="dummy-media-object">
                                     <span class="img-search-placeholder">
@@ -179,7 +179,7 @@ desired effect
                                 </span>
                             </span>
             </div>
-            <div class="dummy-column">
+            <!-- <div class="dummy-column">
                 <h2>Entreprises</h2>
                             <span id="companies-results">
                                 <span class="dummy-media-object">
@@ -200,7 +200,7 @@ desired effect
                                     <h3>Recherche en cours...</h3>
                                 </span>
                             </span>
-            </div>
+            </div>-->
         </div>
         <span class="morphsearch-close"></span>
 

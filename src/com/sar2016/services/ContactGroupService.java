@@ -51,8 +51,8 @@ public class ContactGroupService {
 		this.dao = dao;
 	}
 	
-	public List<ContactGroup> getByPart(String str){
-		return dao.searchByPart(str);
+	public List<ContactGroup> getByPart(String str, Long user_id){
+		return dao.searchByPart(str, user_id);
 	}
 
 	public void update(ContactGroup cg) {

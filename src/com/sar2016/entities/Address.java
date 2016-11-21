@@ -4,9 +4,9 @@ public class Address {
 	long id;
 	private int version;
 	String street, city, zip, placeId, country;
-	private String lat;
-	private String lng;
-	private int streetNb;
+	String lat;
+	String lng;
+	long streetNb;
 	
 	public Address() {
 		
@@ -98,11 +98,11 @@ public class Address {
 		this.lng = lng;
 	}
 
-	public void setStreetNb(int streetNb) {
+	public void setStreetNb(long streetNb) {
 		this.streetNb = streetNb;
 	}
 	
-	public int getStreetNb(){
+	public long getStreetNb(){
 		return this.streetNb;
 	}
 

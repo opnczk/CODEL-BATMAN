@@ -28,7 +28,7 @@ public class PhoneNumberService {
 		this.dao = dao;
 	}
 	
-	public List<PhoneNumber> getByPart(String str){
-		return dao.searchByPart(str);
+	public List<PhoneNumber> getByPart(String str, Long user_id){
+		return dao.searchByPart(str, user_id);
 	}
 }

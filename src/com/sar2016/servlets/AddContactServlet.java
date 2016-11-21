@@ -88,7 +88,7 @@ public class AddContactServlet extends HttpServlet {
 			AddressService addService = (AddressService) ac.getBean("AddressService");
 		
 			add = (Address) ac.getBean("Address");
-			add.setStreetNb(Integer.parseInt(streetNb));
+			add.setStreetNb(Long.parseLong(streetNb));
 			add.setCity(city);
 			add.setCountry(country);
 			add.setPlaceId(placeId);

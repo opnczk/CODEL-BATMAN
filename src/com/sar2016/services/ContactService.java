@@ -30,8 +30,8 @@ public class ContactService {
 		return dao.getById(id);
 	}
 	
-	public List<Contact> getByPart(String str){
-		return dao.searchByPart(str);
+	public List<Contact> getByPart(String str, Long user_id){
+		return dao.searchByPart(str, user_id);
 	}
 	
 	public Contact getByMail(String mail){

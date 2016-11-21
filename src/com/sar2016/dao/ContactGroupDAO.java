@@ -52,12 +52,12 @@ public class ContactGroupDAO extends HibernateDaoSupport {
 		getHibernateTemplate().delete(c);
 	}
 
-	public List<ContactGroup> searchByPart(String str) {
+	public List<ContactGroup> searchByPart(String str, Long user_id) {
 		//Written in HQL
-		String query = "from ContactGroup as t where t.groupName = ?";		
+		String query = "from ContactGroup as t where t.groupName = ? and t.user.id = ?";		
 		String param ="%"+str+"%";
 	
-		List<ContactGroup> rs = ((List<ContactGroup>) getHibernateTemplate().find(query, "%"+param+"%"));
+		List<ContactGroup> rs = ((List<ContactGroup>) getHibernateTemplate().find(query, "%"+param+"%", user_id));
 		return rs;
 	}
 

@@ -35,12 +35,12 @@ public class PhoneNumberDAO extends HibernateDaoSupport {
 		getHibernateTemplate().delete(id);
 	}
 
-	public List<PhoneNumber> searchByPart(String str) {
+	public List<PhoneNumber> searchByPart(String str, Long user_id) {
 		//Written in HQL
-		String query = "from PhoneNumber as t where t.phoneNumber = ? or t.phoneKind = ?";		
+		String query = "from PhoneNumber as t where t.phoneNumber = ? or t.phoneKind = ? and t.user.id = ?";		
 		String param ="%"+str+"%";
 	
-		List<PhoneNumber> rs = ((List<PhoneNumber>) getHibernateTemplate().find(query, "%"+param+"%", "%"+param+"%"));
+		List<PhoneNumber> rs = ((List<PhoneNumber>) getHibernateTemplate().find(query, "%"+param+"%", "%"+param+"%", user_id));
 		return rs;
 	}
 }
