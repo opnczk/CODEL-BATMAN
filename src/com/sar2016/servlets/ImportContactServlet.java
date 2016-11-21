@@ -46,16 +46,22 @@ public class ImportContactServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 
-		Enumeration<String> enu = request.getParameterNames();
+		
 		int nbContacts = Integer.parseInt(request.getParameter("nb_contacts"));
 		System.out.println("Nb_Contacts : "+nbContacts);
 		
 		ContactService service = (ContactService) ac.getBean("ContactService");
-		ArrayList<String> gardeFou = new ArrayList();
 		for(int i = 0; i < nbContacts; i++){
 				System.out.println(request.getParameter("contacts["+i+"].email")+" "+request.getParameter("contacts["+i+"].last_name")+" "+request.getParameter("contacts["+i+"].first_name"));
 				try{
-				Contact c = service.create(request.getParameter("contacts["+i+"].first_name"), request.getParameter("contacts["+i+"].last_name"), null, request.getParameter("contacts["+i+"].email"), ((UserDAO)ac.getBean("UserDAO")).getById((Long) request.getSession().getAttribute("logged_user")));
+					Contact c = (Contact) ac.getBean("Contact");
+					c.setFirstName(request.getParameter("contacts["+i+"].first_name"));
+					c.setLastName(request.getParameter("contacts["+i+"].last_name"));
+					c.setEmail(request.getParameter("contacts["+i+"].email"));
+					c.setUser(((UserDAO)ac.getBean("UserDAO")).getById((Long) request.getSession().getAttribute("logged_user")));
+
+					service.create(c);
+					
 				}catch(Exception e){
 					System.out.println("Exception"+e.getMessage());
 					e.printStackTrace();

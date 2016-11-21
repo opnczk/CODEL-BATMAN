@@ -58,11 +58,12 @@ public class LoginServlet extends HttpServlet {
 		
 		UserDAO userDao = (UserDAO) ac.getBean("UserDAO");
 		User user = userDao.login(name, password);
-		if( user == null)
+		if( user == null && !this.redirect)
 		{
 			user = userDao.loginGoogle(token, name);
+			System.out.println("Login google ! "+user);
 			if(user == null){
-				User u = new User();
+				User u = (User) ac.getBean("User");
 				UserService uservice = (UserService) ac.getBean("UserService");
 				u.setFirstName(request.getParameter("first_name"));
 				u.setLastName(request.getParameter("last_name"));
@@ -92,6 +93,8 @@ public class LoginServlet extends HttpServlet {
 		
 		if(user != null){
 			request.getSession().setAttribute("logged_user", user.getId());
+		}else{
+			user = userDao.getById((Long)request.getSession().getAttribute("logged_user"));
 		}
 		
 		if(this.redirect || user != null){

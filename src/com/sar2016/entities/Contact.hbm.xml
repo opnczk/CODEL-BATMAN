@@ -11,7 +11,7 @@
 	<property name="firstName" column="FNAME" type="string"/>
 	<property name="lastName" column="LNAME" type="string"/>
 	<property name="nickName" column="NNAME" type="string"/>
-	<property name="email" column="EMAIL" unique="true" type="string"/>
+	<property name="email" column="EMAIL" type="string"/>
 	<!-- A voir l'utilité ! -->
 	
 	<many-to-one name="address" cascade="all" column="ID_ADDRESS" unique="true" not-null="false" lazy="false"/>

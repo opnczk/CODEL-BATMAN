@@ -82,10 +82,13 @@ public class AddContactServlet extends HttpServlet {
 		String city = request.getParameter( "ADD_CITY" );
 		String country = request.getParameter( "ADD_COUNTRY" );
 		String zipcode = request.getParameter( "ADD_ZIPCODE" );
+		
+		Address add = null;
 		if(placeId != null && placeId != ""){
 			AddressService addService = (AddressService) ac.getBean("AddressService");
 		
-			Address add = (Address) ac.getBean("Address");
+			add = (Address) ac.getBean("Address");
+			add.setStreetNb(Integer.parseInt(streetNb));
 			add.setCity(city);
 			add.setCountry(country);
 			add.setPlaceId(placeId);
@@ -94,6 +97,7 @@ public class AddContactServlet extends HttpServlet {
 			add.setLat(lat);
 			add.setLng(lng);
 			
+		}
 			int nbPhones = Integer.parseInt(request.getParameter("nb_phones"));
 			System.out.println("NBPhones "+nbPhones);
 
@@ -111,7 +115,8 @@ public class AddContactServlet extends HttpServlet {
 				c.setFirstName(firstName);
 				c.setEmail(email);
 				c.setNumSiret(numSiret);
-				c.setAddress(add);				
+				if(add != null)
+					c.setAddress(add);				
 				c.setUser(((UserDAO)ac.getBean("UserDAO")).getById(Long.parseLong(request.getSession().getAttribute("logged_user").toString())));
 
 				if(nbPhones >= 0){
@@ -193,7 +198,7 @@ public class AddContactServlet extends HttpServlet {
 				c.addBook(cg);
 				service.create(c);
 			}			
-		}
+		
 		
 		PrintWriter writer = response.getWriter();
 		

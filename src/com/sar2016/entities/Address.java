@@ -6,6 +6,7 @@ public class Address {
 	String street, city, zip, placeId, country;
 	private String lat;
 	private String lng;
+	private int streetNb;
 	
 	public Address() {
 		
@@ -95,6 +96,14 @@ public class Address {
 
 	public void setLng(String lng) {
 		this.lng = lng;
+	}
+
+	public void setStreetNb(int streetNb) {
+		this.streetNb = streetNb;
+	}
+	
+	public int getStreetNb(){
+		return this.streetNb;
 	}
 
 }
