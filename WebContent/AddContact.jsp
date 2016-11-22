@@ -210,8 +210,9 @@
 					var i = 0;
 					var phoneGroups = $(".deletePhoneNumber").parents(".form-group");
 					phoneGroups.each(function( index ){
-						$( this ).children(".phoneKind").attr("name", "phones["+index+"].phoneKind");
-						$( this ).children(".phoneNumber").attr("name", "phones["+index+"].phoneNumber");
+						console.log($(this).find(".phoneKind"));
+						$( this ).find(".phoneKind").attr("name", "phones["+index+"].phoneKind]");
+						$( this ).find(".phoneNumber").attr("name", "phones["+index+"].phoneNumber");
 					});
 				}
 		</script>
