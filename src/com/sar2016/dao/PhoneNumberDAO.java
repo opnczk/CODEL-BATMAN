@@ -36,8 +36,7 @@ public class PhoneNumberDAO extends HibernateDaoSupport {
 	}
 	
 	public void deleteById(long id){
-
-		getHibernateTemplate().delete(id);
+		getHibernateTemplate().delete(this.getById(id));
 	}
 
 	public List<PhoneNumber> searchByPart(String str, Long user_id) {

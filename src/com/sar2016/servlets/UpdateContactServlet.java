@@ -2,9 +2,11 @@ package com.sar2016.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +20,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.sar2016.dao.ContactDAO;
 import com.sar2016.dao.EnterpriseDAO;
+import com.sar2016.dao.PhoneNumberDAO;
 import com.sar2016.dao.UserDAO;
 import com.sar2016.entities.Address;
 import com.sar2016.entities.Contact;
@@ -86,10 +89,11 @@ public class UpdateContactServlet extends HttpServlet {
 		long id = Long.parseLong(str);
 		
 		ApplicationContext ac = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-		ContactService cs = (ContactService)ac.getBean("ContactService");
-
-		cs.setDao((ContactDAO) ac.getBean("ContactDAO"));
 		
+		ContactService cs = (ContactService)ac.getBean("ContactService");
+		
+		cs.setDao((ContactDAO) ac.getBean("ContactDAO"));
+		//cs.getDao().getHibernateTemplate().flush();
 		Enterprise e = null;
 		Contact c = null;
 		Address add = null;
@@ -173,40 +177,43 @@ public class UpdateContactServlet extends HttpServlet {
 					//service.update(e);
 					
 					//PhoneNumberService phoneService = (PhoneNumberService) ac.getBean("PhoneNumberService");
+					Set<PhoneNumber> toRemove = new HashSet<PhoneNumber>(e.getProfiles());
+					Set<PhoneNumber> newPhones = new HashSet<PhoneNumber>();
+					PhoneNumberDAO pndao = ((PhoneNumberDAO) ac.getBean("PhoneNumberDAO"));
 					
 					for (int i = 0; i <= nbPhones; i++){
-						//boolean updated = false;
-						Iterator<PhoneNumber> it = ((((Enterprise)cs.getById(id)).getProfiles())).iterator();
-						while (it.hasNext()){
-							String kind = request.getParameter("phones["+i+"].phoneKind");
-							String number = request.getParameter("phones["+i+"].phoneNumber");
-							long phoneId = Long.parseLong(request.getParameter("phones["+i+"].phoneId"));
-							
-							if (phoneId == (it.next()).getId()){
-							//String k = it.next().getPhoneKind();
-							//String n = it.next().getPhoneNumber();
-								(it.next()).setPhoneNumber(number);
-								(it.next()).setPhoneKind(kind);
-							//PhoneNumber pn = it.next();
-							//if(kind != null && number != null && updated == false){
-								//if(!kind.isEqual(k) ^ !number.isEqual(n)){
-									//PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
-									//TODO remove profile first
-									//set contact num and kind 
-									//pn.setContact(e);
-									//pn.setPhoneKind(kind);
-									//pn.setPhoneNumber(number);
-									//add it to contact profiles
-									//e.addProfile(pn);
-									//updated = true;
-								/*}else{
-									if(){}
-								}*/
-							}else{
-							
-								
-							}
+						String kind = request.getParameter("phones["+i+"].phoneKind");
+						String number = request.getParameter("phones["+i+"].phoneNumber");
+						String phoneId = request.getParameter("phones["+i+"].phoneId");
+						
+						if(phoneId == null && (kind != null && number != null)){
+							/* to create !*/
+							PhoneNumber phone = (PhoneNumber)ac.getBean("PhoneNumber");
+							PhoneNumberService phoneserv = (PhoneNumberService)ac.getBean("PhoneNumberService");
+							phone.setContact(e);
+							phone.setPhoneKind(kind);
+							phone.setPhoneNumber(number);
+							phoneserv.create(phone);
+							e.addProfile(phone);
+						}else if (phoneId != null && (kind != null && number != null)){
+							/* to modify !*/
+							String tempStr = phoneId;
+							tempStr.trim();
+							PhoneNumber pn = pndao.getById(Long.parseLong(tempStr));
+							pn.setPhoneKind(kind);
+							pn.setPhoneNumber(number);
+							toRemove.remove(pn);
+							/* here modify the shit out of it */
 						}
+						
+						Iterator<PhoneNumber> iterator = toRemove.iterator();
+					    while(iterator.hasNext()) {
+					        PhoneNumber setElement = iterator.next();
+					        e.getProfiles().remove(setElement);
+					        setElement.setContact(null);
+					        //pndao.deleteById(setElement.getId());
+					    }
+					    e.getProfiles().clear();
 					}
 				}
 				ContactGroup cg = null;
@@ -247,24 +254,53 @@ public class UpdateContactServlet extends HttpServlet {
 				c.setUser(((UserDAO)ac.getBean("UserDAO")).getById(Long.parseLong(request.getSession().getAttribute("logged_user").toString())));
 
 				if(nbPhones >= 0){
-					c.setProfiles(new HashSet<PhoneNumber>());
-					//cs.update(c);
+					Set<PhoneNumber> profiles = c.getProfiles();
+					ArrayList<Long> notToRem = new ArrayList<Long>();
 					
-					PhoneNumberService phoneService = (PhoneNumberService) ac.getBean("PhoneNumberService");
-
 					for (int i = 0; i <= nbPhones; i++){
+						
 						String kind = request.getParameter("phones["+i+"].phoneKind");
 						String number = request.getParameter("phones["+i+"].phoneNumber");
-						long phoneId = Long.parseLong(request.getParameter("phones["+i+"].phoneId"));
+						String phoneId = request.getParameter("phones["+i+"].phoneId");
 						
-						if(kind != null && number != null){						
-							PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
-							pn.setContact(c);
+						if(phoneId == null && kind != null && number != null){
+							/* to create !*/
+							System.out.println("Creation !");
+							PhoneNumber phone = (PhoneNumber)ac.getBean("PhoneNumber");
+							PhoneNumberService phoneserv = (PhoneNumberService)ac.getBean("PhoneNumberService");
+							phone.setContact(c);
+							phone.setPhoneKind(kind);
+							phone.setPhoneNumber(number);
+							c.addProfile(phone);
+							notToRem.add(phone.getId());
+						}else if (phoneId != null && kind != null && number != null){
+							System.out.println("Modification !");
+							/* to modify !*/
+							String tempStr = phoneId;
+							tempStr.trim();
+							PhoneNumber pn = (PhoneNumber)ac.getBean("PhoneNumber");
+							Iterator<PhoneNumber> it = profiles.iterator();
+							while(it.hasNext()){
+								PhoneNumber ph = it.next();
+								if(ph.getId() == Long.parseLong(phoneId))
+									pn = ph;
+							}
 							pn.setPhoneKind(kind);
 							pn.setPhoneNumber(number);
-							c.addProfile(pn);
+							notToRem.add(pn.getId());
 						}
 					}
+					/* here delete !*/
+					ArrayList<PhoneNumber> toRem = new ArrayList<PhoneNumber>();
+					Iterator<PhoneNumber> it = profiles.iterator();
+					while(it.hasNext()){
+						PhoneNumber ph = it.next();
+						if(!notToRem.contains(ph.getId())){
+							toRem.add(ph);
+						}
+					}
+					
+					profiles.removeAll(toRem);
 				}
 				ContactGroup cg = null;
 				ContactGroupService cgService = (ContactGroupService) ac.getBean("ContactGroupService");

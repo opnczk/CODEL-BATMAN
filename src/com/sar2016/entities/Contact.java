@@ -93,7 +93,6 @@ public class Contact {
 		this.books.add(group);
 		if(!group.getContacts().contains(this))
 			group.addContact(this);
-		
 	}
 	
 	public void removeBook(ContactGroup group){
