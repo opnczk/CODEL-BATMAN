@@ -29,8 +29,10 @@
         <prop key="dialect">org.hibernate.dialect.MySQLDialect</prop>
         <prop key="hibernate.show.sql">true</prop>
         <prop key="hibernate.hbm2ddl.auto">update</prop>
+        <prop key="hibernate.generate_statistics">true</prop>
         </props>
         </property>
+        
    	</bean>
     <bean  id="Contact" class="com.sar2016.entities.Contact" scope="prototype">
     </bean>
