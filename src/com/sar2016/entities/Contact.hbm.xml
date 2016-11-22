@@ -3,6 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.sar2016.entities">
   <class name="Contact" table="Contact_Table" discriminator-value="C">
+  <cache usage="read-write"/>
   	 <id name="id" column="ID_CONTACT" type="long">
    		<generator class="increment"/>
   	 </id>
