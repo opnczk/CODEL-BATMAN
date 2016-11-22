@@ -20,9 +20,9 @@ public class PhoneNumber {
 	}
 
 	public void setContact(Contact contact) {
+		this.contact = contact;	
 		if (!contact.getProfiles().contains(this))
 			contact.addProfile(this);
-		this.contact = contact;	
 	}
 
 	public long getId() {

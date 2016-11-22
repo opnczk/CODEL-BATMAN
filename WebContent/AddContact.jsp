@@ -72,6 +72,7 @@
 										      <div class="col-md-5">
 										      	<input name="phones[<%out.println(i);%>].phoneNumber" class="form-control col-md-6 phoneNumber" placeholder="PhoneNumer" type="text" value="<% out.println(((PhoneNumber)numbers[i]).getPhoneNumber()); %>">
 										      </div>
+										      <input type="hidden" name="phones[<% out.println(i); %>].phoneId" class="phoneId" value="<% out.println(((PhoneNumber)numbers[i]).getId()); %>">
 										      <div class="col-md-2">
 										      	<button class="btn btn-secondary btn-danger deletePhoneNumber" type="button" onclick="deletePhoneNumber(event)">
 										      	<i class="fa fa-times"></i>
@@ -151,6 +152,7 @@
 			<%}%>
 				
 				$("#nbPhones").val($(".deletePhoneNumber").size());
+				reorderPhonesList()
 				console.log($("#nbPhones").val());
 				GMapsHelper.init({
 					type : "address",
@@ -210,9 +212,9 @@
 					var i = 0;
 					var phoneGroups = $(".deletePhoneNumber").parents(".form-group");
 					phoneGroups.each(function( index ){
-						console.log($(this).find(".phoneKind"));
-						$( this ).find(".phoneKind").attr("name", "phones["+index+"].phoneKind]");
+						$( this ).find(".phoneKind").attr("name", "phones["+index+"].phoneKind");
 						$( this ).find(".phoneNumber").attr("name", "phones["+index+"].phoneNumber");
+						$( this ).find(".phoneId").attr("name", "phones["+index+"].phoneId");
 					});
 				}
 		</script>

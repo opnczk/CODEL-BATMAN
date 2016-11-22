@@ -90,15 +90,17 @@ public class Contact {
 	}
 	
 	public void addBook(ContactGroup group){
+		this.books.add(group);
 		if(!group.getContacts().contains(this))
 			group.addContact(this);
-		this.books.add(group);
+		
 	}
 	
 	public void removeBook(ContactGroup group){
+		this.books.remove(group);
 		if(group.getContacts().contains(this))
 			group.removeContact(this);
-		this.books.remove(group);
+		
 	}
 	
 	public Set<PhoneNumber> getProfiles(){
@@ -110,10 +112,10 @@ public class Contact {
 	}
 	
 	public void addProfile(PhoneNumber phoneNumber) {
+		this.profiles.add(phoneNumber);
 		if(phoneNumber.getContact() == null){
 			phoneNumber.setContact(this);
 		}
-		this.profiles.add(phoneNumber);
 	}
 	
 	@Override

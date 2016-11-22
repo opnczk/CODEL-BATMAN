@@ -103,7 +103,7 @@ public class AddContactServlet extends HttpServlet {
 			
 		}
 			int nbPhones = Integer.parseInt(request.getParameter("nb_phones"));
-			System.out.println("NBPhones "+nbPhones);
+			System.out.println("NBPhones add"+nbPhones);
 
 			
 			if(request.getParameter("num_siret") != null && request.getParameter("companyOrNot").contentEquals("true")){
@@ -158,6 +158,7 @@ public class AddContactServlet extends HttpServlet {
 			}else{
 				ContactService service = null;
 				Contact c = null;
+				System.out.println("Ajout d'un user");
 				service = (ContactService) ac.getBean("ContactService");
 				service.setDao((ContactDAO) ac.getBean("ContactDAO"));
 				
@@ -171,12 +172,16 @@ public class AddContactServlet extends HttpServlet {
 					c.setAddress(add);
 				c.setUser(((UserDAO)ac.getBean("UserDAO")).getById(Long.parseLong(request.getSession().getAttribute("logged_user").toString())));
 
+				System.out.println("NbPhones Users "+nbPhones);
 				if(nbPhones >= 0){
+					System.out.println("create phones");
 					PhoneNumberService phoneService = (PhoneNumberService) ac.getBean("PhoneNumberService");
 
 					for (int i = 0; i <= nbPhones; i++){
 						String kind = request.getParameter("phones["+i+"].phoneKind");
 						String number = request.getParameter("phones["+i+"].phoneNumber");
+						
+						System.out.println("Kind "+kind+"-number "+number);
 						
 						if(kind != null && number != null){						
 							PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");

@@ -169,36 +169,44 @@ public class UpdateContactServlet extends HttpServlet {
 				c.setUser(((UserDAO)ac.getBean("UserDAO")).getById(Long.parseLong(request.getSession().getAttribute("logged_user").toString())));
 
 				if(nbPhones >= 0){
-					e.getProfiles().removeAll(e.getProfiles());
+					//e.getProfiles().removeAll(e.getProfiles());
 					//service.update(e);
 					
 					//PhoneNumberService phoneService = (PhoneNumberService) ac.getBean("PhoneNumberService");
 					
 					for (int i = 0; i <= nbPhones; i++){
 						//boolean updated = false;
-						//Iterator<PhoneNumber> it = ((((Enterprise)cs.getById(id)).getProfiles())).iterator();
-						//while (it.hasNext()){
+						Iterator<PhoneNumber> it = ((((Enterprise)cs.getById(id)).getProfiles())).iterator();
+						while (it.hasNext()){
 							String kind = request.getParameter("phones["+i+"].phoneKind");
 							String number = request.getParameter("phones["+i+"].phoneNumber");
+							long phoneId = Long.parseLong(request.getParameter("phones["+i+"].phoneId"));
+							
+							if (phoneId == (it.next()).getId()){
 							//String k = it.next().getPhoneKind();
 							//String n = it.next().getPhoneNumber();
+								(it.next()).setPhoneNumber(number);
+								(it.next()).setPhoneKind(kind);
 							//PhoneNumber pn = it.next();
 							//if(kind != null && number != null && updated == false){
 								//if(!kind.isEqual(k) ^ !number.isEqual(n)){
-									PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
+									//PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
 									//TODO remove profile first
 									//set contact num and kind 
-									pn.setContact(e);
-									pn.setPhoneKind(kind);
-									pn.setPhoneNumber(number);
+									//pn.setContact(e);
+									//pn.setPhoneKind(kind);
+									//pn.setPhoneNumber(number);
 									//add it to contact profiles
-									e.addProfile(pn);
+									//e.addProfile(pn);
 									//updated = true;
 								/*}else{
 									if(){}
 								}*/
-							//}
-						//}
+							}else{
+							
+								
+							}
+						}
 					}
 				}
 				ContactGroup cg = null;
@@ -247,6 +255,7 @@ public class UpdateContactServlet extends HttpServlet {
 					for (int i = 0; i <= nbPhones; i++){
 						String kind = request.getParameter("phones["+i+"].phoneKind");
 						String number = request.getParameter("phones["+i+"].phoneNumber");
+						long phoneId = Long.parseLong(request.getParameter("phones["+i+"].phoneId"));
 						
 						if(kind != null && number != null){						
 							PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
