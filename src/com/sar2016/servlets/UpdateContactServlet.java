@@ -169,7 +169,7 @@ public class UpdateContactServlet extends HttpServlet {
 				c.setUser(((UserDAO)ac.getBean("UserDAO")).getById(Long.parseLong(request.getSession().getAttribute("logged_user").toString())));
 
 				if(nbPhones >= 0){
-					e.setProfiles(new HashSet<PhoneNumber>());
+					//e.setProfiles(new HashSet<PhoneNumber>());
 					//service.update(e);
 					
 					PhoneNumberService phoneService = (PhoneNumberService) ac.getBean("PhoneNumberService");
@@ -180,18 +180,21 @@ public class UpdateContactServlet extends HttpServlet {
 						while (it.hasNext()){
 							String kind = request.getParameter("phones["+i+"].phoneKind");
 							String number = request.getParameter("phones["+i+"].phoneNumber");
+							PhoneNumber pn=(PhoneNumber)it.next();
 							String k = it.next().getPhoneKind();
 							String n = it.next().getPhoneNumber();
 							if(kind != null && number != null){
-								if((kind != k) ^ (number != n)){
-									PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
-									//TODO remove profile first
+								if(!kind.equals(k) ^ !number.equals(n)){
+									//PhoneNumber pn = (PhoneNumber) ac.getBean("PhoneNumber");
 									//set contact num and kind 
 									pn.setContact(e);
 									pn.setPhoneKind(kind);
 									pn.setPhoneNumber(number);
 									//add it to contact profiles
-									e.addProfile(pn);
+									//e.addProfile(pn);
+									updated = true;
+								}else{
+									if 
 									
 								}
 							}
@@ -216,7 +219,7 @@ public class UpdateContactServlet extends HttpServlet {
 				service.update(e);
 				/* end of enterprise */
 			}else if(c != null){
-				
+				System.out.println("Modification d'un Contact");
 				
 				//c = (Contact)ac.getBean("Contact");
 				if(c.getFirstName() != null && firstName != null && !c.getFirstName().contentEquals(firstName))

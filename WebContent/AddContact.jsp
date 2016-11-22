@@ -67,10 +67,10 @@
 									     <% for(int i =0; i < numbers.length; i ++){ %>
 									      <div class="form-group col-md-12 phoneNumberField">
 										      <div class="col-md-5">
-										     	 <input name="phones[<%out.println(i);%>].phoneKind" class="form-control" placeholder="PhoneKind" type="text" value="<% out.println(((PhoneNumber)numbers[i]).getPhoneKind()); %>">
+										     	 <input name="phones[<%out.println(i);%>].phoneKind" class="form-control phoneKind" placeholder="PhoneKind" type="text" value="<% out.println(((PhoneNumber)numbers[i]).getPhoneKind()); %>">
 										      </div>
 										      <div class="col-md-5">
-										      	<input name="phones[<%out.println(i);%>].phoneNumber" class="form-control col-md-6" placeholder="PhoneNumer" type="text" value="<% out.println(((PhoneNumber)numbers[i]).getPhoneNumber()); %>">
+										      	<input name="phones[<%out.println(i);%>].phoneNumber" class="form-control col-md-6 phoneNumber" placeholder="PhoneNumer" type="text" value="<% out.println(((PhoneNumber)numbers[i]).getPhoneNumber()); %>">
 										      </div>
 										      <div class="col-md-2">
 										      	<button class="btn btn-secondary btn-danger deletePhoneNumber" type="button" onclick="deletePhoneNumber(event)">
@@ -189,19 +189,30 @@
 					if(nbPhones != 0)
 						nbPhones + 1;
 					$("#phonesList").after('<div class="form-group col-md-12 phoneNumberField" >'
-					+'<div class="col-md-5"><input name="phones['+nbPhones+'].phoneKind" class="form-control" placeholder="PhoneKind" type="text" ></div>'
-					+'<div class="col-md-5"><input name="phones['+nbPhones+'].phoneNumber" class="form-control col-md-6" placeholder="PhoneNumer" type="text" ></div>'
+					+'<div class="col-md-5"><input name="phones['+nbPhones+'].phoneKind" class="form-control phoneKind" placeholder="PhoneKind" type="text" ></div>'
+					+'<div class="col-md-5"><input name="phones['+nbPhones+'].phoneNumber" class="form-control col-md-6 phoneNumber" placeholder="PhoneNumer" type="text" ></div>'
 					+'<div class="col-md-2"><button class="btn btn-secondary btn-danger deletePhoneNumber" type="button" onClick="deletePhoneNumber(event)"><i class="fa fa-times"></i></button></div>'
 					+'</div>');
 					nbPhones += 1;
 					$("#nbPhones").val((nbPhones));
 					console.log($("#nbPhones").val());
+					reorderPhonesList();
 				});
 				
 				function deletePhoneNumber( event ){
 					$(event.target).parents(".form-group").remove();
 					$("#nbPhones").val($(".deletePhoneNumber").size());
 					console.log($("#nbPhones").val());
+					reorderPhonesList();
+				}
+				
+				function reorderPhonesList(){
+					var i = 0;
+					var phoneGroups = $(".deletePhoneNumber").parents(".form-group");
+					phoneGroups.each(function( index ){
+						$( this ).children(".phoneKind").attr("name", "phones["+index+"].phoneKind");
+						$( this ).children(".phoneNumber").attr("name", "phones["+index+"].phoneNumber");
+					});
 				}
 		</script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
